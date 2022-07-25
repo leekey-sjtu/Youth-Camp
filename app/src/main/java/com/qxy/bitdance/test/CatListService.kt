@@ -4,6 +4,6 @@ import com.qxy.bitdance.NetWork.ApiResponse
 import retrofit2.http.GET
 
 interface CatListService {
-    @GET("playlist/catlis")
+    @GET("playlist/catlist")
     suspend fun getCatList(): ApiResponse<CatListResponse>
 }
