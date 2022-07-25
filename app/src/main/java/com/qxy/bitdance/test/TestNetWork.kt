@@ -1,9 +1,9 @@
 package com.qxy.bitdance.test
 
-import com.qxy.bitdance.netWork.ApiResponse
-import com.qxy.bitdance.netWork.RetrofitClient
+import com.qxy.bitdance.network.ApiResponse
+import com.qxy.bitdance.network.RetrofitClient
 import retrofit2.create
-import com.qxy.bitdance.netWork.BaseRepository
+import com.qxy.bitdance.network.BaseRepository
 
 class TestNetWork : BaseRepository()  {
 
