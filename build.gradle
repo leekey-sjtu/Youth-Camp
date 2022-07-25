@@ -5,6 +5,10 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
 }
 
+ext {
+    roomVersion = '2.4.2'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

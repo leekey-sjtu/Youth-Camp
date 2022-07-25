@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    // 添加kapt注解处理器
+    id 'kotlin-kapt'
 }
 
 android {
@@ -26,12 +28,19 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    //排除原子函数模块并防止出现警告
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
+
+    implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     implementation 'com.bytedance.ies.ugc.aweme:opensdk-china-external:0.1.9.0'
     implementation 'com.bytedance.ies.ugc.aweme:opensdk-common:0.1.9.0'
