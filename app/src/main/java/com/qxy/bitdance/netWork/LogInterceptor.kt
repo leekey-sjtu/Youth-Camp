@@ -1,4 +1,4 @@
-package com.qxy.bitdance.NetWork
+package com.qxy.bitdance.netWork
 
 import android.os.SystemClock
 import android.text.TextUtils

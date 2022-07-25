@@ -1,6 +1,6 @@
 package com.qxy.bitdance.test
 
-import com.qxy.bitdance.NetWork.ApiResponse
+import com.qxy.bitdance.netWork.ApiResponse
 import retrofit2.http.GET
 
 interface CatListService {
