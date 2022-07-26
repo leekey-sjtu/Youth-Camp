@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import com.qxy.bitdance.test.CatListViewModel
+import com.qxy.bitdance.logic.test.CatListViewModel
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
