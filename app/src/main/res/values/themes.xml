@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -26,7 +26,4 @@
     </style>
 
     <!--背景半透明dialog-->
-    <style name="half_trans_Dialog" parent="trans_Dialog">
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
 </resources>
