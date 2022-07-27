@@ -33,20 +33,25 @@ class DouYinEntryActivity : Activity(), IApiEventHandler {
     }
 
     override fun onResp(resp: BaseResp) {
-        if (resp.type == CommonConstants.ModeType.SHARE_CONTENT_TO_TT_RESP) {
-            val response = resp as Share.Response
-            Toast.makeText(this,
-                " code：" + response.errorCode + " 文案：" + response.errorMsg,
-                Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        } else if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
+        if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
-                Toast.makeText(this, "授权成功，获得权限：" + response.grantedPermissions,
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "授权成功，获得权限：" + response.grantedPermissions, Toast.LENGTH_LONG).show()
+                // response.authCode
+            } else {
+                Toast.makeText(this, "授权失败" + response.grantedPermissions, Toast.LENGTH_LONG).show();
             }
+            finish()
         }
+
+//        else if (resp.type == CommonConstants.ModeType.SHARE_CONTENT_TO_TT_RESP) {
+//            val response = resp as Share.Response
+//            Toast.makeText(this,
+//                " code：" + response.errorCode + " 文案：" + response.errorMsg,
+//                Toast.LENGTH_SHORT).show()
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onErrorIntent(intent: Intent) {
