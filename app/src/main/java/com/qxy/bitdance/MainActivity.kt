@@ -1,6 +1,7 @@
 package com.qxy.bitdance
 
 import android.os.Bundle
+import android.widget.Button
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
@@ -26,7 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
         getViewModel().getCatList()
         getViewModel().closeLoading()
 
-        sendAuth()
+        findViewById<Button>(R.id.btn_douyin).setOnClickListener {
+            sendAuth()
+        }
     }
 
     private fun sendAuth(): Boolean {

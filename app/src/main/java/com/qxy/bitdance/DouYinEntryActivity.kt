@@ -14,8 +14,8 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 
 /**
- * 主要功能：接受授权返回结果的activity
- * 也可通过request.callerLocalEntry = "com.xxx.xxx...activity"; 定义自己的回调类
+ * test
+ * 接受授权返回结果的activity
  */
 class DouYinEntryActivity : Activity(), IApiEventHandler {
 
