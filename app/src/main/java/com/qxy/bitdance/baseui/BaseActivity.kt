@@ -30,9 +30,7 @@ abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompa
 
     private fun handlerVDB() {
         sViewDateBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        if (sViewDateBinding != null) {
-            return
-        }else sViewDateBinding!!.lifecycleOwner = this //可以使用liveData对XMl数据更新
+        sViewDateBinding?.lifecycleOwner = this
     }
 
     private fun handlerVM() {

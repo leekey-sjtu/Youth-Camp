@@ -35,8 +35,31 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // 开启viewBinding
+    viewBinding{
+        enabled = true
+    }
     dataBinding {
         enabled = true
+    }
+    // 指明引用源，解决viewBinding爆红警告
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/kotlin'
+            }
+            resources {
+                srcDir 'src/main/res'
+            }
+        }
+        test {
+            java {
+                srcDir 'src/test/kotlin'
+            }
+            resources {
+                srcDir 'src/test/res'
+            }
+        }
     }
 }
 

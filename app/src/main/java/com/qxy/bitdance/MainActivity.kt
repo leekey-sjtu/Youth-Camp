@@ -1,11 +1,9 @@
 package com.qxy.bitdance
 
 import android.os.Bundle
-import androidx.lifecycle.viewModelScope
 import com.qxy.bitdance.baseui.BaseActivity
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
-import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
     override fun getLayoutId(): Int {
