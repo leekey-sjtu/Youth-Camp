@@ -1,4 +1,4 @@
-package com.qxy.bitdance.logic.test
+package com.qxy.bitdance.bean
 
 data class CatListResponse(
     val all: All,

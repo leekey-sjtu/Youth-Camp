@@ -3,11 +3,13 @@ package com.qxy.bitdance.logic.network
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL: String = "https://open.douyin.com/"
+//    private const val BASE_URL: String = "https://open.douyin.com/"
+    private const val BASE_URL: String = "https://netease-cloud-music-api-4eodv9lwk-tangan91314.vercel.app/"
 
     private val client : OkHttpClient by lazy {
         val builder = OkHttpClient.Builder()

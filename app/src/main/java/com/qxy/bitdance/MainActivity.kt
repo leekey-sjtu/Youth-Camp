@@ -1,33 +1,26 @@
 package com.qxy.bitdance
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
-import com.qxy.bitdance.logic.test.CatListViewModel
+import com.qxy.bitdance.baseui.BaseActivity
+import com.qxy.bitdance.databinding.ActivityMainBinding
+import com.qxy.bitdance.test.MainViewModel
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var mVmCatList: CatListViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        mVmCatList = ViewModelProvider(this)[CatListViewModel::class.java]
-        mVmCatList.viewModelScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                mVmCatList.mCatListStateFlow.collect{
-                    Toast.makeText(this@MainActivity, "我我我$it", Toast.LENGTH_SHORT).show()
-                    Log.e("TAG", "onCreate: 我我 我$it" )
-                }
-            }
-        }
-
+class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
     }
+
+    override fun getVariableId(): Int {
+        return BR.mainViewModel
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+        getViewModel().catListData.observe(this) {
+            println("MainActivity $it")
+        }
+        getViewModel().getCatList()
+    }
+
 }
