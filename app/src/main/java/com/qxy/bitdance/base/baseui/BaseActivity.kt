@@ -1,15 +1,13 @@
-package com.qxy.bitdance.baseui
+package com.qxy.bitdance.base.baseui
 
-import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.qxy.bitdance.R
-import com.qxy.bitdance.baseui.dialog.LoadingDialog
+import com.qxy.bitdance.base.baseui.dialog.LoadingDialog
 import com.qxy.bitdance.utils.setStatusBarColor
 import java.lang.reflect.ParameterizedType
 

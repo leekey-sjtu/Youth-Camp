@@ -12,6 +12,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="splash" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="android:windowBackground">@drawable/ic_splashimg</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <!--dialog背景透明-->

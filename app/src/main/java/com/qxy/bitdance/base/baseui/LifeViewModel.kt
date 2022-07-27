@@ -1,4 +1,4 @@
-package com.qxy.bitdance.baseui
+package com.qxy.bitdance.base.baseui
 
 import android.util.Log
 import androidx.lifecycle.DefaultLifecycleObserver

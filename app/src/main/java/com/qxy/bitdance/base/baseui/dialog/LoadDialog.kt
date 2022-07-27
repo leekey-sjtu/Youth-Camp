@@ -1,4 +1,4 @@
-package com.qxy.bitdance.baseui.dialog
+package com.qxy.bitdance.base.baseui.dialog
 
 import android.app.Dialog
 import android.content.Context

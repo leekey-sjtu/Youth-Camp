@@ -1,4 +1,4 @@
-package com.qxy.bitdance.baseui
+package com.qxy.bitdance.base.baseui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.qxy.bitdance.R
-import com.qxy.bitdance.baseui.dialog.LoadingDialog
-import com.qxy.bitdance.utils.MyApplication
+import com.qxy.bitdance.base.baseui.dialog.LoadingDialog
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {

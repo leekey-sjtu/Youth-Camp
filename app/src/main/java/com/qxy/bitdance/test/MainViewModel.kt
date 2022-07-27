@@ -3,12 +3,8 @@ package com.qxy.bitdance.test
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.qxy.bitdance.baseui.BaseViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import com.qxy.bitdance.base.baseui.BaseViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainViewModel : BaseViewModel() {
     private companion object{
