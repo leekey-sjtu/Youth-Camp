@@ -42,25 +42,6 @@ android {
     dataBinding {
         enabled = true
     }
-    // 指明引用源，解决viewBinding爆红警告
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/kotlin'
-            }
-            resources {
-                srcDir 'src/main/res'
-            }
-        }
-        test {
-            java {
-                srcDir 'src/test/kotlin'
-            }
-            resources {
-                srcDir 'src/test/res'
-            }
-        }
-    }
 }
 
 dependencies {
@@ -97,6 +78,10 @@ dependencies {
     implementation 'androidx.camera:camera-video:1.1.0-beta03'
     implementation 'androidx.camera:camera-view:1.1.0-beta03'
     implementation 'androidx.camera:camera-extensions:1.1.0-beta03'
+
+    // navigation
+    implementation 'androidx.navigation:navigation-fragment:2.4.2'
+    implementation "androidx.navigation:navigation-ui:2.4.2"
 
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
