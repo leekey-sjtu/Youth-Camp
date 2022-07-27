@@ -17,10 +17,12 @@ class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        getViewModel().showLoading()
         getViewModel().catListData.observe(this) {
             println("MainActivity $it")
         }
         getViewModel().getCatList()
+        getViewModel().closeLoading()
     }
 
 }

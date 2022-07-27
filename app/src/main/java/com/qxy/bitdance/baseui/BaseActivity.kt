@@ -1,12 +1,15 @@
 package com.qxy.bitdance.baseui
 
+import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.qxy.bitdance.R
 import com.qxy.bitdance.baseui.dialog.LoadingDialog
-import com.qxy.bitdance.utils.transparentStatusBar
+import com.qxy.bitdance.utils.setStatusBarColor
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() {
@@ -16,12 +19,12 @@ abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompa
     private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        this.transparentStatusBar()
+        setStatusBarColor(Color.BLACK)
         super.onCreate(savedInstanceState)
         handlerVDB()
         handlerVM()
-        receiveLiveData()
         loadingDialog = getLoadingDialog()
+        receiveLiveData()
         initData(savedInstanceState)
     }
 
@@ -68,11 +71,12 @@ abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompa
         }
     }
 
-    private fun getLoadingDialog(): LoadingDialog = LoadingDialog(this)
+    private fun getLoadingDialog(): LoadingDialog =
+        LoadingDialog(this, R.style.trans_Dialog)
 
 
     open fun dismissLoading() {
-        loadingDialog.dismiss()
+        loadingDialog
     }
 
     /**

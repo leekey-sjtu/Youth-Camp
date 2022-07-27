@@ -1,12 +1,23 @@
 package com.qxy.bitdance.baseui.dialog
 
+import android.app.Dialog
 import android.content.Context
+import android.view.WindowManager
 import com.qxy.bitdance.R
-import com.qxy.bitdance.databinding.DialogLoadingBinding
 
-class LoadingDialog(context: Context) : BaseDialog<DialogLoadingBinding>(context, R.style.trans_Dialog) {
-    override val layoutId: Int
-        get() = R.layout.dialog_loading
+class LoadingDialog(context: Context, themeId: Int) : Dialog(context, themeId) {
 
-    override fun initData() {}
+    init {
+        initView()
+    }
+
+    private fun initView(){
+        setContentView(R.layout.dialog_loading)
+        setCanceledOnTouchOutside(true)
+        val attributes: WindowManager.LayoutParams = window!!.attributes
+        attributes.alpha = 0.5f
+        window!!.attributes = attributes
+        setCancelable(false)
+    }
+
 }

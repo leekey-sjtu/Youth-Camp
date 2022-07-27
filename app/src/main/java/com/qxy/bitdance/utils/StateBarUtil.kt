@@ -9,12 +9,12 @@ import androidx.core.view.ViewCompat
 /**
  * 设置透明状态栏
  */
-fun Activity.transparentStatusBar() {
-    val controller = ViewCompat.getWindowInsetsController(window.decorView)
-    // 隐藏状态栏
-    controller?.hide(statusBars())
+fun Activity.setStatusBarColor(color: Int) {
+//    val controller = ViewCompat.getWindowInsetsController(window.decorView)
+//    // 隐藏状态栏
+//    controller?.hide(statusBars())
     // 设置状态栏颜色为透明
-    window.statusBarColor = Color.TRANSPARENT
+    window.statusBarColor = color
 }
 
 /**

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import com.qxy.bitdance.R
 import com.qxy.bitdance.baseui.dialog.LoadingDialog
 import com.qxy.bitdance.utils.MyApplication
 import java.lang.reflect.ParameterizedType
@@ -15,7 +16,7 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     private var viewModel: VM? = null
     private var viewDataBinding: VDB? = null
-    private val loadingDialog = LoadingDialog(MyApplication.context)
+    private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +33,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         handlerVM()
+        loadingDialog = LoadingDialog(activity!!,R.style.trans_Dialog)
         receiveLiveData()
         initData(savedInstanceState)
     }
