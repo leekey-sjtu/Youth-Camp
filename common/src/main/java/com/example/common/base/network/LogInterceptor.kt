@@ -1,4 +1,4 @@
-package com.qxy.bitdance.base.network
+package com.example.common.base.network
 
 import android.os.SystemClock
 import android.text.TextUtils

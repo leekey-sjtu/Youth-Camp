@@ -1,4 +1,4 @@
-package com.qxy.bitdance.base.network
+package com.example.common.base.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

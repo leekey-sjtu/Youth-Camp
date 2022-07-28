@@ -3,7 +3,7 @@ package com.qxy.bitdance.test
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.qxy.bitdance.base.baseui.BaseViewModel
+import com.example.common.base.baseui.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MainViewModel : BaseViewModel() {

@@ -1,4 +1,4 @@
-package com.qxy.bitdance.base.baseui
+package com.example.common.base.baseui
 
 interface IViewModel {
     fun showLoading()

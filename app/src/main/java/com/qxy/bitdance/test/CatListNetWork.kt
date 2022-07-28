@@ -1,6 +1,6 @@
 package com.qxy.bitdance.test
 
-import com.qxy.bitdance.base.network.RetrofitClient
+import com.example.common.base.network.RetrofitClient
 
 object CatListNetWork {
 

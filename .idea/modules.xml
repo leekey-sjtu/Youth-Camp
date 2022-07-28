@@ -7,6 +7,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.unitTest.iml" />
     </modules>
   </component>
 </project>

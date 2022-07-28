@@ -1,6 +1,7 @@
-package com.qxy.bitdance.base.baseui
+package com.example.common.base.baseui
 
 import androidx.lifecycle.MutableLiveData
+import com.example.common.base.network.LifeViewModel
 
 open class BaseViewModel : LifeViewModel(),IViewModel {
 

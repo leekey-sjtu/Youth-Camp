@@ -1,4 +1,5 @@
-package com.qxy.bitdance.base.baseui
+package com.example.common.base.baseui
+
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,16 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.qxy.bitdance.R
-import com.qxy.bitdance.base.baseui.dialog.LoadingDialog
-import com.qxy.bitdance.utils.setStatusBarColor
+import com.example.common.R
+import com.example.common.base.utils.setStatusBarColor
 import java.lang.reflect.ParameterizedType
+import com.example.common.base.baseui.dialog.LoadingDialog
 
-abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
 
     private var sViewModel: VM? = null
     private var sViewDateBinding: VDB? = null
-    private lateinit var loadingDialog : LoadingDialog
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setStatusBarColor(Color.BLACK)
@@ -43,7 +44,7 @@ abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompa
         }
         sViewModel = ViewModelProvider(this)[viewModelClass] as VM
         if (getVariableId() > 0) {
-            if (sViewModel != null){
+            if (sViewModel != null) {
                 lifecycle.addObserver(sViewModel!!)
             }
             sViewDateBinding?.setVariable(getVariableId(), sViewModel)
@@ -76,21 +77,25 @@ abstract class BaseActivity<VDB : ViewDataBinding,VM : BaseViewModel> : AppCompa
         loadingDialog
     }
 
+
     /**
      * 初始化ViewModel的id
      *
      * @return BR的id
      */
+
     abstract fun getVariableId(): Int
+
 
     /**
      * 初始化数据，相当于OnCreate方法
      */
     abstract fun initData(savedInstanceState: Bundle?)
 
+
     /**
      * 获取当前Activity的ViewModel
      */
-    open fun getViewModel(): VM = sViewModel!!
 
+    open fun getViewModel(): VM = sViewModel!!
 }

@@ -1,9 +1,8 @@
-package com.qxy.bitdance.base.baseui.dialog
-
+package com.example.common.base.baseui.dialog
 import android.app.Dialog
 import android.content.Context
 import android.view.WindowManager
-import com.qxy.bitdance.R
+import com.example.common.R
 
 class LoadingDialog(context: Context, themeId: Int) : Dialog(context, themeId) {
 

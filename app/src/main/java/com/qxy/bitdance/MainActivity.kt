@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.widget.Button
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
-import com.qxy.bitdance.base.baseui.BaseActivity
+import com.example.common.base.baseui.BaseActivity
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding,MainViewModel>(){
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(){
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
