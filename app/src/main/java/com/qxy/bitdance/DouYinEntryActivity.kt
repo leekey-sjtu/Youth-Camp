@@ -3,6 +3,7 @@ package com.qxy.bitdance
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.bytedance.sdk.open.aweme.CommonConstants
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
@@ -26,6 +27,8 @@ class DouYinEntryActivity : Activity(), IApiEventHandler {
 
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
+
+        Log.d("wdw", "DouYinEntryActivity")
     }
 
     override fun onReq(req: BaseReq) {
@@ -37,9 +40,11 @@ class DouYinEntryActivity : Activity(), IApiEventHandler {
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
                 Toast.makeText(this, "授权成功，获得权限：" + response.grantedPermissions, Toast.LENGTH_LONG).show()
+//                val intent = Intent(this,MainActivity::class.java)
+//                startActivity(intent)
                 // response.authCode
             } else {
-                Toast.makeText(this, "授权失败" + response.grantedPermissions, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "授权失败" + response.grantedPermissions, Toast.LENGTH_LONG).show()
             }
             finish()
         }
