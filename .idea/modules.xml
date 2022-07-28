@@ -6,11 +6,23 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.iml" filepath="$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/personal/bitdance.app.personal.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/bitdance.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/bitdance.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.iml" filepath="$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/personal/bitdance.common.personal.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/bitdance.common.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/bitdance.common.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.iml" filepath="$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/personal/bitdance.personal.unitTest.iml" />
     </modules>
   </component>
 </project>
