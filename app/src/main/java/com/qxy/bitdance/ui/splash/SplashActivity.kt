@@ -16,8 +16,8 @@ class SplashActivity : AppCompatActivity() {
             runOnUiThread {
                 sleep(1000)
                 val intent = Intent(this,FriendActivity::class.java)
-                finish()
                 startActivity(intent)
+                finish()
             }
         }.start()
 
