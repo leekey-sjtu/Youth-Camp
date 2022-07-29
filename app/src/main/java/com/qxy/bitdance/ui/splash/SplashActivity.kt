@@ -16,9 +16,7 @@ class SplashActivity : AppCompatActivity() {
             //获取初始化数据
             runOnUiThread {
                 sleep(1000)
-//                val intent = Intent(this,MainActivity::class.java)
                 finish()
-//                startActivity(intent)
                 sendAuth()
             }
         }.start()
