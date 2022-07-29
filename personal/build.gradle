@@ -42,6 +42,17 @@ android {
 
 dependencies {
 
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation  'io.github.scwang90:refresh-footer-classics:2.0.5'
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.5'
+
     implementation 'com.google.code.gson:gson:2.8.9'
 
     implementation(project(":common"))

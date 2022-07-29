@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">personal</string>
-    <string name="fan_name">粉丝</string>
-    <string name="follow_name">关注</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="friend_search_hint">搜索用户备注或名字</string>
+    <string name="friend_follow_text">我的关注</string>
 </resources>

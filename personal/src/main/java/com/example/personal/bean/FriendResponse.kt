@@ -1,6 +1,6 @@
 package com.example.personal.bean
 
-data class FanResponse(
+data class FriendResponse(
     val data : Data,
     val extra: Extra
 )
@@ -10,7 +10,7 @@ data class Data(
     val description: String,
     val error_code: Int,
     val has_more: Boolean,
-    val list: List<FanList>,
+    val list: List<Friend>,
     val total: Int
 )
 
@@ -23,7 +23,7 @@ data class Extra(
     val sub_error_code: Int
 )
 
-data class FanList(
+data class Friend(
     val avatar: String,
     val city: String,
     val country: String,
