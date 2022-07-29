@@ -54,6 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
                 Toast.makeText(this, "授权成功，获得权限：" + response.grantedPermissions, Toast.LENGTH_LONG).show()
+                Log.d("wdw", "授权成功, 获得权限：" + response.grantedPermissions)
                 val authCode = response.authCode
                 val state = response.state
                 Log.d("wdw", "authCode = $authCode // 临时票据code\nstate = $state // 请求,回调状态")
