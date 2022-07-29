@@ -13,12 +13,12 @@ class MainViewModel : BaseViewModel() {
     private val mRepository = CatListRepository()
     val catListData = MutableLiveData<List<Sub>>()
 
-    fun getCatList(){
-         viewModelScope.launch {
-             mRepository.getCatList().collect{
-                 Log.e(TAG, "getCatList: 看看这个it $it")
-                 catListData.postValue(it)
-             }
-         }
-    }
+//    fun getCatList(){
+//         viewModelScope.launch {
+//             mRepository.getCatList().collect{
+//                 Log.e(TAG, "getCatList: 看看这个it $it")
+//                 catListData.postValue(it)
+//             }
+//         }
+//    }
 }
