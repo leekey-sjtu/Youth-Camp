@@ -17,13 +17,9 @@ import com.qxy.bitdance.bean.AccessTokenResponse
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.service.AccessTokenService
 import com.qxy.bitdance.test.MainViewModel
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEventHandler {
 
@@ -42,12 +38,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         getViewModel().catListData.observe(this) {
             println("MainActivity $it")
         }
-        getViewModel().getCatList()
+//        getViewModel().getCatList()
         getViewModel().closeLoading()
 
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
-
     }
 
     override fun onReq(req: BaseReq) {
@@ -61,62 +56,56 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                 Toast.makeText(this, "授权成功，获得权限：" + response.grantedPermissions, Toast.LENGTH_LONG).show()
                 val authCode = response.authCode
                 val state = response.state
-                Log.d("wdw", "authCode = $authCode\nstate = $state")
+                Log.d("wdw", "authCode = $authCode // 临时票据code\nstate = $state // 请求,回调状态")
                 getAccessToken(authCode)
             } else {
                 Toast.makeText(this, "授权失败" + response.grantedPermissions, Toast.LENGTH_LONG).show()
             }
-//            finish()
         }
-
-//        else if (resp.type == CommonConstants.ModeType.SHARE_CONTENT_TO_TT_RESP) {
-//            val response = resp as Share.Response
-//            Toast.makeText(this,
-//                " code：" + response.errorCode + " 文案：" + response.errorMsg,
-//                Toast.LENGTH_SHORT).show()
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//        }
     }
 
     override fun onErrorIntent(intent: Intent) {
-        // 错误数据
-        Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show()
-    }
-
-    private fun getRetrofit(): Retrofit {
-
-        val baseUrl = "https://open.douyin.com/"
-        val client = OkHttpClient.Builder()
-            .connectTimeout(15000, TimeUnit.MILLISECONDS)  //预留足够的时间连接服务器
-            .readTimeout(15000, TimeUnit.MILLISECONDS)  //预留足够的时间处理数据，否则偶尔出现超时java.net.SocketTimeoutException: timeout
-            .build()
-        val factory = GsonConverterFactory.create()
-
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(client)
-            .addConverterFactory(factory)
-            .build()
-
+        Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show() // 错误数据
     }
 
     private fun getAccessToken(authCode: String) {
-        getRetrofit()
+        RetrofitClient.retrofit
             .create(AccessTokenService::class.java)
-            .getAccessToken(authCode)
+            .getAccessToken(
+                "33624d75890346aa6c45a3c929780135",
+                authCode,
+                "authorization_code",
+                "awf251n1psyxh65f"
+            )
             .enqueue(object : Callback<AccessTokenResponse> {
                 override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
                     Log.d("wdw", "get access token success")
-
-                    Log.d("wdw", "${response.body()}")
-//                    return response.body()
+                    val body = response.body()!!
+                    val access_token = body.data.access_token  // 接口调用凭证access_token
+                    val expires_in = body.data.expires_in  // access_token超时时间，单位（秒)
+                    val refresh_token = body.data.refresh_token  // 用户刷新access_token
+                    val refresh_expires_in = body.data.refresh_expires_in  // refresh_token凭证超时时间，单位（秒)
+                    val open_id = body.data.open_id  // 授权用户唯一标识
+                    val scope = body.data.scope  // 用户授权的作用域Scope，使用逗号,分隔，开放平台几乎几乎每个接口都需要特定的Scope
+                    val error_code = body.data.error_code  // 错误码, 0表示成功
+                    val description = body.data.description  // 错误码描述
+                    Log.d("wdw",
+                        "access_token = $access_token\n" +
+                            "expires_in = $expires_in // access_token过期时间\n" +
+                            "refresh_token = $refresh_token\n" +
+                            "refresh_expires_in = $refresh_expires_in // refresh_token过期时间\n" +
+                            "open_id = $open_id // 授权用户唯一标识\n" +
+                            "scope = $scope\n" +
+                            "error_code = $error_code\n" +
+                            "description = $description\n"
+                    )
+                    // TODO(使用access_token)
+//                    getHotList(access_token)
                 }
 
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
                     Log.d("wdw", "get access token failed -> $t")
                 }
-
             })
     }
 
