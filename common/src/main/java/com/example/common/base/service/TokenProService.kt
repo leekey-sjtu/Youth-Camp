@@ -1,5 +1,6 @@
 package com.example.common.base.service
 
+import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -23,7 +24,7 @@ object TokenProService {
      */
     suspend fun getAccessToken(openId: String): String {
         retrofit.getAccessToken(openId).let {
-            return it.date ?: ""
+            return it.data ?: ""
         }
     }
 
@@ -39,7 +40,7 @@ object TokenProService {
      */
     suspend fun getRefreshToken(openId: String): String {
         retrofit.getRefreshToken(openId).let {
-            return it.date ?: ""
+            return it.data ?: ""
         }
     }
 
@@ -55,7 +56,7 @@ object TokenProService {
      */
     suspend fun getClientSecret(): String {
         retrofit.getClientSecret().let {
-            return it.date ?: ""
+            return it.data ?: ""
         }
     }
 
@@ -71,7 +72,7 @@ object TokenProService {
      */
     suspend fun getValue(key: String, openId: String): String {
         retrofit.getValue(key, openId).let {
-            return it.date ?: ""
+            return it.data ?: ""
         }
     }
 

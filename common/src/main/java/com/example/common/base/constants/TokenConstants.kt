@@ -6,6 +6,6 @@ class TokenConstants {
         var REFRESH_TOKEN = "refresh_token"
         var CLIENT_SECRET = "client_secret"
         var CLIENT_TOKEN = "client_token"
-
+        var OPEN_ID = "open_id"
     }
 }
