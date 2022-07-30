@@ -13,10 +13,15 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.baseui.BaseActivity
 import com.example.common.base.network.RetrofitClient
+import com.example.common.base.service.SharedPreferencesService
+import com.example.common.base.service.TokenProService
 import com.qxy.bitdance.bean.AccessTokenResponse
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.service.AccessTokenService
 import com.qxy.bitdance.test.MainViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
     override fun onErrorIntent(intent: Intent) {
-        Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show() // 错误数据
+//        Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show() // 错误数据
     }
 
     private fun getAccessToken(authCode: String) {
@@ -100,7 +105,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                             "error_code = $error_code\n" +
                             "description = $description\n"
                     )
-                    // TODO(使用access_token)
+                    runBlocking {
+                        SharedPreferencesService.saveOpenId(context = baseContext,body.data.open_id)
+                        TokenProService.saveAccessToken(body.data.access_token,body.data.open_id)
+                        TokenProService.saveRefreshToken(body.data.refresh_token,body.data.open_id)
+                        TokenProService.saveClientSecret("33624d75890346aa6c45a3c929780135")
+                    }
 //                    getHotList(access_token)
                 }
 

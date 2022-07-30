@@ -1,9 +1,15 @@
 package com.qxy.bitdance.ui.splash
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
+import com.example.common.base.constants.TokenConstants
+import com.example.common.base.service.SharedPreferencesService
+import com.example.common.base.service.TokenProService
+import com.qxy.bitdance.MainActivity
+import kotlinx.coroutines.*
 import java.lang.Thread.sleep
 
 
@@ -24,13 +30,27 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         Thread {
-            //获取初始化数据
-            runOnUiThread {
-                sleep(1000)
-                finish()
-                sendAuth()
+            val openId = SharedPreferencesService.getOpenId(this)
+            if (openId == "") {
+                runOnUiThread {
+                    sendAuth()
+                }
+            }else {
+                runBlocking {
+                    TokenConstants.ACCESS_TOKEN = TokenProService.getAccessToken(openId)
+                    TokenConstants.REFRESH_TOKEN = TokenProService.getRefreshToken(openId)
+                    TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
+                    TokenConstants.CLIENT_TOKEN = TokenProService.getValue("client_token", openId)
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
+            //获取初始化数据
+            sleep(1000)
+            finish()
+
         }.start()
     }
 
