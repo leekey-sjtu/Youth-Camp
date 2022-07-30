@@ -1,11 +1,11 @@
-package com.qxy.bitdance.bean
+package com.example.common.base.bean
 
 data class AccessTokenResponse(
-    val data: Data,
+    val data: TokenData,
     val message: String
 )
 
-data class Data(
+data class TokenData(
     val access_token: String,
     val description: String,
     val error_code: String,

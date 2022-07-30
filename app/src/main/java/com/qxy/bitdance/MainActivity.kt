@@ -13,12 +13,14 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.baseui.BaseActivity
 import com.example.common.base.network.RetrofitClient
-import com.qxy.bitdance.bean.AccessTokenResponse
-import com.qxy.bitdance.bean.HotListResponse
+import com.example.common.base.bean.AccessTokenResponse
+import com.example.common.base.bean.HotListResponse
+import com.example.common.base.bean.HotListTokenResponse
 import com.qxy.bitdance.databinding.ActivityMainBinding
-import com.qxy.bitdance.service.AccessTokenService
-import com.qxy.bitdance.service.HotListService
+import com.example.common.base.service.AccessTokenService
+import com.example.common.base.service.HotListService
 import com.qxy.bitdance.test.MainViewModel
+import com.qxy.bitdance.ui.video.VideoFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,6 +47,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
 
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
+
+        supportFragmentManager.beginTransaction().add(R.id.lay_fragment_container, VideoFragment()).commit()  //初始化首个fragment
     }
 
     override fun onReq(req: BaseReq) {
@@ -100,9 +104,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                             "open_id = $open_id // 授权用户唯一标识\n" +
                             "scope = $scope\n" +
                             "error_code = $error_code\n" +
-                            "description = $description\n"
+                            "description = $description"
                     )
-                    getHotList(access_token)
+                    getHotListToken()
                 }
 
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
@@ -111,14 +115,40 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             })
     }
 
-    private fun getHotList(access_token: String) {
+    private fun getHotListToken() {
+        RetrofitClient.retrofit
+            .create(HotListService::class.java)
+            .getClientToken(  // TODO(需要获取 client_key / client_secret)
+                "awf251n1psyxh65f",
+                "33624d75890346aa6c45a3c929780135",
+                "client_credential"
+            )
+            .enqueue(object : Callback<HotListTokenResponse> {
+                override fun onResponse(call: Call<HotListTokenResponse>, response: Response<HotListTokenResponse>, ) {
+                    Log.d("wdw", "get hot list token success")
+                    val body = response.body()
+                    if (body != null) {
+                        val clientAccessToken = body.data.access_token
+                        val errorCode = body.data.error_code
+                        Log.d("wdw", "error_code = $errorCode\nclientAccessToken = $clientAccessToken")
+                        getHotList(clientAccessToken)
+                    }
+                }
+
+                override fun onFailure(call: Call<HotListTokenResponse>, t: Throwable) {
+                    Log.d("wdw", "get hot list token failed -> $t")
+                }
+
+            })
+    }
+
+    private fun getHotList(clientAccessToken: String) {
         RetrofitClient.retrofit
             .create(HotListService::class.java)
             .getHotList(
-//                access_token,
-                "act.38089e17ba3aaf2dee1e5a45f84b30bc7pSQcxHqOiyrYTJUKHPnYu4ZuxNp",
+                clientAccessToken,
                 1,
-                1
+                0
             )
             .enqueue(object : Callback<HotListResponse> {
                 override fun onResponse(call: Call<HotListResponse>, response: Response<HotListResponse>, ) {
@@ -126,12 +156,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                     val body = response.body()
                     if (body != null) {
                         val error_code = body.data.error_code
-                        Log.d("wdw", "error_code = $error_code")
+                        Log.d("wdw", "error_code = $error_code\n")
                     }
                 }
 
                 override fun onFailure(call: Call<HotListResponse>, t: Throwable) {
-                    Log.d("wdw", "get hot list failed -> $t")
+                    Log.d("wdw", "get hot list failed -> $t\n")
                 }
 
             })

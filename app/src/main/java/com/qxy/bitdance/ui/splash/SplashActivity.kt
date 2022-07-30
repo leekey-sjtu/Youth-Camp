@@ -15,7 +15,8 @@ class SplashActivity : AppCompatActivity() {
             "fans.check," +              // 判断是否关注抖音号能力
             "discovery.ent," +           // 获取抖音电影榜，电视剧榜以及综艺榜
             "im.share," +                // 分享图片或链接给抖音好友/群
-            "video.data,video.list," +   // 查询视频数据
+            "video.data," +              // 查询视频数据
+            "video.list," +              // 查询视频数据
             "video.search," +            // 搜索视频
             "video.search.comment," +    // 搜索视频及评论
             "data.external.item," +      // 查询视频的获赞/评论/分享数据

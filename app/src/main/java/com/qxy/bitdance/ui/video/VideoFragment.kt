@@ -35,7 +35,7 @@ class VideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fragments = mutableListOf(
-            VideoRecommendFragment(),
+            VideoFollowFragment(),
             VideoRecommendFragment(),
         )
         viewPager.adapter = VideoFragmentAdapter(activity, fragments)  //绑定数据
