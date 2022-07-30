@@ -9,10 +9,15 @@
         <entry key="..\:/AndroidStudioProjects/Youth-Camp/app/src/main/res/layout/dialog_loading.xml" value="0.264" />
         <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/drawable/ic_fire.xml" value="0.1445" />
         <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/drawable/ic_img1.xml" value="0.1445" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/activity_home_page.xml" value="0.264" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/activity_main.xml" value="0.109375" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/dialog_loading.xml" value="0.2" />
         <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/film_item.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/fragment_friend.xml" value="0.109375" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/fragment_friend.xml" value="0.136" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/fragment_message.xml" value="0.24947916666666667" />
         <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/fragment_profile.xml" value="0.21784420289855072" />
         <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/layout/show_item.xml" value="0.21784420289855072" />
+        <entry key="..\:/AndroidWork/Youth-Camp/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.109375" />
       </map>
     </option>
   </component>
