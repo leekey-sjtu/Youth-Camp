@@ -2,6 +2,7 @@ package com.qxy.bitdance.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
@@ -38,6 +39,7 @@ class SplashActivity : AppCompatActivity() {
                     sendAuth()
                 }
             }else {
+                TokenConstants.OPEN_ID = openId
                 runBlocking {
                     TokenConstants.ACCESS_TOKEN = TokenProService.getAccessToken(openId)
                     TokenConstants.REFRESH_TOKEN = TokenProService.getRefreshToken(openId)
@@ -50,7 +52,6 @@ class SplashActivity : AppCompatActivity() {
             //获取初始化数据
             sleep(1000)
             finish()
-
         }.start()
 
     }
