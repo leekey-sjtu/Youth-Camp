@@ -17,3 +17,4 @@ rootProject.name = "bitdance"
 include ':app'
 include ':common'
 include ':personal'
+include ':hotlist'
