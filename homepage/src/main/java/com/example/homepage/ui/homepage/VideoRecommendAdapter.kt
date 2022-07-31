@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.video
+package com.example.homepage.ui.homepage
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.qxy.bitdance.R
+import com.example.homepage.R
 
 class VideoRecommendAdapter(
     private val context: Context,

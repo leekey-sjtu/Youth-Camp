@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.video
+package com.example.homepage.ui.homepage
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

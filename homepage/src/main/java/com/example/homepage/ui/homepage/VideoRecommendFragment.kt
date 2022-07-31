@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.video
+package com.example.homepage.ui.homepage
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.qxy.bitdance.R
+import com.example.homepage.R
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,13 +40,13 @@ class VideoRecommendFragment : Fragment()  {
     private fun getVideo() {
         getRetrofit().create(VideoService::class.java)
             .getVideo("121110910068_portrait")  //获取竖屏视频
-            .enqueue(object : Callback<VideoBean> {
-                override fun onResponse(call: Call<VideoBean>, response: Response<VideoBean>) {
+            .enqueue(object : Callback<VideoResponse> {
+                override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                     Log.d("wdw", "get Video 3 success")
                     val videoList = response.body()!!.feeds.asReversed()  //获取所有的视频列表
                     viewPager.adapter = VideoRecommendAdapter(mContext,  videoList)
                 }
-                override fun onFailure(call: Call<VideoBean>, t: Throwable) {
+                override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
                     Log.d("wdw", "get Video 3 failed -> $t")
                 }
             })

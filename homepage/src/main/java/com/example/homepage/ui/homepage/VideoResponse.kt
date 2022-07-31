@@ -1,6 +1,6 @@
-package com.qxy.bitdance.ui.video
+package com.example.homepage.ui.homepage
 
-data class VideoBean(
+data class VideoResponse(
     val feeds: List<Feed>,
     val success: Boolean
 )
