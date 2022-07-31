@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/videoCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/imgPlay"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:alpha="0" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="80dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="20dp">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:text="user_name"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/extraValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="extra_value"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:textColor="#f8f8ff" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_launcher_foreground"
+                android:background="@color/white"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/imgFollow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|center"
+                android:src="@drawable/ic_launcher_foreground" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp">
+
+            <ImageView
+                android:id="@+id/imgLike1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground" />
+
+            <ImageView
+                android:id="@+id/imgLike2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground"
+                android:scaleX="0" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="123.0w"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imgComment"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="45.6w"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imgCollect"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="7.8w"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="分享"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</FrameLayout>

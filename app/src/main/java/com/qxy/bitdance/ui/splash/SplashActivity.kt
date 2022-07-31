@@ -22,7 +22,8 @@ class SplashActivity : AppCompatActivity() {
             "fans.check," +              // 判断是否关注抖音号能力
             "discovery.ent," +           // 获取抖音电影榜，电视剧榜以及综艺榜
             "im.share," +                // 分享图片或链接给抖音好友/群
-            "video.data,video.list," +   // 查询视频数据
+            "video.data," +              // 查询视频数据
+            "video.list," +              // 查询视频数据
             "video.search," +            // 搜索视频
             "video.search.comment," +    // 搜索视频及评论
             "data.external.item," +      // 查询视频的获赞/评论/分享数据
@@ -34,11 +35,11 @@ class SplashActivity : AppCompatActivity() {
 
         Thread {
             val openId = SharedPreferencesService.getOpenId(this)
-            if (openId == "") {
+            if (openId == "") {     // 本地没有open_id， 则打开抖音授权
                 runOnUiThread {
                     sendAuth()
                 }
-            }else {
+            } else {                // 利用本地open_id， 远程获取token
                 TokenConstants.OPEN_ID = openId
                 runBlocking {
                     TokenConstants.ACCESS_TOKEN = TokenProService.getAccessToken(openId)
@@ -49,7 +50,6 @@ class SplashActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
-            //获取初始化数据
             sleep(1000)
             finish()
         }.start()

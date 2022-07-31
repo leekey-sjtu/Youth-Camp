@@ -17,7 +17,7 @@ class MyApplication : Application() {
         context = applicationContext
 
         val clientKey = "awf251n1psyxh65f" // client key
-//        val clientKey = "awsxdh3k1fiojgnu"  // test client key
+
         DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
     }
 }
