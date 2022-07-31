@@ -76,4 +76,19 @@ object TokenProService {
         }
     }
 
+    /**
+     * 保存ClientKey
+     */
+    suspend fun saveClientKey(clientKey: String) {
+        retrofit.saveClientKey(clientKey)
+    }
+
+    /**
+     * 获取ClientKey
+     */
+    suspend fun getClientKey(): String {
+        retrofit.getClientKey().let {
+            return it.data ?: ""
+        }
+    }
 }

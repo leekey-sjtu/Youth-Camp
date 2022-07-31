@@ -29,4 +29,10 @@ interface TokenService {
 
     @GET("/getValue/{key}/{openId}")
     suspend fun getValue(@Path("key") key: String, @Path("openId") openId: String) : TokenResponse
+
+    @GET("/saveClientKey/{clientKey}")
+    suspend fun saveClientKey(@Path("clientKey") clientKey: String) : TokenResponse
+
+    @GET("/getClientKey")
+    suspend fun getClientKey() : TokenResponse
 }
