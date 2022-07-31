@@ -7,5 +7,6 @@ class TokenConstants {
         var CLIENT_SECRET = "client_secret"
         var CLIENT_TOKEN = "client_token"
         var OPEN_ID = "open_id"
+        var CLIENT_KEY = "client_key"
     }
 }

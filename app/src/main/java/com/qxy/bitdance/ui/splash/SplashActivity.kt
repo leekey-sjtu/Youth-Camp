@@ -46,6 +46,7 @@ class SplashActivity : AppCompatActivity() {
                     TokenConstants.REFRESH_TOKEN = TokenProService.getRefreshToken(openId)
                     TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
                     TokenConstants.CLIENT_TOKEN = TokenProService.getValue("client_token", openId)
+                    TokenConstants.CLIENT_KEY = TokenProService.getClientKey()
                 }
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
