@@ -34,4 +34,8 @@
     </style>
 
     <!--背景半透明dialog-->
+    <style name="half_trans_Dialog" parent="trans_Dialog">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>
