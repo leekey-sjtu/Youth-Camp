@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.homepage
+package com.example.homepage.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.qxy.bitdance.R
+import com.example.homepage.R
+import com.example.homepage.bean.VideoResponse
+import com.example.homepage.service.VideoService
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback

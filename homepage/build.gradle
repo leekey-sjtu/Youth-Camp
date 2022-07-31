@@ -1,5 +1,6 @@
 plugins {
-    id 'com.android.application'
+//    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     // 添加kapt注解处理器
     id 'kotlin-kapt'
@@ -9,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.homepage"
+//        applicationId "com.example.homepage"
         minSdk 21
         targetSdk 32
         versionCode 1

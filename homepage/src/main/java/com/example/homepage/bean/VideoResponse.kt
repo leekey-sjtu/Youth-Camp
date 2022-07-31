@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.homepage
+package com.example.homepage.bean
 
 data class VideoResponse(
     val feeds: List<Feed>,

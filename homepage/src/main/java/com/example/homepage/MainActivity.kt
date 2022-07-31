@@ -5,12 +5,11 @@ import android.animation.ObjectAnimator
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import com.example.homepage.ui.homepage.HomePageFragment
+import com.example.homepage.test.TestFragment
+import com.example.homepage.ui.HomePageFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {

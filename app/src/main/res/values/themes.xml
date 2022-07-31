@@ -38,10 +38,4 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    // 底部导航栏
-    <style name="bottom_navigation_style" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/grey</item>
-        <item name="android:textColorSecondary"></item>
-    </style>
-
 </resources>

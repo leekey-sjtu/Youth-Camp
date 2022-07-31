@@ -1,4 +1,4 @@
-package com.example.homepage.ui.homepage
+package com.example.homepage.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

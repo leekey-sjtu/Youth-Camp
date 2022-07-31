@@ -20,13 +20,12 @@ import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.baseui.BaseActivity
 import com.example.common.base.network.RetrofitClient
 import com.example.common.base.bean.AccessTokenResponse
-import com.example.common.base.bean.HotListResponse
-import com.example.common.base.bean.HotListTokenResponse
+import com.example.common.base.constants.TokenConstants
 import com.example.common.base.service.*
+import com.example.homepage.ui.HomePageFragment
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.test.MainViewModel
-import com.qxy.bitdance.ui.homepage.HomePageFragment
 import com.qxy.bitdance.test.TestFragment
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
@@ -81,6 +80,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private fun setBottomNavigationTabCustomView() {
         tabLayout.getTabAt(0)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.text = "首页"
+        tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.setTextColor(Color.BLACK)
         tabLayout.getTabAt(1)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
         tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "朋友"
         tabLayout.getTabAt(2)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab_middle, null)
@@ -146,13 +146,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
 
-    // 抖音api
-    override fun onReq(req: BaseReq) {
-
-    }
-
-
-    // 抖音api // 获取authCode
+    // 获取auth_code
+    override fun onReq(req: BaseReq) {}  // 抖音api
+    override fun onErrorIntent(p0: Intent?) {}
     override fun onResp(resp: BaseResp) {
         if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             val response = resp as Authorization.Response
@@ -167,12 +163,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
 
-    // 抖音api
-    override fun onErrorIntent(p0: Intent?) {
-
-    }
-
-
     // 获取access_token
     private fun getAccessToken(authCode: String) {
         RetrofitClient.retrofit
@@ -181,59 +171,28 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                 runBlocking { TokenProService.getClientSecret() },
                 authCode,
                 "authorization_code",
-                "awf251n1psyxh65f"  // TODO(client_key可以从服务器获取)
+                runBlocking { TokenProService.getClientKey() },
             )
             .enqueue(object : Callback<AccessTokenResponse> {
                 override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
-                    Log.d("wdw", "get access token success")
+                    Log.d("wdw", "get access_token success")
                     val data = response.body()!!.data
+                    val openId = data.open_id
+                    val accessToken = data.access_token
+                    val refreshToken = data.refresh_token
                     runBlocking {
-                        SharedPreferencesService.saveOpenId(context = baseContext, data.open_id)        // 本地储存open_id
-                        TokenProService.saveAccessToken(data.access_token, data.open_id)                // 远程储存access_token
-                        TokenProService.saveRefreshToken(data.refresh_token, data.open_id)              // 远程储存refresh_token
+                        SharedPreferencesService.saveOpenId(context = baseContext, openId)        // 本地储存open_id
+                        TokenProService.saveAccessToken(accessToken, openId)                      // 远程储存access_token
+                        TokenProService.saveRefreshToken(refreshToken, openId)                    // 远程储存refresh_token
+                        TokenConstants.ACCESS_TOKEN = accessToken
+                        TokenConstants.REFRESH_TOKEN = refreshToken                               // 初始化TokenConstants
+                        TokenConstants.CLIENT_KEY = TokenProService.getClientKey()
+                        TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
                     }
                 }
 
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                    Log.d("wdw", "get access token failed -> $t")
-                }
-            })
-    }
-
-
-    // 获取client_token
-    private fun getClientToken() {
-        RetrofitClient.retrofit
-            .create(HotListService::class.java)
-            .getClientToken(
-                "awf251n1psyxh65f",  // TODO(client_key可以从服务器获取)
-                runBlocking { TokenProService.getClientSecret() },
-                "client_credential"
-            )
-            .enqueue(object : Callback<HotListTokenResponse> {
-                override fun onResponse(call: Call<HotListTokenResponse>, response: Response<HotListTokenResponse>, ) {
-                    Log.d("wdw", "get hot list token success")
-                }
-
-                override fun onFailure(call: Call<HotListTokenResponse>, t: Throwable) {
-                    Log.d("wdw", "get hot list token failed -> $t")
-                }
-            })
-    }
-
-
-    // 获取榜单数据
-    private fun getHotList(clientToken: String) {
-        RetrofitClient.retrofit
-            .create(HotListService::class.java)
-            .getHotList(clientToken, 1, 0)
-            .enqueue(object : Callback<HotListResponse> {
-                override fun onResponse(call: Call<HotListResponse>, response: Response<HotListResponse>, ) {
-                    Log.d("wdw", "get hot list success")
-                }
-
-                override fun onFailure(call: Call<HotListResponse>, t: Throwable) {
-                    Log.d("wdw", "get hot list failed -> $t\n")
+                    Log.d("wdw", "get access_token failed -> $t")
                 }
             })
     }

@@ -1,4 +1,4 @@
-package com.example.homepage.ui.homepage
+package com.example.homepage.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

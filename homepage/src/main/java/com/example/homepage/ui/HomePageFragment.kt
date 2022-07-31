@@ -1,4 +1,4 @@
-package com.example.homepage.ui.homepage
+package com.example.homepage.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator

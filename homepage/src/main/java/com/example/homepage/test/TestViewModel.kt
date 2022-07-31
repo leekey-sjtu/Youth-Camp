@@ -1,4 +1,4 @@
-package com.example.homepage
+package com.example.homepage.test
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
