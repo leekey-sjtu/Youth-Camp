@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.video
+package com.example.homepage.ui.homepage
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -11,14 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.homepage.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.qxy.bitdance.R
 
 /**
  *
  */
-class VideoFragment : Fragment() {
+class HomePageFragment : Fragment() {
 
     private val tabLayout: TabLayout by lazy { requireView().findViewById(R.id.tabLayout) }  //顶部导航栏
     private val viewPager: ViewPager2 by lazy { requireView().findViewById(R.id.viewPager) }
@@ -28,7 +28,7 @@ class VideoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
-        return inflater.inflate(R.layout.fragment_video, container, false)
+        return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

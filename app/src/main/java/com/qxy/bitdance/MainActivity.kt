@@ -20,7 +20,7 @@ import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.example.common.base.service.AccessTokenService
 import com.example.common.base.service.HotListService
 import com.qxy.bitdance.test.MainViewModel
-import com.qxy.bitdance.ui.video.VideoFragment
+import com.example.homepage.ui.homepage.VideoFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +48,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
 
-        supportFragmentManager.beginTransaction().add(R.id.lay_fragment_container, VideoFragment()).commit()  //初始化首个fragment
+        supportFragmentManager.beginTransaction().add(R.id.lay_fragment_container,
+            com.example.homepage.ui.homepage.VideoFragment()).commit()  //初始化首个fragment
     }
 
     override fun onReq(req: BaseReq) {
