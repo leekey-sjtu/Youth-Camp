@@ -23,7 +23,7 @@
     </queries>
 
     <application
-        android:name=".utils.MyApplication"
+        android:name="com.example.common.base.utils.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

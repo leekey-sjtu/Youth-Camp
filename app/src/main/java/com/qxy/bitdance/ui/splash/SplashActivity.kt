@@ -9,6 +9,7 @@ import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.example.common.base.constants.TokenConstants
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
+import com.example.personal.ui.friendList.FriendActivity
 import com.qxy.bitdance.MainActivity
 import kotlinx.coroutines.*
 import java.lang.Thread.sleep
@@ -46,11 +47,11 @@ class SplashActivity : AppCompatActivity() {
                     TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
                     TokenConstants.CLIENT_TOKEN = TokenProService.getValue("client_token", openId)
                 }
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, FriendActivity::class.java)
                 startActivity(intent)
             }
-            //获取初始化数据
             sleep(1000)
+            //获取初始化数据
             finish()
         }.start()
 

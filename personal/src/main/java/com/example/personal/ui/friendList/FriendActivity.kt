@@ -1,9 +1,11 @@
 package com.example.personal.ui.friendList
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.baseui.BaseActivity
+import com.example.common.base.utils.setStatusBarColor
 import com.example.personal.BR
 import com.example.personal.R
 import com.example.personal.databinding.ActivityFriendBinding
@@ -23,7 +25,7 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
     override fun getVariableId() = BR.friendViewModel
 
     override fun initData(savedInstanceState: Bundle?) {
-        val tabList = mutableListOf<Fragment>(FanFragment(),FollowFragment())
+        val tabList = mutableListOf<Fragment>(FollowFragment(),FanFragment())
         getDataBinding().friendBack.setOnClickListener {
             finish()
         }
@@ -40,6 +42,7 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
             friendVP.currentItem = 1
             friendTab.getTabAt(1)?.select()
         }
+        setStatusBarColor(Color.WHITE)
     }
 
 

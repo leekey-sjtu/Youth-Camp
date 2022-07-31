@@ -11,8 +11,8 @@ class FriendRepository {
         const val TAG = "FriendRepository"
     }
 
-    fun getFollowList(openId : String,cursor : Int) = flow {
-        val followResponse = FriendNetWork.getFollowList(openId,cursor)
+    fun getFollowList(cursor : Int) = flow {
+        val followResponse = FriendNetWork.getFollowList(cursor)
         if (followResponse.data.error_code == 0) emit(followResponse.data)
         else Log.e(TAG,"getFollowList请求错误，错误码：$followResponse.data.error_code")
     }.flowOn(Dispatchers.IO)
