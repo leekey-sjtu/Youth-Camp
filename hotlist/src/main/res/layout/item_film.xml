@@ -45,17 +45,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="豆瓣评分"
+        android:text="导演"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/text_filmName" />
 
     <TextView
-        android:id="@+id/text_score"
+        android:id="@+id/text_director"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="7.5"
+        android:text="徐峥"
         app:layout_constraintStart_toEndOf="@+id/text_douban"
         app:layout_constraintTop_toBottomOf="@id/text_filmName" />
 
@@ -69,7 +69,7 @@
         android:layout_marginTop="5dp"
         android:text="喜剧 / 科幻"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_score" />
+        app:layout_constraintTop_toBottomOf="@+id/text_director" />
 
 
     <TextView
