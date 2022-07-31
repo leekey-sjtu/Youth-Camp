@@ -1,4 +1,4 @@
-package com.qxy.bitdance.utils
+package com.example.common.base.utils
 
 import android.annotation.SuppressLint
 import android.app.Application
