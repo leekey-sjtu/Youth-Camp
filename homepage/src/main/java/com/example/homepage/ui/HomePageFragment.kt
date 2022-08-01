@@ -37,8 +37,6 @@ class HomePageFragment : Fragment() {
         )
         viewPager.adapter = VideoFragmentAdapter(activity, fragments)  // 绑定数据
 
-        viewPager.currentItem = 1
-
         TabLayoutMediator(tabLayout, viewPager) { tab: TabLayout.Tab, position: Int ->  //绑定TabLayout与viewPager2Video
             tab.customView = layoutInflater.inflate(R.layout.fragment_video_tab_view, null)
             val textView = tab.view.findViewById<TextView>(R.id.textView)
@@ -52,9 +50,15 @@ class HomePageFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Log.d("wdw", "${tab!!.position} onTabSelected")
                 val textView = tab.customView!!.findViewById<TextView>(R.id.textView)
-                if (tab.position == 1) textView.setTextColor(Color.WHITE) else textView.setTextColor(Color.BLACK)
-                val animator1 = ObjectAnimator.ofFloat(textView, "scaleX", 1f, 1.3f)
-                val animator2 = ObjectAnimator.ofFloat(textView, "scaleY", 1f, 1.3f)
+                if (tab.position == 0) {
+                    textView.setTextColor(Color.BLACK)
+                    tabLayout.setSelectedTabIndicatorColor(Color.BLACK)
+                } else {
+                    textView.setTextColor(Color.WHITE)
+                    tabLayout.setSelectedTabIndicatorColor(Color.WHITE)
+                }
+                val animator1 = ObjectAnimator.ofFloat(textView, "scaleX", 1f, 1.1f)
+                val animator2 = ObjectAnimator.ofFloat(textView, "scaleY", 1f, 1.1f)
                 val animSet = AnimatorSet()
                 animSet.duration = 100
                 animSet.play(animator1).with(animator2)
@@ -65,8 +69,8 @@ class HomePageFragment : Fragment() {
                 Log.d("wdw", "${tab!!.position} onTabUnselected")
                 val textView = tab.customView!!.findViewById<TextView>(R.id.textView)
                 textView.setTextColor(Color.parseColor("#949494"))
-                val animator1 = ObjectAnimator.ofFloat(textView, "scaleX", 1.3f, 1f)
-                val animator2 = ObjectAnimator.ofFloat(textView, "scaleY", 1.3f, 1f)
+                val animator1 = ObjectAnimator.ofFloat(textView, "scaleX", 1.1f, 1f)
+                val animator2 = ObjectAnimator.ofFloat(textView, "scaleY", 1.1f, 1f)
                 val animSet = AnimatorSet()
                 animSet.duration = 100
                 animSet.play(animator1).with(animator2)
@@ -77,6 +81,13 @@ class HomePageFragment : Fragment() {
 
             }
         })
+
+        viewPager.currentItem = 1
+        val textView = tabLayout.getTabAt(1)!!.customView!!.findViewById<TextView>(R.id.textView)
+        textView.setTextColor(Color.WHITE)
+        textView.scaleX = 1.1f
+        textView.scaleY = 1.1f
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE)
     }
 
     companion object {

@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
                     TokenConstants.ACCESS_TOKEN = TokenProService.getAccessToken(openId)   // TODO: 可能要判断是否过期
                     TokenConstants.REFRESH_TOKEN = TokenProService.getRefreshToken(openId)
                 }
-                val intent = Intent(this, FriendActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             sleep(1000)

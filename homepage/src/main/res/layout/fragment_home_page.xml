@@ -27,6 +27,7 @@
             app:tabGravity="center"
             android:background="#00000000"
             app:tabRippleColor="#00000000"
+            app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorHeight="2dp"

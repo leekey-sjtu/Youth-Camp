@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.application'
-//    id 'com.android.library'
+//    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     // 添加kapt注解处理器
     id 'kotlin-kapt'
@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.homepage"
+//        applicationId "com.example.homepage"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -77,6 +77,9 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.1.0-beta03'
     implementation 'androidx.camera:camera-extensions:1.1.0-beta03'
 
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
 
     implementation 'androidx.activity:activity-ktx:1.5.0'
     implementation 'androidx.fragment:fragment-ktx:1.5.0'
