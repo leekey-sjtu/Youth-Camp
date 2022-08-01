@@ -22,9 +22,12 @@
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/activity_main.xml" value="0.12222222222222222" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/bottom_navigation_tab.xml" value="0.25" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/bottom_navigation_tab_middle.xml" value="0.13019250253292808" />
-        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_home_page.xml" value="0.13019250253292808" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_home_page.xml" value="0.335" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_recommend_video.xml" value="0.13019250253292808" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_recommend_video_item_view.xml" value="0.375" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_test.xml" value="0.13019250253292808" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_video_tab_view.xml" value="0.13019250253292808" />
+        <entry key="..\:/Android/bitdance/hotlist/src/main/res/layout/fragment_hot_list_tab.xml" value="0.11684782608695653" />
         <entry key="..\:/AndroidStudioProjects/Youth-Camp/app/src/main/res/drawable/bg_dialog_custom.xml" value="0.16" />
         <entry key="..\:/AndroidStudioProjects/Youth-Camp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Youth-Camp/app/src/main/res/layout/activity_test.xml" value="0.24947916666666667" />

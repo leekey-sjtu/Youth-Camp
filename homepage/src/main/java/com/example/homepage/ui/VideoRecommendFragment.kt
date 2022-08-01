@@ -44,12 +44,12 @@ class VideoRecommendFragment : Fragment()  {
             .getVideo("121110910068_portrait")  //获取竖屏视频
             .enqueue(object : Callback<VideoResponse> {
                 override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
-                    Log.d("wdw", "get Video 3 success")
+                    Log.d("wdw", "get recommend_video success")
                     val videoList = response.body()!!.feeds.asReversed()  //获取所有的视频列表
                     viewPager.adapter = VideoRecommendAdapter(mContext,  videoList)
                 }
                 override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
-                    Log.d("wdw", "get Video 3 failed -> $t")
+                    Log.d("wdw", "get recommend_video failed -> $t")
                 }
             })
     }
