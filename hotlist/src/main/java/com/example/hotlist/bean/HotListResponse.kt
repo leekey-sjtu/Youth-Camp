@@ -22,7 +22,7 @@ data class Data(
 )
 
 data class ListItem(
-    val actors: String,     // 演员 [徐峥 袁泉 沈腾 吴云芳 陈奇 黄梅莹 欧丽娅 贾冰 郭京飞]
+    val actors: List<String>,     // 演员 [徐峥 袁泉 沈腾 吴云芳 陈奇 黄梅莹 欧丽娅 贾冰 郭京飞]
     val maoyan_id: String?, // 猫眼id：只有电影榜返回，可能为空    1250696
     val name: String,       // 片名   囧妈
     val name_en: String,    // 英文片名 Lost in Russia

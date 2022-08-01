@@ -23,6 +23,7 @@ import com.example.common.base.bean.AccessTokenResponse
 import com.example.common.base.constants.TokenConstants
 import com.example.common.base.service.*
 import com.example.homepage.ui.HomePageFragment
+import com.example.hotlist.ui.hotlist.HotListTabFragment
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.test.MainViewModel
@@ -37,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
-    private val testFragment1 =  TestFragment("朋友")
+    private val testFragment1 =  HotListTabFragment()
     private val testFragment2 =  TestFragment("发布")
     private val testFragment3 =  TestFragment("消息")
     private val testFragment4 =  TestFragment("我")

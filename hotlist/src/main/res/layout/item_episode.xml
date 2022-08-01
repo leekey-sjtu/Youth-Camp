@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="120dp"
     android:padding="12dp">
 
-    <!--    电影榜单列表item-->
     <ImageView
-        android:id="@+id/imageView_film"
+        android:id="@+id/imageView_poster"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
@@ -25,10 +24,11 @@
         app:layout_constraintGuide_percent="0.2" />
 
     <TextView
-        android:id="@+id/text_filmName"
+        android:id="@+id/text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="囧妈"
+        android:text="幸福到万家"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -42,55 +42,32 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <TextView
-        android:id="@+id/text_douban"
+        android:id="@+id/text_actors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="导演"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_filmName" />
+        android:text="赵丽丽 / 刘伟"
+        android:textColor="@color/grey"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/text_name"/>
 
     <TextView
-        android:id="@+id/text_director"
+        android:id="@+id/text_episode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="徐峥"
-        app:layout_constraintStart_toEndOf="@+id/text_douban"
-        app:layout_constraintTop_toBottomOf="@id/text_filmName" />
-
-
-    <!--    类型-->
-
-    <TextView
-        android:id="@+id/text_tags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="喜剧 / 科幻"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_director" />
-
+        android:textColor="@color/grey"
+        android:text="共 40 集"
+        app:layout_constraintTop_toBottomOf="@id/text_actors"
+        app:layout_constraintStart_toEndOf="@id/guideline4"/>
 
     <TextView
         android:id="@+id/text_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="2022-07-08"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_tags" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:text="上映"
-        app:layout_constraintStart_toEndOf="@+id/text_time"
-        app:layout_constraintTop_toBottomOf="@+id/text_tags" />
+        android:textColor="@color/grey"
+        android:text="2022-06-22 播出"
+        app:layout_constraintTop_toBottomOf="@id/text_episode"
+        app:layout_constraintStart_toEndOf="@id/guideline4"/>
 
     <TextView
         android:id="@+id/text_hot"
@@ -98,36 +75,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="150.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/text_time" />
+        app:layout_constraintEnd_toStartOf="@id/textView9"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="万"
-        app:layout_constraintStart_toEndOf="@+id/text_hot"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/text_hot" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView_hot"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_time"
-        app:srcCompat="@drawable/ic_fire" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:text="购票"
-        app:cornerRadius="4dp"
+        app:layout_constraintEnd_toStartOf="@id/text_hot"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/ic_fire" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

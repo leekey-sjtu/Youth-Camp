@@ -1,5 +1,6 @@
 plugins {
-    id 'com.android.application'
+//    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
@@ -8,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.hotlist"
+//        applicationId "com.example.hotlist"
         minSdk 21
         targetSdk 32
         versionCode 1

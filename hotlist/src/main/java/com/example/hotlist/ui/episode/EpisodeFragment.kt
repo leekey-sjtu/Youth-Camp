@@ -1,77 +1,34 @@
 package com.example.hotlist.ui.episode
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.viewModelScope
 import com.example.common.base.baseui.BaseFragment
 import com.example.hotlist.BR
-import com.example.hotlist.MyItemRecyclerViewAdapter
 import com.example.hotlist.R
 import com.example.hotlist.databinding.FragmentEpisodeListBinding
-import com.example.hotlist.placeholder.PlaceholderContent
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * A fragment representing a list of Items.
  */
 class EpisodeFragment : BaseFragment<FragmentEpisodeListBinding,EpisodeViewModel>() {
-//
-//    private var columnCount = 1
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        arguments?.let {
-//            columnCount = it.getInt(ARG_COLUMN_COUNT)
-//        }
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val view = inflater.inflate(R.layout.fragment_episode_list, container, false)
-//
-//        // Set the adapter
-//        if (view is RecyclerView) {
-//            with(view) {
-//                layoutManager = when {
-//                    columnCount <= 1 -> LinearLayoutManager(context)
-//                    else -> GridLayoutManager(context, columnCount)
-//                }
-//                adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-//            }
-//        }
-//        return view
-//    }
-//
-//    companion object {
-//
-//        // TODO: Customize parameter argument names
-//        const val ARG_COLUMN_COUNT = "column-count"
-//
-//        // TODO: Customize parameter initialization
-//        @JvmStatic
-//        fun newInstance(columnCount: Int) =
-//            EpisodeFragment().apply {
-//                arguments = Bundle().apply {
-//                    putInt(ARG_COLUMN_COUNT, columnCount)
-//                }
-//            }
-//    }
+    private lateinit var viewModel: EpisodeViewModel
+    private lateinit var viewBinding: FragmentEpisodeListBinding
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_episode_list
-    }
+    override fun getLayoutId() = R.layout.fragment_episode_list
+
+    override fun getVariableId() = BR.episodeViewModel
 
     override fun initData(savedInstanceState: Bundle?) {
-    }
+        viewModel = getViewModel()
+        viewBinding = getViewDataBinding()
 
-    override fun getVariableId(): Int {
-        return BR.episodeViewModel
+        viewModel.viewModelScope.launch {
+            viewModel.updateNextPageEpisodesList()
+            viewModel.episodesFlow.collect{
+                viewBinding.episodesList.adapter = EpisodeListAdapter(it)
+            }
+        }
     }
 }

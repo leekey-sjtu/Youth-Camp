@@ -10,13 +10,12 @@
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/episodesList"
         android:name="com.example.hotlist.EpisodeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.episode.EpisodeFragment"
-        tools:listitem="@layout/fragment_episode" />
+        tools:listitem="@layout/item_episode" />
 </layout>
