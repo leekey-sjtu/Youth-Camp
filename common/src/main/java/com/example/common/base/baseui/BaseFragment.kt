@@ -22,7 +22,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = DataBindingUtil.inflate<VDB>(inflater, getLayoutId(), container, false)
+        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         return if (viewDataBinding != null) {
             viewDataBinding!!.lifecycleOwner = this
             viewDataBinding!!.root

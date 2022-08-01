@@ -1,10 +1,7 @@
 package com.qxy.bitdance.test
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.common.base.baseui.BaseViewModel
-import kotlinx.coroutines.launch
 
 class MainViewModel : BaseViewModel() {
     private companion object{

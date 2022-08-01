@@ -12,6 +12,7 @@ import com.example.common.base.network.RetrofitClient
 import com.example.common.base.service.HotListService
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
+import com.example.personal.ui.friendList.FriendActivity
 import com.qxy.bitdance.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -54,12 +55,14 @@ class SplashActivity : AppCompatActivity() {
                     TokenConstants.ACCESS_TOKEN = TokenProService.getAccessToken(openId)   // TODO: 可能要判断是否过期
                     TokenConstants.REFRESH_TOKEN = TokenProService.getRefreshToken(openId)
                 }
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, FriendActivity::class.java)
                 startActivity(intent)
             }
             sleep(1000)
+            //获取初始化数据
             finish()
         }.start()
+
     }
 
 

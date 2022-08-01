@@ -83,9 +83,7 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
      *
      * @return BR的id
      */
-
     abstract fun getVariableId(): Int
-
 
     /**
      * 初始化数据，相当于OnCreate方法
@@ -96,6 +94,10 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
     /**
      * 获取当前Activity的ViewModel
      */
-
     open fun getViewModel(): VM = sViewModel!!
+
+    /**
+     * 获取当前Activity的DataBinding
+     */
+    open fun getDataBinding() : VDB = sViewDateBinding!!
 }
