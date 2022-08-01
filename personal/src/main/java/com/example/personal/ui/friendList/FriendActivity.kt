@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.baseui.BaseActivity
+import com.example.common.base.utils.setAndroidNativeLightStatusBar
 import com.example.common.base.utils.setStatusBarColor
 import com.example.personal.BR
 import com.example.personal.R
@@ -38,10 +39,11 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
             tab.text = title[position]
         }
         tabLayoutMediator.attach()
-        if (select == "fan"){
+        if (select == "fans"){
             friendVP.currentItem = 1
             friendTab.getTabAt(1)?.select()
         }
+        setAndroidNativeLightStatusBar()
         setStatusBarColor(Color.WHITE)
     }
 

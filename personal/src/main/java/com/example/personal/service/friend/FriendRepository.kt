@@ -17,4 +17,10 @@ class FriendRepository {
         else Log.e(TAG,"getFollowList请求错误，错误码：$followResponse.data.error_code")
     }.flowOn(Dispatchers.IO)
 
+    fun getFansList(cursor : Int) = flow {
+        val fansResponse = FriendNetWork.getFansList(cursor)
+        if (fansResponse.data.error_code == 0) emit(fansResponse.data)
+        else Log.e(TAG,"getFollowList请求错误，错误码：$fansResponse.data.error_code")
+    }.flowOn(Dispatchers.IO)
+
 }

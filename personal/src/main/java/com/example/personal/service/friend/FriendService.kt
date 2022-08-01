@@ -7,8 +7,15 @@ import retrofit2.http.Query
 
 interface FriendService {
 
-    @GET("fans/list/")
+    @GET("following/list/")
     suspend fun getFollowList(
+        @Header("access-token") accessToken : String,
+        @Query("open_id") openId : String,
+        @Query("cursor") cursor : Int,
+        @Query("count") count : Int) : FriendResponse
+
+    @GET("fans/list/")
+    suspend fun getFansList(
         @Header("access-token") accessToken : String,
         @Query("open_id") openId : String,
         @Query("cursor") cursor : Int,

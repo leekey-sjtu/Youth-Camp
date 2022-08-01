@@ -11,4 +11,8 @@ object FriendNetWork {
     = friendService.getFollowList(TokenConstants.ACCESS_TOKEN,
         TokenConstants.OPEN_ID,cursor,10)
 
+    suspend fun getFansList(cursor : Int)
+            = friendService.getFansList(TokenConstants.ACCESS_TOKEN,
+        TokenConstants.OPEN_ID,cursor,10)
+
 }

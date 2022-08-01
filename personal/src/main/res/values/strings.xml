@@ -2,4 +2,5 @@
     <string name="app_name">personal</string>
     <string name="friend_search_hint">搜索用户备注或名字</string>
     <string name="friend_follow_text">我的关注</string>
+    <string name="friend_fans_text">我的粉丝</string>
 </resources>

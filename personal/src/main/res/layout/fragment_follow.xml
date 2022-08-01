@@ -8,7 +8,7 @@
             type="com.example.personal.ui.friendList.fragment.follow.FollowViewModel"/>
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/search_linear"
+                android:id="@+id/follow_search_constraint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -71,15 +71,15 @@
                 android:textColor="#737373"
                 android:text="@string/friend_follow_text"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@id/search_linear"
-                app:layout_constraintTop_toBottomOf="@+id/search_linear" />
+                app:layout_constraintStart_toStartOf="@id/follow_search_constraint"
+                app:layout_constraintTop_toBottomOf="@+id/follow_search_constraint" />
 
             <TextView
                 android:id="@+id/follow_num_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/friend_follow_text"
-                app:layout_constraintTop_toBottomOf="@+id/search_linear"
+                app:layout_constraintTop_toBottomOf="@+id/follow_search_constraint"
                 android:layout_marginTop="20dp"
                 android:textColor="#737373"
                 android:textSize="12sp"/>
@@ -106,6 +106,6 @@
             </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
