@@ -1,45 +1,43 @@
 package com.example.hotlist.ui.episode
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.common.base.baseui.BaseViewModel
 import com.example.common.base.constants.TokenConstants
 import com.example.common.base.service.token.TokenRepository
 import com.example.hotlist.bean.ListItem
 import com.example.hotlist.constants.HotListConstants
 import com.example.hotlist.service.HotListRepository
+import com.example.hotlist.utils.HotListUtil
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class EpisodeViewModel: BaseViewModel() {
-    // 单向数据流的形式处理
-    private val _cursorFlow = MutableStateFlow(1L)
-    private val _countFLow = MutableStateFlow(1L)
-    private val _episodesFlow = MutableStateFlow<MutableList<ListItem>>(mutableListOf())
+    private val _episodesListStateFlow = MutableStateFlow<List<ListItem>>(emptyList())
+    val episodesListStateFlow: StateFlow<List<ListItem>> = _episodesListStateFlow
 
-    private val cursorFlow: StateFlow<Long> = _cursorFlow
-    private val countFlow: StateFlow<Long> = _countFLow
-    val episodesFlow: StateFlow<List<ListItem>> = _episodesFlow
-
-
-    suspend fun updateNextPageEpisodesList(){
-        if (TokenConstants.CLIENT_TOKEN != ""){
-            getEpisodesList()
-        }else{
-            TokenRepository.getClientToken().collect{
-                TokenConstants.CLIENT_TOKEN = it
-                getEpisodesList()
+    fun getEpisodesList(version: Int) {
+        viewModelScope.launch {
+            HotListRepository.getHotList(type = HotListConstants.EPISODE, version = version).collect{
+                _episodesListStateFlow.value = it.list!!
             }
         }
     }
 
-    private suspend fun getEpisodesList(){
-        HotListRepository.getHotListVersion(cursor = cursorFlow.value, count = countFlow.value, type = HotListConstants.EPISODE).collect { vData->
-            Log.e("wgw", "updateNextPageFilmsList: $vData", )
-            _cursorFlow.value = vData.cursor
-            vData.list.forEach { vListItem ->
-                Log.e("wgw", "updateNextPageFilmsList: $vListItem", )
-                HotListRepository.getHotList(type = HotListConstants.EPISODE, version = vListItem.version).collect{ episodeList ->
-                    _episodesFlow.value.addAll(episodeList)
+    private val _episodesVersionListStateFlow = MutableStateFlow<MutableList<String>>(mutableListOf())
+    val episodesVersionListStateFlow: StateFlow<List<String>> = _episodesVersionListStateFlow
+
+    val episodesVersionList = mutableListOf<Int>()
+
+    fun getEpisodesVersionList(cursor: Long, size: Long) {
+        viewModelScope.launch {
+            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.EPISODE).collect{
+                it.list.forEach { item ->
+                    episodesVersionList.add(item.version)
+                    "第${item.version}期 ${HotListUtil.formatDate(item.start_time)}-${HotListUtil.formatDate(item.end_time)}".let { res ->
+                        _episodesVersionListStateFlow.value.add(res)
+                    }
                 }
             }
         }

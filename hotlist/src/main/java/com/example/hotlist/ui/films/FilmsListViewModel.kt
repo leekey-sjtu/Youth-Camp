@@ -6,42 +6,39 @@ import com.example.common.base.baseui.BaseViewModel
 import com.example.common.base.constants.TokenConstants
 import com.example.common.base.service.token.TokenRepository
 import com.example.hotlist.bean.ListItem
+import com.example.hotlist.bean.VData
 import com.example.hotlist.bean.VListItem
 import com.example.hotlist.constants.HotListConstants
 import com.example.hotlist.service.HotListRepository
+import com.example.hotlist.utils.HotListUtil
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class FilmsListViewModel: BaseViewModel() {
-    // 单向数据流的形式处理
-    private val _cursorFlow = MutableStateFlow(1L)
-    private val _countFLow = MutableStateFlow(1L)
-    private val _filmsFlow = MutableStateFlow<MutableList<ListItem>>(mutableListOf())
+    private val _filmsListStateFlow = MutableStateFlow<List<ListItem>>(emptyList())
+    val filmsListStateFlow: StateFlow<List<ListItem>> = _filmsListStateFlow
 
-    private val cursorFlow: StateFlow<Long> = _cursorFlow
-    private val countFlow: StateFlow<Long> = _countFLow
-    val filmsFlow: StateFlow<List<ListItem>> = _filmsFlow
-
-
-    suspend fun updateNextPageFilmsList(){
-        if (TokenConstants.CLIENT_TOKEN != ""){
-            getFilmList()
-        }else{
-            TokenRepository.getClientToken().collect{
-                TokenConstants.CLIENT_TOKEN = it
-                getFilmList()
+    fun getFilmsList(version: Int) {
+        viewModelScope.launch {
+            HotListRepository.getHotList(type = HotListConstants.FIlM, version = version).collect{
+                _filmsListStateFlow.value = it.list!!
             }
         }
     }
 
-    private suspend fun getFilmList(){
-        HotListRepository.getHotListVersion(cursor = cursorFlow.value, count = countFlow.value, type = HotListConstants.FIlM).collect {vData->
-            Log.e("wgw", "updateNextPageFilmsList: $vData", )
-            _cursorFlow.value = vData.cursor
-            vData.list.forEach { vListItem ->
-                Log.e("wgw", "updateNextPageFilmsList: $vListItem", )
-                HotListRepository.getHotList(type = HotListConstants.FIlM, version = vListItem.version).collect{filmList ->
-                    _filmsFlow.value.addAll(filmList)
+    private val _filmsVersionListStateFlow = MutableStateFlow<MutableList<String>>(mutableListOf())
+    val filmsVersionListStateFlow: StateFlow<List<String>> = _filmsVersionListStateFlow
+
+    val filmsVersionList = mutableListOf<Int>()
+
+    fun getFilmsVersionList(cursor: Long, size: Long) {
+        viewModelScope.launch {
+            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.FIlM).collect{
+                it.list.forEach { item ->
+                    filmsVersionList.add(item.version)
+                    "第${item.version}期 ${HotListUtil.formatDate(item.start_time)}-${HotListUtil.formatDate(item.end_time)}".let { res ->
+                        _filmsVersionListStateFlow.value.add(res)
+                    }
                 }
             }
         }

@@ -2,20 +2,16 @@ package com.example.hotlist.ui.films
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.common.base.baseui.BaseFragment
-import com.example.common.base.service.TokenProService
 import com.example.hotlist.BR
 import com.example.hotlist.R
 import com.example.hotlist.databinding.FragmentFilmsListBinding
+import com.example.hotlist.ui.customize.slidedialog.SlideDialog
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewModel>() {
@@ -30,11 +26,33 @@ class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewMod
         viewBinding = getViewDataBinding()
         viewModel = getViewModel()
 
+        val slideDialog = SlideDialog(mContext = requireContext(), isCancelable = true, isBackCancelable = true)
+
+        viewModel.getFilmsVersionList(0L,20L)
+        lifecycleScope.launchWhenCreated {
+            viewModel.filmsVersionListStateFlow.collect{
+                slideDialog.list = it
+                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else ""
+            }
+        }
+        viewModel.getFilmsList(140)
         viewModel.viewModelScope.launch {
-            viewModel.updateNextPageFilmsList()
-            viewModel.filmsFlow.collect{
+            viewModel.filmsListStateFlow.collect{
                 viewBinding.filmsList.adapter = FilmsListAdapter(it)
             }
         }
+
+        viewBinding.textTitle.setOnClickListener {
+            slideDialog.show()
+        }
+
+        slideDialog.setOnSelectListener(object : SlideDialog.OnSelectListener{
+            override fun onCancel() {}
+
+            override fun onAgree(txt: String, pos: Int) {
+                Log.e("wgw", "onAgree: $pos $txt", )
+                viewModel.getFilmsList(version = viewModel.filmsVersionList[pos])
+            }
+        })
     }
 }

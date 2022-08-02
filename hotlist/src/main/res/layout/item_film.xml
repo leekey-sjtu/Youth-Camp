@@ -57,8 +57,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="徐峥"
+        android:maxLength="12"
+        android:ellipsize="marquee"
         app:layout_constraintStart_toEndOf="@+id/text_douban"
-        app:layout_constraintTop_toBottomOf="@id/text_filmName" />
+        app:layout_constraintTop_toBottomOf="@id/text_filmName"
+        android:singleLine="true" />
 
 
     <!--    类型-->
@@ -69,6 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="喜剧 / 科幻"
+        android:maxLength="12"
+        android:ellipsize="marquee"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/text_director" />
 

@@ -34,9 +34,17 @@ class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: ListItem) {
         textName.text = item.name
-        item.actors.forEach {
-            textActors.append("$it ")
+
+        var actors = ""
+        for (i in 0 until (item.actors?.size ?: 0)) {
+            actors += if (i == (item.actors?.size ?: 0) - 1) {
+                item.actors?.get(i)
+            } else {
+                item.actors?.get(i) + " / "
+            }
         }
+        textActors.text = actors
+
         textTime.text = item.release_date
         textHot.text = item.discussion_hot.toString()
         Glide

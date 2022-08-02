@@ -18,7 +18,7 @@ class VarietyListAdapter(val varietyList: List<ListItem>) :
     }
 
     override fun onBindViewHolder(holder: VarietyListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(varietyList[position])
     }
 
     override fun getItemCount() = varietyList.size
@@ -38,12 +38,20 @@ class VarietyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         textName.text = item.name
         textTime.text = item.release_date
         textHot.text = item.discussion_hot.toString()
-        item.actors.forEach {
-            textActors.append("$it ")
-        }
         Glide
             .with(itemView)
             .load(item.poster)
             .into(imageViewPoster)
+        var actors = ""
+        for (i in 0 until (item.actors?.size ?: 0)) {
+            actors += if (i == (item.actors?.size ?: 0) - 1) {
+                item.actors?.get(i)
+            } else {
+                item.actors?.get(i) + " / "
+            }
+        }
+        textActors.text = actors
+
+
     }
 }

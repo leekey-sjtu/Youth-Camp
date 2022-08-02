@@ -22,19 +22,29 @@ class FilmsListAdapter(val filmsList: List<ListItem>): RecyclerView.Adapter<Film
         // 电影名称
         holder.textViewFilmName.text = film.name
         // 电影演员
-        film.tags.map {
-            holder.textViewFilmTags.append(it)
-            holder.textViewFilmTags.append(" ")
+        var tags = ""
+        for (i in 0 until (film.tags?.size ?: 0)) {
+            tags += if (i == (film.tags?.size ?: 0) - 1) {
+                film.tags?.get(i)
+            } else {
+                film.tags?.get(i) + " / "
+            }
         }
+        holder.textViewFilmTags.text = tags
         // 上映时间
         holder.textViewFilmTime.text = film.release_date
         // 热度
         holder.textViewFilmHot.text = film.discussion_hot.toString()
         // 导演
-        film.directors.map {
-            holder.textViewFilmDirector.append(it)
-            holder.textViewFilmDirector.append(" ")
+        var directors = ""
+        for (i in 0 until (film.directors?.size ?: 0)){
+            directors += if (i == (film.directors?.size ?: 0) - 1) {
+                film.directors?.get(i)
+            } else {
+                film.directors?.get(i) + " / "
+            }
         }
+        holder.textViewFilmDirector.text = directors
         // 加载图片
         Glide
             .with(holder.imageViewFilmImage)
