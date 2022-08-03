@@ -14,11 +14,12 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private val fragmentContainer: TabLayout by lazy { findViewById(R.id.fragment_container) }
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
-
     private val homePageFragment =  HomePageFragment()
-    private val testFragment =  TestFragment()
+    private val testFragment1 =  TestFragment("朋友")
+    private val testFragment2 =  TestFragment("发布")
+    private val testFragment3 =  TestFragment("消息")
+    private val testFragment4 =  TestFragment("我")
     private lateinit var currentFragment : Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigationTabCustomView() {
         tabLayout.getTabAt(0)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.text = "首页"
+        tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.setTextColor(Color.BLACK)
         tabLayout.getTabAt(1)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
         tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "朋友"
         tabLayout.getTabAt(2)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab_middle, null)
@@ -59,10 +61,10 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> switchFragment(homePageFragment)
-                    1 -> switchFragment(testFragment)
-                    2 -> switchFragment(testFragment)
-                    3 -> switchFragment(testFragment)
-                    4 -> switchFragment(testFragment)
+                    1 -> switchFragment(testFragment1)
+                    2 -> switchFragment(testFragment2)
+                    3 -> switchFragment(testFragment3)
+                    4 -> switchFragment(testFragment4)
                 }
                 if (tab.position != 2) {
                     val textView = tab.customView!!.findViewById<TextView>(R.id.textView)

@@ -1,4 +1,4 @@
-package com.qxy.bitdance.utils
+package com.example.common.base.utils
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -17,7 +17,6 @@ class MyApplication : Application() {
         context = applicationContext
 
         val clientKey = "awf251n1psyxh65f" // client key
-
         DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
     }
 }

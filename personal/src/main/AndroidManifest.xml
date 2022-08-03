@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bitdance">
         <activity
-            android:name=".MainActivity1"
-            android:exported="false" />
+            android:name=".ui.friendList.FriendActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -32,7 +32,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_play"
             android:alpha="0" />
 
     </FrameLayout>
@@ -82,8 +82,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="2dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:background="@color/white"
+                android:src="@drawable/ic_avatar_1"
+                android:background="@drawable/bg_round_1"
                 android:layout_gravity="center" />
 
             <ImageView
@@ -91,7 +91,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="bottom|center"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_add_1" />
 
         </FrameLayout>
 
@@ -106,14 +106,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:src="@drawable/ic_love_1" />
 
             <ImageView
                 android:id="@+id/imgLike2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/ic_love_2"
                 android:scaleX="0" />
 
         </FrameLayout>
@@ -131,7 +131,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_comment_1"
             android:layout_gravity="center" />
 
         <TextView
@@ -147,7 +147,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_collect_1"
             android:layout_gravity="center" />
 
         <TextView
@@ -163,7 +163,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@drawable/ic_share_1"
             android:layout_gravity="center" />
 
         <TextView
