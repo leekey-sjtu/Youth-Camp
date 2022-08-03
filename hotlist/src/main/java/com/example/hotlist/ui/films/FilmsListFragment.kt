@@ -29,16 +29,18 @@ class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewMod
         val slideDialog = SlideDialog(mContext = requireContext(), isCancelable = true, isBackCancelable = true)
 
         viewModel.getFilmsVersionList(0L,20L)
-        lifecycleScope.launchWhenCreated {
+        viewModel.viewModelScope.launch {
             viewModel.filmsVersionListStateFlow.collect{
                 slideDialog.list = it
-                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else ""
+                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
             }
         }
+
         viewModel.getFilmsList(140)
         viewModel.viewModelScope.launch {
             viewModel.filmsListStateFlow.collect{
                 viewBinding.filmsList.adapter = FilmsListAdapter(it)
+                viewBinding.filmsList.adapter?.notifyItemRangeChanged(0,it.size)
             }
         }
 
@@ -50,8 +52,8 @@ class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewMod
             override fun onCancel() {}
 
             override fun onAgree(txt: String, pos: Int) {
-                Log.e("wgw", "onAgree: $pos $txt", )
                 viewModel.getFilmsList(version = viewModel.filmsVersionList[pos])
+                viewBinding.textTitle.text = txt
             }
         })
     }

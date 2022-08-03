@@ -13,7 +13,7 @@ class VarietyListAdapter(val varietyList: List<ListItem>) :
     RecyclerView.Adapter<VarietyListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VarietyListViewHolder {
         val view = android.view.LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_episode, parent, false)
+            .inflate(R.layout.item_vatiety, parent, false)
         return VarietyListViewHolder(view)
     }
 
@@ -28,8 +28,7 @@ class VarietyListAdapter(val varietyList: List<ListItem>) :
 class VarietyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var imageViewPoster: ImageView = itemView.findViewById(R.id.imageView_poster)
     var textName: TextView = itemView.findViewById(R.id.text_name)
-    var textActors: TextView = itemView.findViewById(R.id.text_actors)
-    var textEpisode: TextView = itemView.findViewById(R.id.text_episode)
+    var textDirectors: TextView = itemView.findViewById(R.id.text_directors)
     var textTime: TextView = itemView.findViewById(R.id.text_time)
     var textHot: TextView = itemView.findViewById(R.id.text_hot)
 
@@ -37,20 +36,21 @@ class VarietyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ListItem) {
         textName.text = item.name
         textTime.text = item.release_date
-        textHot.text = item.discussion_hot.toString()
+        textHot.text =  String.format("%.2f", (item.discussion_hot?.div(10000.0)))
         Glide
             .with(itemView)
             .load(item.poster)
             .into(imageViewPoster)
-        var actors = ""
-        for (i in 0 until (item.actors?.size ?: 0)) {
-            actors += if (i == (item.actors?.size ?: 0) - 1) {
-                item.actors?.get(i)
+
+        var directors = ""
+        for (i in 0 until (item.directors?.size ?: 0)){
+            directors += if (i == (item.directors?.size ?: 0) - 1) {
+                item.directors?.get(i)
             } else {
-                item.actors?.get(i) + " / "
+                item.directors?.get(i) + " / "
             }
         }
-        textActors.text = actors
+        textDirectors.text = directors
 
 
     }

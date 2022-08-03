@@ -33,7 +33,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="24dp"
             app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/item_episode" />
+            tools:listitem="@layout/item_vatiety" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

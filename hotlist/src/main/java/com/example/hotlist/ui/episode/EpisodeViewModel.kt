@@ -33,12 +33,14 @@ class EpisodeViewModel: BaseViewModel() {
     fun getEpisodesVersionList(cursor: Long, size: Long) {
         viewModelScope.launch {
             HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.EPISODE).collect{
+                val tempRes = mutableListOf<String>()
                 it.list.forEach { item ->
                     episodesVersionList.add(item.version)
                     "第${item.version}期 ${HotListUtil.formatDate(item.start_time)}-${HotListUtil.formatDate(item.end_time)}".let { res ->
-                        _episodesVersionListStateFlow.value.add(res)
+                        tempRes.add(res)
                     }
                 }
+                _episodesVersionListStateFlow.value = tempRes
             }
         }
     }

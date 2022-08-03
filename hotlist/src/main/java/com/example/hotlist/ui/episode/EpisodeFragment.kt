@@ -34,14 +34,15 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeListBinding,EpisodeViewModel
         lifecycleScope.launchWhenCreated {
             viewModel.episodesVersionListStateFlow.collect{
                 slideDialog.list = it
-                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else ""
+                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
             }
         }
 
         viewModel.getEpisodesList(140)
         viewModel.viewModelScope.launch {
             viewModel.episodesListStateFlow.collect{
-                viewBinding.episodesList.adapter = FilmsListAdapter(it)
+                viewBinding.episodesList.adapter = EpisodeListAdapter(it)
+                viewBinding.episodesList.adapter?.notifyItemRangeChanged(0,it.size)
             }
         }
 
@@ -53,8 +54,8 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeListBinding,EpisodeViewModel
             override fun onCancel() {}
 
             override fun onAgree(txt: String, pos: Int) {
-                Log.e("wgw", "onAgree: $pos $txt", )
                 viewModel.getEpisodesList(version = viewModel.episodesVersionList[pos])
+                viewBinding.textTitle.text = txt
             }
         })
     }

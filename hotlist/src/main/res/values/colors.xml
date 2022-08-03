@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#fe2b54</color>
     <color name="grey">#FF666666</color>
+    <color name="viewLine">#FFAAAAAA</color>
 </resources>

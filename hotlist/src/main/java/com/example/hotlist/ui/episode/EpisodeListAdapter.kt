@@ -27,7 +27,7 @@ class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var imageViewPoster: ImageView = itemView.findViewById(R.id.imageView_poster)
     var textName: TextView = itemView.findViewById(R.id.text_name)
     var textActors: TextView = itemView.findViewById(R.id.text_actors)
-    var textEpisode: TextView = itemView.findViewById(R.id.text_episode)
+    var textDirectors: TextView = itemView.findViewById(R.id.text_directors)
     var textTime: TextView = itemView.findViewById(R.id.text_time)
     var textHot: TextView = itemView.findViewById(R.id.text_hot)
 
@@ -46,11 +46,20 @@ class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         textActors.text = actors
 
         textTime.text = item.release_date
-        textHot.text = item.discussion_hot.toString()
+        textHot.text = String.format("%.2f", (item.discussion_hot?.div(10000.0)))
         Glide
             .with(itemView)
             .load(item.poster)
             .into(imageViewPoster)
 
+        var directors = ""
+        for (i in 0 until (item.directors?.size ?: 0)){
+            directors += if (i == (item.directors?.size ?: 0) - 1) {
+                item.directors?.get(i)
+            } else {
+                item.directors?.get(i) + " / "
+            }
+        }
+        textDirectors.text = directors
     }
 }

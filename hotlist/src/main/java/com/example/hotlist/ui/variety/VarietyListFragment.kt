@@ -36,14 +36,15 @@ class VarietyListFragment : BaseFragment<FragmentVarietyListBinding,VarietyListV
         lifecycleScope.launchWhenCreated {
             viewModel.varietiesVersionListStateFlow.collect{
                 slideDialog.list = it
-                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else ""
+                viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
             }
         }
 
         viewModel.getVarietiesList(140)
         viewModel.viewModelScope.launch {
             viewModel.varietiesListStateFlow.collect{
-                viewBinding.varietyList.adapter = FilmsListAdapter(it)
+                viewBinding.varietyList.adapter = VarietyListAdapter(it)
+                viewBinding.varietyList.adapter?.notifyItemRangeChanged(0,it.size)
             }
         }
 
@@ -57,6 +58,7 @@ class VarietyListFragment : BaseFragment<FragmentVarietyListBinding,VarietyListV
             override fun onAgree(txt: String, pos: Int) {
                 Log.e("wgw", "onAgree: $pos $txt", )
                 viewModel.getVarietiesList(version = viewModel.varietiesVersionList[pos])
+                viewBinding.textTitle.text = txt
             }
         })
     }

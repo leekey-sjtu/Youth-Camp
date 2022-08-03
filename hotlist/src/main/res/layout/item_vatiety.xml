@@ -42,31 +42,6 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <TextView
-        android:id="@+id/text_actor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="演员"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/grey"
-        app:layout_constraintStart_toEndOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/text_name"
-        />
-
-    <TextView
-        android:id="@+id/text_actors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="赵丽丽 / 刘伟"
-        android:textColor="@color/grey"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:maxLength="12"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/text_actor"
-        app:layout_constraintTop_toBottomOf="@id/text_name"/>
-
-    <TextView
         android:id="@+id/text_director"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +49,7 @@
         android:layout_marginTop="8dp"
         android:text="导演"
         app:layout_constraintStart_toEndOf="@id/guideline4"
-        app:layout_constraintTop_toBottomOf="@id/text_actor"/>
+        app:layout_constraintTop_toBottomOf="@id/text_name"/>
 
     <TextView
         android:id="@+id/text_directors"
@@ -105,24 +80,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="150.0"
-        app:layout_constraintEnd_toStartOf="@id/textView9"
-        app:layout_constraintBottom_toBottomOf="@+id/text_time" />
+        app:layout_constraintStart_toEndOf="@id/imageView_hot"
+        app:layout_constraintTop_toBottomOf="@id/text_time"/>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="万"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/text_time" />
+        app:layout_constraintStart_toEndOf="@id/text_hot"
+        app:layout_constraintTop_toBottomOf="@id/text_time" />
 
     <ImageView
         android:id="@+id/imageView_hot"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@id/text_hot"
-        app:layout_constraintBottom_toBottomOf="@+id/text_time"
+        app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintTop_toBottomOf="@id/text_time"
         app:srcCompat="@drawable/ic_fire" />
 
 

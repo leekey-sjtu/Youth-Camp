@@ -34,12 +34,14 @@ class FilmsListViewModel: BaseViewModel() {
     fun getFilmsVersionList(cursor: Long, size: Long) {
         viewModelScope.launch {
             HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.FIlM).collect{
+                val tempRes = mutableListOf<String>()
                 it.list.forEach { item ->
                     filmsVersionList.add(item.version)
                     "第${item.version}期 ${HotListUtil.formatDate(item.start_time)}-${HotListUtil.formatDate(item.end_time)}".let { res ->
-                        _filmsVersionListStateFlow.value.add(res)
+                        tempRes.add(res)
                     }
                 }
+                _filmsVersionListStateFlow.value = tempRes
             }
         }
     }

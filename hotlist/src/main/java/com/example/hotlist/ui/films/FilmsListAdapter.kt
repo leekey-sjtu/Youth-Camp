@@ -34,7 +34,7 @@ class FilmsListAdapter(val filmsList: List<ListItem>): RecyclerView.Adapter<Film
         // 上映时间
         holder.textViewFilmTime.text = film.release_date
         // 热度
-        holder.textViewFilmHot.text = film.discussion_hot.toString()
+        holder.textViewFilmHot.text = String.format("%.2f", (film.discussion_hot?.div(10000.0)))
         // 导演
         var directors = ""
         for (i in 0 until (film.directors?.size ?: 0)){
