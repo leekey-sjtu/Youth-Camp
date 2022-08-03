@@ -39,7 +39,15 @@
         <entry key="..\:/AndroidStudioProjects/Youth-Camp/app/src/main/res/layout/dialog_loading.xml" value="0.264" />
         <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/app/src/main/res/layout/activity_main.xml" value="0.32708333333333334" />
         <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/activity_hot_list.xml" value="0.32708333333333334" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/fragment_episode.xml" value="0.1503623188405797" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/fragment_episode_list.xml" value="0.33" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/fragment_films_list.xml" value="0.33" />
         <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/fragment_hot_list_tab.xml" value="0.33229166666666665" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/fragment_variety_list.xml" value="0.33" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/item_episode.xml" value="0.33779608650875387" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/item_film.xml" value="0.5" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/item_vatiety.xml" value="0.39895833333333336" />
+        <entry key="..\:/Projects/AndroidProjects/dance/Youth-Camp/hotlist/src/main/res/layout/select_slide_template.xml" value="0.3260416666666667" />
         <entry key="..\:/topview/YouthCamp/app/src/main/res/layout/activity_main.xml" value="0.21927083333333333" />
         <entry key="..\:/topview/YouthCamp/app/src/main/res/layout/dialog_loading.xml" value="0.3328125" />
         <entry key="..\:/topview/YouthCamp/common/src/main/res/drawable/bg_dialog_custom.xml" value="0.1825" />

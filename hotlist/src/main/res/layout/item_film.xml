@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:padding="10dp">
+    android:layout_marginVertical="8dp">
 
     <!--    电影榜单列表item-->
     <ImageView
         android:id="@+id/imageView_film"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <TextView
         android:id="@+id/text_filmName"
@@ -38,26 +40,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <TextView
         android:id="@+id/text_douban"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="豆瓣评分"
+        android:text="导演"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/text_filmName" />
 
     <TextView
-        android:id="@+id/text_score"
+        android:id="@+id/text_director"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="7.5"
+        android:text="徐峥"
+        android:maxLength="12"
+        android:ellipsize="marquee"
         app:layout_constraintStart_toEndOf="@+id/text_douban"
-        app:layout_constraintTop_toBottomOf="@id/text_filmName" />
+        app:layout_constraintTop_toBottomOf="@id/text_filmName"
+        android:singleLine="true" />
 
 
     <!--    类型-->
@@ -68,8 +73,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="喜剧 / 科幻"
+        android:maxLength="12"
+        android:ellipsize="marquee"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_score" />
+        app:layout_constraintTop_toBottomOf="@+id/text_director" />
 
 
     <TextView
@@ -124,9 +131,18 @@
         android:backgroundTint="@color/red"
         android:text="购票"
         app:cornerRadius="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/view_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/viewLine"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline4"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
