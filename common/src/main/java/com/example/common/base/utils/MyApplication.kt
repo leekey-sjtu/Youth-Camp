@@ -6,6 +6,8 @@ import android.content.Context
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.DouYinOpenConfig
 import com.danikula.videocache.HttpProxyCacheServer
+import com.example.common.base.service.TokenProService
+import kotlinx.coroutines.runBlocking
 
 class MyApplication : Application() {
 
@@ -26,8 +28,10 @@ class MyApplication : Application() {
 
         context = applicationContext
 
-        val clientKey = "awf251n1psyxh65f" // client key
-        DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
+        runBlocking {
+            val clientKey = TokenProService.getClientKey()  // 服务器远程获取client_key
+            DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
+        }
     }
 
     private fun newProxy(): HttpProxyCacheServer {
