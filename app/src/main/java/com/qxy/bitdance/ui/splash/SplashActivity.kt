@@ -40,8 +40,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        douYinOpenApi = DouYinOpenApiFactory.create(this)
         getClientToken()
+
+        douYinOpenApi = DouYinOpenApiFactory.create(this)
 
         Thread {
             val openId = SharedPreferencesService.getOpenId(this)

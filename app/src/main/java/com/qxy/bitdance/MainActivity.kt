@@ -60,7 +60,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         getViewModel().catListData.observe(this) {
             println("MainActivity $it")
         }
-//        getViewModel().getCatList()
         getViewModel().closeLoading()
 
         douYinOpenApi = DouYinOpenApiFactory.create(this)
@@ -150,27 +149,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
 
-    // 获取auth_code
-    override fun onReq(req: BaseReq) {
-        val callerPackage = req.callerPackage
-        val callerVersion = req.callerVersion
-        val callerLocalEntry = req.callerLocalEntry
-        myLog("callerPackage = $callerPackage\n" +
-                "callerVersion = $callerVersion\n" +
-                "callerLocalEntry = $callerLocalEntry\n")
-    }  // 抖音api
-    override fun onErrorIntent(p0: Intent?) { Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show()}
+    // 获取auth_code  // 抖音api
+    override fun onReq(req: BaseReq) {}
+    override fun onErrorIntent(intent: Intent?) {}
     override fun onResp(resp: BaseResp) {
-        val errorCode = resp.errorCode
-        val errorMsg = resp.errorMsg
-        myLog("errorCode = $errorCode\n" +
-                "errorMsg = $errorMsg\n")
         if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
                 Toast.makeText(this, "抖音授权成功！", Toast.LENGTH_SHORT).show()
-                val authCode = response.authCode
-                getAccessToken(authCode)
+                getAccessToken(response.authCode)
             } else {
                 Toast.makeText(this, "抖音授权失败！", Toast.LENGTH_SHORT).show()
             }
