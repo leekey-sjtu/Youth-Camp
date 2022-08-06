@@ -18,14 +18,17 @@ import com.bytedance.sdk.open.aweme.common.model.BaseResp
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.baseui.BaseActivity
-import com.example.common.base.network.RetrofitClient
 import com.example.common.base.bean.AccessTokenResponse
 import com.example.common.base.constants.TokenConstants
-import com.example.common.base.service.*
+import com.example.common.base.network.RetrofitClient
+import com.example.common.base.service.AccessTokenService
+import com.example.common.base.service.SharedPreferencesService
+import com.example.common.base.service.TokenProService
 import com.example.homepage.ui.HomePageFragment
+import com.example.homepage.utils.myLog
 import com.example.hotlist.ui.hotlist.HotListTabFragment
-import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
+import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
 import com.qxy.bitdance.test.TestFragment
 import kotlinx.coroutines.runBlocking
@@ -148,9 +151,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
 
 
     // 获取auth_code
-    override fun onReq(req: BaseReq) {}  // 抖音api
-    override fun onErrorIntent(p0: Intent?) {}
+    override fun onReq(req: BaseReq) {
+        val callerPackage = req.callerPackage
+        val callerVersion = req.callerVersion
+        val callerLocalEntry = req.callerLocalEntry
+        myLog("callerPackage = $callerPackage\n" +
+                "callerVersion = $callerVersion\n" +
+                "callerLocalEntry = $callerLocalEntry\n")
+    }  // 抖音api
+    override fun onErrorIntent(p0: Intent?) { Toast.makeText(this, "Intent出错", Toast.LENGTH_LONG).show()}
     override fun onResp(resp: BaseResp) {
+        val errorCode = resp.errorCode
+        val errorMsg = resp.errorMsg
+        myLog("errorCode = $errorCode\n" +
+                "errorMsg = $errorMsg\n")
         if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
@@ -175,7 +189,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                 runBlocking { TokenProService.getClientKey() },
             )
             .enqueue(object : Callback<AccessTokenResponse> {
-                override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
+                override fun onResponse(
+                    call: Call<AccessTokenResponse>,
+                    response: Response<AccessTokenResponse>,
+                ) {
                     Log.d("wdw", "get access_token success")
                     val data = response.body()!!.data
                     val openId = data.open_id

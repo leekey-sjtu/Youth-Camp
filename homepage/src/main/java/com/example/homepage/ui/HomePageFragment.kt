@@ -28,10 +28,6 @@ class HomePageFragment : Fragment() {
     private val videoFollowFragment = VideoFollowFragment()
     private val videoRecommendFragment = VideoRecommendFragment()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
         return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
@@ -50,7 +46,7 @@ class HomePageFragment : Fragment() {
             tab.customView = layoutInflater.inflate(R.layout.fragment_video_tab_view, null)
             val textView = tab.view.findViewById<TextView>(R.id.textView)
             when (position) {
-                0 -> { textView.text = "资讯" }
+                0 -> { textView.text = "头条" }
                 1 -> { textView.text = "视频" }
             }
         }.attach()

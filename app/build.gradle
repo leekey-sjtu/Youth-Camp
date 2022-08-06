@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
 android {
     compileSdk 32
 
@@ -18,12 +19,26 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'key0' // 打包签名别名
+            keyPassword '123456' // 打包key密码
+            storeFile file('D:\\Android\\bitdance\\app\\bitdance.jks') // 签名存储路径
+            storePassword '123456'// store密码
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

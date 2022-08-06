@@ -2,7 +2,6 @@ package com.example.homepage.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -10,43 +9,34 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.danikula.videocache.CacheListener
-import com.danikula.videocache.HttpProxyCacheServer
-import com.example.homepage.MainApplication
+import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.bean.Feed
 import com.example.homepage.bean.VideoResponse
 import com.example.homepage.service.VideoService
-import com.example.homepage.utils.*
+import com.example.homepage.utils.myLog
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 import java.util.concurrent.TimeUnit
-
 
 class VideoRecommendFragment : Fragment()  {
 
     private var videoList: List<Feed>? = null
     private var isFirstCreated : Boolean =  true
-    private lateinit var mContext: Context  //获取嵌套的fragment的上下文
     private lateinit var viewModel: VideoRecommendViewModel
     private val handler = Handler(Looper.getMainLooper())
-    public val viewPager: ViewPager2 by lazy { requireView().findViewById(R.id.viewPager) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        this.mContext = requireActivity()
-    }
+    val viewPager: ViewPager2 by lazy { requireView().findViewById(R.id.viewPager) }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,7 +62,7 @@ class VideoRecommendFragment : Fragment()  {
                 val imgPlay = view.findViewById<ImageView>(R.id.imgPlay)!!
                 imgPlay.visibility = View.GONE
                 val videoView = view.findViewById<VideoView>(R.id.videoView)!!
-                val proxy = MainApplication.getProxy(mContext)
+                val proxy = MyApplication.getProxy(MyApplication.context)
                 val videoUrl = videoList?.get(position)?.video_url
                 val proxyUrl = proxy.getProxyUrl(videoUrl)
                 videoView.setVideoPath(proxyUrl)
@@ -94,7 +84,8 @@ class VideoRecommendFragment : Fragment()  {
 
     override fun onResume() {
         super.onResume()
-        myLog("onResume")
+        requireActivity().window.statusBarColor = Color.BLACK //设置状态栏颜色
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE //实现状态栏字体白色
         if (isFirstCreated) {  // 如果fragment是第一次创建，才加载数据
             getVideo()
             isFirstCreated = false
@@ -123,7 +114,7 @@ class VideoRecommendFragment : Fragment()  {
                 override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                     myLog("get recommend_video success")
                     videoList = response.body()?.feeds?.asReversed()  //获取所有的视频列表
-                    viewPager.adapter = videoList?.let { VideoRecommendAdapter(mContext, handler, it) }
+                    viewPager.adapter = videoList?.let { VideoRecommendAdapter(MyApplication.context, handler, it) }
                 }
                 override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
                     myLog("get recommend_video failed -> $t")
@@ -150,15 +141,15 @@ class VideoRecommendFragment : Fragment()  {
     }
 
 
-    @Deprecated("Deprecated in Java")
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-
-        myLog("recommend setUserVisibleHint")
-        if (isVisibleToUser) {
-            requireActivity().setStatusBarColor(Color.BLACK)
-            requireActivity().setAndroidNativeLightStatusBar()
-        }
-    }
+//    @Deprecated("Deprecated in Java")
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//
+//        myLog("recommend setUserVisibleHint")
+//        if (isVisibleToUser) {
+//            requireActivity().setStatusBarColor(Color.BLACK)
+//            requireActivity().setAndroidNativeLightStatusBar()
+//        }
+//    }
 
 }

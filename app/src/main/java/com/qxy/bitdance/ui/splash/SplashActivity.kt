@@ -6,13 +6,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bytedance.sdk.open.aweme.authorize.model.Authorization
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
+import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.bean.HotListTokenResponse
 import com.example.common.base.constants.TokenConstants
 import com.example.common.base.network.RetrofitClient
 import com.example.common.base.service.HotListService
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
-import com.example.personal.ui.friendList.FriendActivity
 import com.qxy.bitdance.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -22,6 +22,7 @@ import java.lang.Thread.sleep
 
 class SplashActivity : AppCompatActivity() {
 
+    private lateinit var douYinOpenApi: DouYinOpenApi
     private val mScope = "user_info," +  // 抖音头像、昵称
             "following.list," +          // 关注列表
             "fans.list," +               // 粉丝列表
@@ -39,6 +40,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        douYinOpenApi = DouYinOpenApiFactory.create(this)
         getClientToken()
 
         Thread {
@@ -68,7 +70,6 @@ class SplashActivity : AppCompatActivity() {
 
     // 跳转抖音授权
     private fun sendAuth(): Boolean {
-        val douYinOpenApi = DouYinOpenApiFactory.create(this)
         val request = Authorization.Request()
         request.scope = mScope                                      // 用户授权 (必选权限)
         request.state = "auth_state"                                // 保持请求和回调的状态，授权请求后原样带回给第三方
@@ -87,7 +88,10 @@ class SplashActivity : AppCompatActivity() {
                 "client_credential"
             )
             .enqueue(object : Callback<HotListTokenResponse> {
-                override fun onResponse(call: Call<HotListTokenResponse>, response: Response<HotListTokenResponse>, ) {
+                override fun onResponse(
+                    call: Call<HotListTokenResponse>,
+                    response: Response<HotListTokenResponse>
+                ) {
                     Log.d("wdw", "get client_token success")
                     TokenConstants.CLIENT_TOKEN = response.body()!!.data.access_token
                 }
