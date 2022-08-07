@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -41,7 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
-    private val testFragment1 =  HotListTabFragment()
+    private val hotListTabFragment =  HotListTabFragment()
     private val testFragment2 =  TestFragment("发布")
     private val testFragment3 =  TestFragment("消息")
     private val testFragment4 =  TestFragment("我")
@@ -101,7 +100,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> switchFragment(homePageFragment)
-                    1 -> switchFragment(testFragment1)
+                    1 -> switchFragment(hotListTabFragment)
                     2 -> switchFragment(testFragment2)
                     3 -> switchFragment(testFragment3)
                     4 -> switchFragment(testFragment4)
@@ -117,17 +116,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                     animSet.start()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 if (tab!!.position != 2) {
                     val textView = tab.customView!!.findViewById<TextView>(R.id.textView)
                     textView.setTextColor(Color.GRAY)
                 }
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
@@ -176,11 +171,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                 runBlocking { TokenProService.getClientKey() },
             )
             .enqueue(object : Callback<AccessTokenResponse> {
-                override fun onResponse(
-                    call: Call<AccessTokenResponse>,
-                    response: Response<AccessTokenResponse>,
-                ) {
-                    Log.d("wdw", "get access_token success")
+                override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
+                    myLog("get access_token success")
                     val data = response.body()!!.data
                     val openId = data.open_id
                     val accessToken = data.access_token
@@ -195,9 +187,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                         TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
                     }
                 }
-
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                    Log.d("wdw", "get access_token failed -> $t")
+                    myLog("get access_token failed -> $t")
                 }
             })
     }

@@ -14,9 +14,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
+import com.example.homepage.bean.NewsInfo
 import com.example.homepage.bean.NewsResponse
 
-class NewsAdapter(private val newsList: MutableList<NewsResponse.Info>, ): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val newsList: List<NewsInfo>, ): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.tv_title)

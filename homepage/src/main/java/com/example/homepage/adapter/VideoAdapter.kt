@@ -1,11 +1,11 @@
-package com.example.homepage.ui
+package com.example.homepage.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.net.Uri
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.bean.Feed
 import com.example.homepage.utils.myLog
@@ -22,12 +23,9 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
-class VideoRecommendAdapter(
-    private val context: Context,
-    private val handler: Handler,
-    private val videoList: List<Feed>,
-): RecyclerView.Adapter<VideoRecommendAdapter.ViewHolder>() {
+class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
 
+    private val handler = Handler(Looper.getMainLooper())
     private var lastClick = System.currentTimeMillis()  //上次点击视频的时间
     private var curClick = 0L  //这次点击视频的时间
 
@@ -98,7 +96,7 @@ class VideoRecommendAdapter(
         val progressBar = holder.progressBar
         val videoUrl = videoList[position].video_url
         val imageUrl = videoList[position].image_url
-        Glide.with(context).load(imageUrl).into(videoCover)  //加载视频封面
+        Glide.with(MyApplication.context).load(imageUrl).into(videoCover)  //加载视频封面
         videoView.setVideoURI(Uri.parse(videoUrl))  //设置视频Url
         videoView.keepScreenOn = true  //屏幕常亮
 //        videoView.setMediaController(MediaController(context))  // 设置内置控制器
@@ -142,7 +140,7 @@ class VideoRecommendAdapter(
 
     private fun imgLoveAnimator(x: Float, y: Float, holder: ViewHolder) {
         val deg = Random.nextInt(-30, 30).toFloat()  //生成-30 ~ 30随机度数
-        val imgLove = ImageView(context)
+        val imgLove = ImageView(MyApplication.context)
         holder.parentLayout.addView(imgLove)  //添加imgLove
         imgLove.setImageResource(R.drawable.ic_love_2)
         imgLove.layoutParams.width = 300

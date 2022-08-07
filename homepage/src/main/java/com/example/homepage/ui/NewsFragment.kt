@@ -22,7 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.adapter.NewsAdapter
-import com.example.homepage.bean.CovidBean.COVID19Bean
+import com.example.homepage.bean.CovidResponse
 import com.example.homepage.bean.NewsResponse
 import com.example.homepage.bean.WeatherResponse
 import com.example.homepage.network.getRetrofit
@@ -35,7 +35,7 @@ import com.example.homepage.utils.getSkyCondition
 import com.example.homepage.utils.myLog
 import retrofit2.*
 
-class VideoFollowFragment : Fragment() {
+class NewsFragment : Fragment() {
 
     private val nowTemperature : TextView by lazy { requireView().findViewById(R.id.nowTemperature) }
     private val skyCondition : TextView by lazy { requireView().findViewById(R.id.skyCondition) }
@@ -52,6 +52,7 @@ class VideoFollowFragment : Fragment() {
     private val nestedScrollView : NestedScrollView by lazy { requireView().findViewById(R.id.nestedScrollView) }
     private val swipeRefreshLayout : SwipeRefreshLayout by lazy { requireView().findViewById(R.id.swipeRefreshLayout) }
     private lateinit var handlerSwipeRefresh: Handler
+    private var isFirstCreated : Boolean =  true
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,28 +68,15 @@ class VideoFollowFragment : Fragment() {
 
         // 设置 NestedScrollView 滑动监听
         setNestedScrollView()
-
-        // 获取天气情况
-        getWeather()
-
-        // 获取疫情数据
-        getCovid()
-
-        // 获取头条新闻
-        getNews()
-
     }
 
 
     private fun getWeather() {
         getRetrofit("https://api.caiyunapp.com/")
             .create(WeatherService::class.java)  // TODO： alert = true可以去掉
-            .getDailyWeather("101.6656","39.2072", true, "1", "24")  // TODO：经纬度
+            .getDailyWeather("101.6656","39.2072", true, "1", "24")  // TODO：经纬度获取
             .enqueue(object : Callback<WeatherResponse> {
-                override fun onResponse(
-                    call: Call<WeatherResponse>,
-                    response: Response<WeatherResponse>
-                ) {
+                override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                     myLog("get daily_weather success")
                     response.body()?.result?.let {
                         nowTemperature.text = it.realtime.temperature.toInt().toString() + "°"
@@ -107,10 +95,10 @@ class VideoFollowFragment : Fragment() {
     private fun getCovid() {
         getRetrofit("https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/")
             .create(CovidService::class.java)
-            .getData("statisGradeCityDetail,diseaseh5Shelf")
-            .enqueue(object : Callback<COVID19Bean> {
-                override fun onResponse(call: Call<COVID19Bean>, response: Response<COVID19Bean>) {
-                    Log.d("wdw", "get covid_data success")
+            .getCovid("statisGradeCityDetail,diseaseh5Shelf")
+            .enqueue(object : Callback<CovidResponse> {
+                override fun onResponse(call: Call<CovidResponse>, response: Response<CovidResponse>) {
+                    myLog("get covid_data success")
                     response.body()?.data?.let {
                         tvAddConfirm.text = it.diseaseh5Shelf.chinaAdd.confirm.toString()  // 新增确诊
                         tvAddWzz.text = it.diseaseh5Shelf.chinaAdd.noInfect.toString()  // 新增无症状
@@ -119,8 +107,8 @@ class VideoFollowFragment : Fragment() {
                         tvUpdateTime.text = "更新时间：" + it.diseaseh5Shelf.lastUpdateTime  // 更新时间
                     }
                 }
-                override fun onFailure(call: Call<COVID19Bean>, t: Throwable) {
-                    Log.d("wdw", "get covid_data failed -> $t")
+                override fun onFailure(call: Call<CovidResponse>, t: Throwable) {
+                    myLog("get covid_data failed -> $t")
                 }
             })
     }
@@ -132,14 +120,14 @@ class VideoFollowFragment : Fragment() {
             .getJDNews("头条", "50", "0", "92b9f9e7465ed6a8a72e27330aa8310a") // TODO: appkey需要隐藏
             .enqueue(object : Callback<NewsResponse> {
                 override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                    Log.d("wdw", "get news success")
+                    myLog("get news success")
                     val newsList = response.body()?.result?.result?.list
                     recyclerView.layoutManager = LinearLayoutManager(MyApplication.context)
                     recyclerView.adapter = newsList?.let { NewsAdapter(it) }
                     handlerSwipeRefresh.sendEmptyMessage(END_SWIPE_REFRESH_FOR_SUCCESS)
                 }
                 override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                    Log.d("wdw", "get news failed, $t")
+                    myLog("get news failed -> $t")
                     handlerSwipeRefresh.sendEmptyMessage(END_SWIPE_REFRESH_FOR_FAIL)
                 }
             })
@@ -151,7 +139,6 @@ class VideoFollowFragment : Fragment() {
             override fun handleMessage(msg: Message) {
                 when (msg.what) {
                     END_SWIPE_REFRESH_FOR_SUCCESS -> {
-                        myLog("结束刷新，成功")
                         swipeRefreshLayout.isRefreshing = false
                         layoutWeatherShow(300)
                         layoutCovidShow(300)
@@ -159,7 +146,6 @@ class VideoFollowFragment : Fragment() {
                         Toast.makeText(MyApplication.context, "刷新成功！", Toast.LENGTH_SHORT).show()
                     }
                     END_SWIPE_REFRESH_FOR_FAIL -> {
-                        myLog("结束刷新，失败")
                         swipeRefreshLayout.isRefreshing = false
                         Toast.makeText(MyApplication.context, "刷新失败！请重试", Toast.LENGTH_SHORT).show()
                     }
@@ -168,11 +154,10 @@ class VideoFollowFragment : Fragment() {
         }
         swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE)
         swipeRefreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
-            override fun onRefresh() {
-                myLog("开始刷新")
+            override fun onRefresh() {  // 开始刷新
                 getWeather() // 获取天气情况
-                getCovid() // 获取疫情数据
-                getNews() // 获取头条新闻
+                getCovid()   // 获取疫情数据
+                getNews()    // 获取头条新闻
             }
         })
     }
@@ -250,7 +235,13 @@ class VideoFollowFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        myLog("follow onResume")
+        if (isFirstCreated) {  // 如果fragment是第一次创建，才加载数据
+            swipeRefreshLayout.isRefreshing = true
+            getWeather()       // 获取天气情况
+            getCovid()         // 获取疫情数据
+            getNews()          // 获取头条新闻
+            isFirstCreated = false
+        }
         requireActivity().window.statusBarColor = Color.parseColor("#87CEEB")
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR // 状态栏字体黑色
     }

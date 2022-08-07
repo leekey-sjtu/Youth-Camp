@@ -13,6 +13,7 @@ import com.example.common.base.network.RetrofitClient
 import com.example.common.base.service.HotListService
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
+import com.example.homepage.utils.myLog
 import com.qxy.bitdance.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -62,7 +63,6 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             sleep(1000)
-            //获取初始化数据
             finish()
         }.start()
 
@@ -93,12 +93,12 @@ class SplashActivity : AppCompatActivity() {
                     call: Call<HotListTokenResponse>,
                     response: Response<HotListTokenResponse>
                 ) {
-                    Log.d("wdw", "get client_token success")
+                    myLog("get client_token success")
                     TokenConstants.CLIENT_TOKEN = response.body()!!.data.access_token
                 }
 
                 override fun onFailure(call: Call<HotListTokenResponse>, t: Throwable) {
-                    Log.d("wdw", "get client_token failed -> $t")
+                    myLog("get client_token failed -> $t")
                 }
             })
     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f5f5f5"
-    tools:context="com.example.homepage.ui.VideoFollowFragment">
+    tools:context="com.example.homepage.ui.NewsFragment">
 
     <View
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
+                    android:visibility="invisible"
                     android:background="@drawable/bg_rect"
                     android:orientation="horizontal">
 
@@ -116,6 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="invisible"
                     android:background="@drawable/bg_rect"
                     android:orientation="vertical">
 

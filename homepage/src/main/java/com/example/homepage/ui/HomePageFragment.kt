@@ -14,6 +14,7 @@ import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.homepage.R
+import com.example.homepage.adapter.HomePageAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,8 +24,8 @@ class HomePageFragment : Fragment() {
     private val viewPager: ViewPager2 by lazy { requireView().findViewById(R.id.viewPager) }
     private val imgAdd: ImageView by lazy { requireView().findViewById(R.id.imgAdd) }
     private val imgSearch: ImageView by lazy { requireView().findViewById(R.id.imgSearch) }
-    private val videoFollowFragment = VideoFollowFragment()
-    private val videoRecommendFragment = VideoRecommendFragment()
+    private val videoFollowFragment = NewsFragment()
+    private val videoRecommendFragment = VideoFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
         return inflater.inflate(R.layout.fragment_home_page, container, false)
@@ -47,7 +48,7 @@ class HomePageFragment : Fragment() {
 
     private fun setViewPager() {
         val fragments = mutableListOf(videoFollowFragment, videoRecommendFragment)
-        viewPager.adapter = HomePageFragmentAdapter(fragments, fragmentManager, lifecycle) // 绑定数据
+        viewPager.adapter = HomePageAdapter(fragments, fragmentManager, lifecycle) // 绑定数据
         viewPager.offscreenPageLimit = fragments.size  // 设置viewPager的预加载数量
     }
 

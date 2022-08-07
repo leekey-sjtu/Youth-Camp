@@ -9,7 +9,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
@@ -18,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
+import com.example.homepage.adapter.VideoAdapter
 import com.example.homepage.bean.Feed
 import com.example.homepage.bean.VideoResponse
 import com.example.homepage.service.VideoService
 import com.example.homepage.utils.myLog
+import com.example.homepage.viewmodel.VideoViewModel
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,12 +31,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class VideoRecommendFragment : Fragment()  {
+class VideoFragment : Fragment()  {
 
     private var videoList: List<Feed>? = null
     private var isFirstCreated : Boolean =  true
-    private lateinit var viewModel: VideoRecommendViewModel
-    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var viewModel: VideoViewModel
     val viewPager: ViewPager2 by lazy { requireView().findViewById(R.id.viewPager) }
 
 
@@ -47,7 +47,7 @@ class VideoRecommendFragment : Fragment()  {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[VideoRecommendViewModel::class.java]
+        viewModel = ViewModelProvider(this)[VideoViewModel::class.java]
     }
 
 
@@ -68,7 +68,7 @@ class VideoRecommendFragment : Fragment()  {
                 videoView.setVideoPath(proxyUrl)
                 if (proxy.isCached(videoUrl)) myLog("position $position selected, 已缓存") else myLog("position $position selected, 未缓存")
             }
-//        viewPager.setPageTransformer { page, position ->  }
+//        viewPager.setPageTransformer { page, position ->  }  // TODO 设置 viewPager 透明过渡动画
         })
     }
 
@@ -114,7 +114,7 @@ class VideoRecommendFragment : Fragment()  {
                 override fun onResponse(call: Call<VideoResponse>, response: Response<VideoResponse>) {
                     myLog("get recommend_video success")
                     videoList = response.body()?.feeds?.asReversed()  //获取所有的视频列表
-                    viewPager.adapter = videoList?.let { VideoRecommendAdapter(MyApplication.context, handler, it) }
+                    viewPager.adapter = videoList?.let { VideoAdapter(it) }
                 }
                 override fun onFailure(call: Call<VideoResponse>, t: Throwable) {
                     myLog("get recommend_video failed -> $t")
