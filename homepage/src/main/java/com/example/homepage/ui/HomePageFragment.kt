@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.homepage.R
 import com.google.android.material.tabs.TabLayout
@@ -35,13 +36,26 @@ class HomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fragments = mutableListOf(
-            videoFollowFragment,
-            videoRecommendFragment
-        )
+        // 设置 ViewPager
+        setViewPager()
+
+        // 设置 TabLayout
+        setTabLayout()
+
+        // 初始化
+        init()
+
+    }
+
+
+    private fun setViewPager() {
+        val fragments = mutableListOf(videoFollowFragment, videoRecommendFragment)
         viewPager.adapter = HomePageFragmentAdapter(fragments, fragmentManager, lifecycle) // 绑定数据
         viewPager.offscreenPageLimit = fragments.size  // 设置viewPager的预加载数量
+    }
 
+
+    private fun setTabLayout() {
         TabLayoutMediator(tabLayout, viewPager) { tab: TabLayout.Tab, position: Int ->  //绑定TabLayout与viewPager2Video
             tab.customView = layoutInflater.inflate(R.layout.fragment_video_tab_view, null)
             val textView = tab.view.findViewById<TextView>(R.id.textView)
@@ -50,7 +64,6 @@ class HomePageFragment : Fragment() {
                 1 -> { textView.text = "视频" }
             }
         }.attach()
-
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val textView = tab!!.customView!!.findViewById<TextView>(R.id.textView)
@@ -72,7 +85,6 @@ class HomePageFragment : Fragment() {
                 animSet.play(animator1).with(animator2)
                 animSet.start()
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 val textView = tab!!.customView!!.findViewById<TextView>(R.id.textView)
                 textView.setTextColor(Color.parseColor("#949494"))
@@ -83,33 +95,32 @@ class HomePageFragment : Fragment() {
                 animSet.play(animator1).with(animator2)
                 animSet.start()
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
-        // 初始化
-//        viewPager.currentItem = 1
-//        val textView = tabLayout.getTabAt(1)!!.customView!!.findViewById<TextView>(R.id.textView)
-//        textView.setTextColor(Color.WHITE)
-//        textView.scaleX = 1.1f
-//        textView.scaleY = 1.1f
-//        tabLayout.setSelectedTabIndicatorColor(Color.WHITE)
     }
+
+
+    private fun init() {
+        viewPager.currentItem = 1
+        val textView = tabLayout.getTabAt(1)!!.customView!!.findViewById<TextView>(R.id.textView)
+        textView.setTextColor(Color.WHITE)
+        textView.scaleX = 1.1f
+        textView.scaleY = 1.1f
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE)
+    }
+
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         val recyclerView= videoRecommendFragment.viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(videoRecommendFragment.viewPager.currentItem)
         val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (hidden) {
-            Log.d("wdw", "homepage hidden")
-            videoView?.pause()
-        } else {
-            Log.d("wdw", "homepage not hidden")
-            videoView?.start()
-        }
+        if (hidden) videoView?.pause() else videoView?.start()
+    }
+
+    companion object {
+        const val END_SWIPE_REFRESH_FOR_SUCCESS = 1000
+        const val END_SWIPE_REFRESH_FOR_FAIL = 1001
     }
 
 }
