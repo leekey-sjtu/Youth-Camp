@@ -36,7 +36,9 @@ class SplashActivity : AppCompatActivity() {
             "video.search.comment," +    // 搜索视频及评论
             "data.external.item," +      // 查询视频的获赞/评论/分享数据
             "star_top_score_display," +  // 获取星图达人指数
-            "trial.whitelist"            // 测试白名单
+            "trial.whitelist,"+          // 测试白名单
+            "im.share,"+                 // 分享给抖音好友/群
+            "aweme.share"                // 第三方app的内容可以发布到抖音
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
