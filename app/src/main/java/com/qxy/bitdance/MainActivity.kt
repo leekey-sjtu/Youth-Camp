@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -18,14 +17,17 @@ import com.bytedance.sdk.open.aweme.common.model.BaseResp
 import com.bytedance.sdk.open.douyin.DouYinOpenApiFactory
 import com.bytedance.sdk.open.douyin.api.DouYinOpenApi
 import com.example.common.base.baseui.BaseActivity
-import com.example.common.base.network.RetrofitClient
 import com.example.common.base.bean.AccessTokenResponse
 import com.example.common.base.constants.TokenConstants
-import com.example.common.base.service.*
+import com.example.common.base.network.RetrofitClient
+import com.example.common.base.service.AccessTokenService
+import com.example.common.base.service.SharedPreferencesService
+import com.example.common.base.service.TokenProService
 import com.example.homepage.ui.HomePageFragment
+import com.example.homepage.utils.myLog
 import com.example.hotlist.ui.hotlist.HotListTabFragment
-import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayout
+import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
 import com.qxy.bitdance.test.TestFragment
 import kotlinx.coroutines.runBlocking
@@ -38,7 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
-    private val testFragment1 =  HotListTabFragment()
+    private val hotListTabFragment =  HotListTabFragment()
     private val testFragment2 =  TestFragment("发布")
     private val testFragment3 =  TestFragment("消息")
     private val testFragment4 =  TestFragment("我")
@@ -57,7 +59,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         getViewModel().catListData.observe(this) {
             println("MainActivity $it")
         }
-//        getViewModel().getCatList()
         getViewModel().closeLoading()
 
         douYinOpenApi = DouYinOpenApiFactory.create(this)
@@ -99,7 +100,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> switchFragment(homePageFragment)
-                    1 -> switchFragment(testFragment1)
+                    1 -> switchFragment(hotListTabFragment)
                     2 -> switchFragment(testFragment2)
                     3 -> switchFragment(testFragment3)
                     4 -> switchFragment(testFragment4)
@@ -115,17 +116,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                     animSet.start()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 if (tab!!.position != 2) {
                     val textView = tab.customView!!.findViewById<TextView>(R.id.textView)
                     textView.setTextColor(Color.GRAY)
                 }
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
@@ -147,16 +144,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
 
-    // 获取auth_code
-    override fun onReq(req: BaseReq) {}  // 抖音api
-    override fun onErrorIntent(p0: Intent?) {}
+    // 获取auth_code  // 抖音api
+    override fun onReq(req: BaseReq) {}
+    override fun onErrorIntent(intent: Intent?) {}
     override fun onResp(resp: BaseResp) {
         if (resp.type == CommonConstants.ModeType.SEND_AUTH_RESPONSE) {
             val response = resp as Authorization.Response
             if (resp.isSuccess()) {
                 Toast.makeText(this, "抖音授权成功！", Toast.LENGTH_SHORT).show()
-                val authCode = response.authCode
-                getAccessToken(authCode)
+                getAccessToken(response.authCode)
             } else {
                 Toast.makeText(this, "抖音授权失败！", Toast.LENGTH_SHORT).show()
             }
@@ -176,7 +172,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             )
             .enqueue(object : Callback<AccessTokenResponse> {
                 override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
-                    Log.d("wdw", "get access_token success")
+                    myLog("get access_token success")
                     val data = response.body()!!.data
                     val openId = data.open_id
                     val accessToken = data.access_token
@@ -191,9 +187,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                         TokenConstants.CLIENT_SECRET = TokenProService.getClientSecret()
                     }
                 }
-
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                    Log.d("wdw", "get access_token failed -> $t")
+                    myLog("get access_token failed -> $t")
                 }
             })
     }

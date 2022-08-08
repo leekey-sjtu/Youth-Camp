@@ -14,5 +14,6 @@ data class Feed(
     val student_id: String,
     val updatedAt: String,
     val user_name: String,
-    val video_url: String
+    val video_url: String,
+    val extra_value: String
 )

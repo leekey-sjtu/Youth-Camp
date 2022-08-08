@@ -14,9 +14,10 @@
         android:elevation="0.1dp">
 
         <ImageView
+            android:id="@+id/imgAdd"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="10dp"
+            android:padding="11dp"
             android:src="@drawable/ic_add" />
 
         <com.google.android.material.tabs.TabLayout
@@ -27,15 +28,17 @@
             app:tabGravity="center"
             android:background="#00000000"
             app:tabRippleColor="#00000000"
+            app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorAnimationMode="elastic"
             app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable" />
 
         <ImageView
+            android:id="@+id/imgSearch"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="13dp"
+            android:padding="14dp"
             android:src="@drawable/ic_search" />
 
     </LinearLayout>
