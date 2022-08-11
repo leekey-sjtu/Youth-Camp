@@ -79,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.text = "首页"
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.setTextColor(Color.BLACK)
         tabLayout.getTabAt(1)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
-        tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "朋友"
+        tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "榜单"
         tabLayout.getTabAt(2)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab_middle, null)
         tabLayout.getTabAt(2)?.customView?.findViewById<ImageView>(R.id.imgView)?.setImageResource(R.drawable.ic_bottom_navigation_tab)
         tabLayout.getTabAt(3)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
