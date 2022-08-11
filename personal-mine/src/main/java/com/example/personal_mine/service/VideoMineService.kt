@@ -15,5 +15,4 @@ interface VideoMineService {
         @Query("count") count: Int =20
     ):VideoMineResponse
 
-
 }

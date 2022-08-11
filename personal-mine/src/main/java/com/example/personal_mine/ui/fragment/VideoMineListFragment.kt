@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.personal_mine.R
+import com.example.personal_mine.adapter.FootAdapter
 import com.example.personal_mine.adapter.RvVideoAdapter
 import com.example.personal_mine.databinding.FragmentVideoMineListBinding
 import com.example.personal_mine.viewmodel.VideoMineViewModel
@@ -55,9 +56,10 @@ class VideoMineListFragment : Fragment() {
     private fun initList() {
         val layoutManager = GridLayoutManager(requireContext(),3)
         mAdapter = RvVideoAdapter()
+
         mBinding?.apply {
             rvVideoMine.layoutManager = layoutManager
-            rvVideoMine.adapter = mAdapter
+            rvVideoMine.adapter = mAdapter.withLoadStateFooter(FootAdapter())
         }
 
     }

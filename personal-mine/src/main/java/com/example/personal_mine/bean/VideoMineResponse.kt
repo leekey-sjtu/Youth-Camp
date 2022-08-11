@@ -3,16 +3,16 @@ package com.example.personal_mine.bean
 
 
 data class VideoMineResponse(
-    val `data`: VideoData,
+    val `data`: MineVideoData,
     val extra: Extra
 )
 
-data class VideoData(
-    val cursor: Int,
-    val description: String,
+data class MineVideoData(
     val error_code: Int,
+    val description: String,
     val has_more: Boolean,
-    val list: List<Video>
+    val list: List<MineVideo>,
+    val cursor: Long
 )
 
 data class Extra(
@@ -24,7 +24,7 @@ data class Extra(
     val sub_error_code: Int
 )
 
-data class Video(
+data class MineVideo(
     val cover: String,
     val create_time: Int,
     val is_reviewed: Boolean,
@@ -32,13 +32,13 @@ data class Video(
     val item_id: String,
     val media_type: Int,
     val share_url: String,
-    val statistics: Statistics,
+    val mineStatistics: MineStatistics,
     val title: String,
     val video_id: String,
     val video_status: Int
 )
 
-data class Statistics(
+data class MineStatistics(
     val comment_count: Int,
     val digg_count: Int,
     val download_count: Int,

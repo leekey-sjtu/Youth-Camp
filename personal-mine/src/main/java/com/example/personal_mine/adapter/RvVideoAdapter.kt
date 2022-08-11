@@ -4,24 +4,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.personal_mine.R
-import com.example.personal_mine.bean.Video
+import com.example.personal_mine.bean.MineVideo
 
-class RvVideoAdapter : PagingDataAdapter<Video, RvVideoAdapter.ViewHolder>(COMPARATOR) {
+class RvVideoAdapter : PagingDataAdapter<MineVideo, RvVideoAdapter.ViewHolder>(COMPARATOR) {
     
 
     companion object {
         private const val TAG = "RvVideoAdapter"
-        private val COMPARATOR = object : DiffUtil.ItemCallback<Video>() {
-            override fun areItemsTheSame(oldItem: Video, newItem: Video): Boolean {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<MineVideo>() {
+            override fun areItemsTheSame(oldItem: MineVideo, newItem: MineVideo): Boolean {
                 return oldItem.hashCode() == newItem.hashCode()
             }
 
-            override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean {
+            override fun areContentsTheSame(oldItem: MineVideo, newItem: MineVideo): Boolean {
                 return oldItem == newItem
             }
 
@@ -30,8 +32,9 @@ class RvVideoAdapter : PagingDataAdapter<Video, RvVideoAdapter.ViewHolder>(COMPA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val video = getItem(position)
         Log.e(TAG, "onBindViewHolder: $video ${video?.title}", )
-        if (video!=null){
-            holder.tvName.text = video.title
+        if (video!=null&& video.cover.isNotBlank()){
+            Log.e(TAG, "onBindViewHolder: ${video.cover} 看看", )
+            Glide.with(holder.itemView.context).load(video.cover).override(200,500).into(holder.ivMineVideo)
         }
     }
 
@@ -44,7 +47,7 @@ class RvVideoAdapter : PagingDataAdapter<Video, RvVideoAdapter.ViewHolder>(COMPA
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvName :TextView = itemView.findViewById(R.id.test_text)
+        var ivMineVideo :ImageView = itemView.findViewById(R.id.iv_mine_video)
 
     }
 

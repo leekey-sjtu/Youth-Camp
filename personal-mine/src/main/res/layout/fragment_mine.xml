@@ -33,16 +33,24 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_mine"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                <RelativeLayout
+                    android:id="@+id/rl_mine"
+                    android:layout_width="74dp"
+                    android:layout_height="74dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/shape_yuan"
                     app:layout_constraintBottom_toTopOf="@+id/cl_describe"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_mine"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerInParent="true"
+                        />
 
-                    />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_name_mine"
@@ -54,8 +62,8 @@
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/iv_mine"
-                    app:layout_constraintTop_toTopOf="@id/iv_mine" />
+                    app:layout_constraintStart_toEndOf="@+id/rl_mine"
+                    app:layout_constraintTop_toTopOf="@id/rl_mine" />
 
                 <TextView
                     android:id="@+id/tv_account_text"
@@ -66,7 +74,7 @@
                     android:text="@string/dou_yin_account_text"
                     android:textColor="@color/gray_black"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toEndOf="@id/iv_mine"
+                    app:layout_constraintStart_toEndOf="@id/rl_mine"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name_mine" />
 
                 <TextView
@@ -172,12 +180,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="粉丝"
+                        android:text="@string/fans"
                         android:textColor="@color/gray_black"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="@id/tv_fans"
                         app:layout_constraintStart_toEndOf="@id/tv_fans"
                         app:layout_constraintTop_toTopOf="@+id/tv_fans" />
+
+                    <androidx.constraintlayout.widget.Group
+                        android:id="@+id/group_fans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:constraint_referenced_ids="tv_fans,tv_fans_text"/>
 
                     <TextView
                         android:id="@+id/tv_describe"
