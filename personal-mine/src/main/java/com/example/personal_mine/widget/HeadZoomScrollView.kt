@@ -296,7 +296,7 @@ class HeadZoomScrollView : NestedScrollView {
 
 
                 val childRecyclerView = getChildView(
-                    viewPager2.getChildAt(0) as ViewGroup,
+                    viewPager2.getChildAt(0)      as ViewGroup,
                     RecyclerView::class.java
                 )
                 childRecyclerView?.fling(0, velocityY)

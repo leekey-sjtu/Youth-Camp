@@ -9,7 +9,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Tab"
             android:textSize="18sp"
             android:textColor="#949494"
             android:textStyle="bold" />

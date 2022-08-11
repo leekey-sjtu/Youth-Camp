@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
 android {
     compileSdk 32
 
@@ -18,12 +19,26 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'key0' // 打包签名别名
+            keyPassword '123456' // 打包key密码
+            storeFile file('D:\\topview\\youth-camp\\app\\bitdance.jks') // 签名存储路径
+            storePassword '123456'// store密码
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -98,7 +113,6 @@ dependencies {
     // room
     implementation 'androidx.room:room-runtime:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
-    implementation project(path: ':homepage')
     kapt 'androidx.room:room-compiler:2.4.2'
 
 
@@ -110,6 +124,10 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.1.0-beta03'
     implementation 'androidx.camera:camera-extensions:1.1.0-beta03'
 
+    
+    // videocache
+    implementation 'com.danikula:videocache:2.7.1'
+
 
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
@@ -120,6 +138,9 @@ dependencies {
 
     implementation(project(':common'))
     implementation(project(':hotlist'))
+    implementation project(':homepage')
+    implementation(project(':personal-mine'))
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

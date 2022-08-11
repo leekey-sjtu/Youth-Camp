@@ -14,7 +14,7 @@ import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     private var viewModel: VM? = null
-    private var viewDataBinding: VDB? = null
+    var mViewDataBinding: VDB? = null
     private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreateView(
@@ -22,10 +22,10 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        return if (viewDataBinding != null) {
-            viewDataBinding!!.lifecycleOwner = this
-            viewDataBinding!!.root
+        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        return if (mViewDataBinding != null) {
+            mViewDataBinding!!.lifecycleOwner = this
+            mViewDataBinding!!.root
         } else inflater.inflate(getLayoutId(), container, false)
     }
 
@@ -52,7 +52,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         }
         if (getVariableId() > 0) {
             if (viewModel != null) lifecycle.addObserver(viewModel!!)
-            viewDataBinding?.setVariable(getVariableId(), viewModel)
+            mViewDataBinding?.setVariable(getVariableId(), viewModel)
         }
     }
 
@@ -75,7 +75,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     }
 
     open fun getViewDataBinding(): VDB {
-        return viewDataBinding!!
+        return mViewDataBinding!!
     }
 
     abstract fun initData(savedInstanceState: Bundle?)
@@ -99,8 +99,8 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
 
     override fun onDestroy() {
         super.onDestroy()
-        viewDataBinding?.unbind()
-        viewDataBinding = null
+        mViewDataBinding?.unbind()
+        mViewDataBinding = null
     }
 
 }
