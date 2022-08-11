@@ -84,6 +84,10 @@ android {
 dependencies {
 
     api(project(":personal"))
+    implementation(project(':common'))
+    implementation(project(':hotlist'))
+    implementation project(':homepage')
+    implementation(project(':upload'))
 
     // bytedance
     implementation 'com.bytedance.ies.ugc.aweme:opensdk-china-external:0.1.9.0'
@@ -135,10 +139,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    implementation(project(':common'))
-    implementation(project(':hotlist'))
-    implementation project(':homepage')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
