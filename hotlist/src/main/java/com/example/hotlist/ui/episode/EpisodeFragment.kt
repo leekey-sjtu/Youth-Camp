@@ -35,10 +35,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeListBinding,EpisodeViewModel
             viewModel.episodesVersionListStateFlow.collect{
                 slideDialog.list = it
                 viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
+                if (it.isNotEmpty()){
+                    val str = it[0]
+                    val version = it[0].substring(str.indexOf("第") + "第".length,str.indexOf("期")).toInt()
+                    viewModel.getEpisodesList(version)
+                }
             }
         }
 
-        viewModel.getEpisodesList(140)
         viewModel.viewModelScope.launch {
             viewModel.episodesListStateFlow.collect{
                 viewBinding.episodesList.adapter = EpisodeListAdapter(it)
@@ -58,5 +62,9 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeListBinding,EpisodeViewModel
                 viewBinding.textTitle.text = txt
             }
         })
+
+        viewBinding.imageRefresh.setOnClickListener {
+            viewModel.getEpisodesVersionList(0L,20L,true)
+        }
     }
 }

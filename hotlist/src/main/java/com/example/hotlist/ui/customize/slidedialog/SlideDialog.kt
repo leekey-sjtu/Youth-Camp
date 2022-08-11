@@ -21,7 +21,6 @@ class SlideDialog(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_slide_template)
-        Log.e("wgw", "onCreate: asdasdasdasd", )
         setCancelable(isCancelable)
         setCanceledOnTouchOutside(isBackCancelable)
         val window = this.window

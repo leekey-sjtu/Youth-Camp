@@ -3,6 +3,7 @@ package com.example.hotlist.ui.hotlist
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.common.base.baseui.BaseFragment
@@ -10,9 +11,11 @@ import com.example.common.base.constants.TokenConstants
 import com.example.hotlist.BR
 import com.example.hotlist.R
 import com.example.hotlist.databinding.FragmentHotListTabBinding
+import com.example.hotlist.storage.HotListDatabase
 import com.example.hotlist.ui.episode.EpisodeFragment
 import com.example.hotlist.ui.films.FilmsListFragment
 import com.example.hotlist.ui.variety.VarietyListFragment
+import com.example.hotlist.utils.LocalStorageUtil
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.collect
@@ -31,6 +34,9 @@ class HotListTabFragment : BaseFragment<FragmentHotListTabBinding,HotListTabView
     override fun getVariableId() = BR.hotListTabViewModel
 
     override fun initData(savedInstanceState: Bundle?) {
+        // 初始化database
+        LocalStorageUtil.database = Room.databaseBuilder(requireContext(), HotListDatabase::class.java, "hotlist.db").build()
+
         viewBinding = getViewDataBinding()
         viewModel = getViewModel()
 

@@ -30,9 +30,9 @@ class VarietyListViewModel: BaseViewModel() {
 
     val varietiesVersionList = mutableListOf<Int>()
 
-    fun getVarietiesVersionList(cursor: Long, size: Long) {
+    fun getVarietiesVersionList(cursor: Long, size: Long,getFromNetwork: Boolean = false) {
         viewModelScope.launch {
-            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.VARIETY).collect{
+            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.VARIETY,getFromNetwork = getFromNetwork).collect{
                 val tempRes = mutableListOf<String>()
                 it.list.forEach { item ->
                     varietiesVersionList.add(item.version)

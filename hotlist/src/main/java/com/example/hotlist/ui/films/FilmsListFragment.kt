@@ -33,10 +33,14 @@ class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewMod
             viewModel.filmsVersionListStateFlow.collect{
                 slideDialog.list = it
                 viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
+                if (it.isNotEmpty()){
+                    val str = it[0]
+                    val version = it[0].substring(str.indexOf("第") + "第".length,str.indexOf("期")).toInt()
+                    viewModel.getFilmsList(version)
+                }
             }
         }
 
-        viewModel.getFilmsList(140)
         viewModel.viewModelScope.launch {
             viewModel.filmsListStateFlow.collect{
                 viewBinding.filmsList.adapter = FilmsListAdapter(it)
@@ -56,5 +60,9 @@ class FilmsListFragment : BaseFragment<FragmentFilmsListBinding,FilmsListViewMod
                 viewBinding.textTitle.text = txt
             }
         })
+
+        viewBinding.imageRefresh.setOnClickListener {
+            viewModel.getFilmsVersionList(0L,20L,true)
+        }
     }
 }

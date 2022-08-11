@@ -30,9 +30,9 @@ class EpisodeViewModel: BaseViewModel() {
 
     val episodesVersionList = mutableListOf<Int>()
 
-    fun getEpisodesVersionList(cursor: Long, size: Long) {
+    fun getEpisodesVersionList(cursor: Long, size: Long, getFromNetwork: Boolean = false) {
         viewModelScope.launch {
-            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.EPISODE).collect{
+            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.EPISODE,getFromNetwork = getFromNetwork).collect{
                 val tempRes = mutableListOf<String>()
                 it.list.forEach { item ->
                     episodesVersionList.add(item.version)

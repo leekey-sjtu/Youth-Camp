@@ -37,10 +37,14 @@ class VarietyListFragment : BaseFragment<FragmentVarietyListBinding,VarietyListV
             viewModel.varietiesVersionListStateFlow.collect{
                 slideDialog.list = it
                 viewBinding.textTitle.text = if (it.isNotEmpty()) it[0] else "本周榜"
+                if (it.isNotEmpty()){
+                    val str = it[0]
+                    val version = it[0].substring(str.indexOf("第") + "第".length,str.indexOf("期")).toInt()
+                    viewModel.getVarietiesList(version)
+                }
             }
         }
 
-        viewModel.getVarietiesList(140)
         viewModel.viewModelScope.launch {
             viewModel.varietiesListStateFlow.collect{
                 viewBinding.varietyList.adapter = VarietyListAdapter(it)
@@ -61,6 +65,10 @@ class VarietyListFragment : BaseFragment<FragmentVarietyListBinding,VarietyListV
                 viewBinding.textTitle.text = txt
             }
         })
+
+        viewBinding.imageRefresh.setOnClickListener {
+            viewModel.getVarietiesVersionList(0L,20L,true)
+        }
     }
 
 }
