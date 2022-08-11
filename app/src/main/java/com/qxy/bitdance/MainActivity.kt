@@ -56,12 +56,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        getViewModel().showLoading()
-        getViewModel().catListData.observe(this) {
-            println("MainActivity $it")
-        }
-        getViewModel().closeLoading()
-
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
 
