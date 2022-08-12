@@ -2,4 +2,9 @@
     <string name="app_name">personal-mine</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="account_name">用户名</string>
+    <string name="dou_yin_account_text">"抖音号: "</string>
+    <string name="describe">简介。</string>
+    <string name="zero">6666</string>
+    <string name="fans">粉丝</string>
 </resources>

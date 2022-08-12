@@ -92,21 +92,20 @@ class HeadZoomScrollView : NestedScrollView {
                 x = ev.x.toInt()
                 y = ev.y.toInt()
 
-                Log.e(TAG, "onTouchEvent:down 到道道的哦")
             }
             MotionEvent.ACTION_UP -> {
                 //手指离开后恢复图片
                 isScrolling = false
                 replyImage()
                 isTouch = false
-                Log.e(TAG, "onTouchEvent: up")
+                Log.v(TAG, "onTouchEvent: up")
                 isGetDown = false
                 isIntercept = false
                 isFling = true
 
             }
             MotionEvent.ACTION_MOVE -> {
-                Log.e(TAG, "onTouchEvent: move")
+                Log.v(TAG, "onTouchEvent: move")
                 isTouch = true
                 isFling = false
                 if (!isScrolling) {
@@ -133,7 +132,6 @@ class HeadZoomScrollView : NestedScrollView {
 
     //回弹动画
     private fun replyImage() {
-        Log.e(TAG, "replyImage: 监控抖动")
         val distance = (mZoomView!!.measuredWidth - mZoomViewWidth).toFloat()
         val valueAnimator =
             ValueAnimator.ofFloat(distance, 0f).setDuration((distance * mReplyRate).toLong())
@@ -186,7 +184,7 @@ class HeadZoomScrollView : NestedScrollView {
 
             consumed[1] = dy
 
-            Log.e(TAG, "onNestedPreScroll: $target  ")
+            Log.v(TAG, "onNestedPreScroll: $target  ")
         }
 
 
@@ -194,13 +192,13 @@ class HeadZoomScrollView : NestedScrollView {
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        Log.e(TAG, "onScrollChanged: l$l t$t oldl$oldl oldt$oldt")
+        Log.v(TAG, "onScrollChanged: l$l t$t oldl$oldl oldt$oldt")
         if (t == 0) {
             isGetDown = true
 
             if (!isTouch) {
                 if (isFling) {
-                    Log.e(TAG, "onScrollChanged: 监控抖动 $isGetDown")
+                    Log.v(TAG, "onScrollChanged: 监控抖动 $isGetDown")
                     isFling = false
                     toTopScaleAnimator()
 
@@ -296,7 +294,7 @@ class HeadZoomScrollView : NestedScrollView {
 
 
                 val childRecyclerView = getChildView(
-                    viewPager2.getChildAt(0) as ViewGroup,
+                    viewPager2.getChildAt(0)      as ViewGroup,
                     RecyclerView::class.java
                 )
                 childRecyclerView?.fling(0, velocityY)

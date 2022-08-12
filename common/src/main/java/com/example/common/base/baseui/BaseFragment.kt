@@ -15,6 +15,8 @@ import java.lang.reflect.ParameterizedType
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     private var viewModel: VM? = null
     private var viewDataBinding: VDB? = null
+
+
     private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreateView(
@@ -76,6 +78,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
 
     open fun getViewDataBinding(): VDB {
         return viewDataBinding!!
+
     }
 
     abstract fun initData(savedInstanceState: Bundle?)

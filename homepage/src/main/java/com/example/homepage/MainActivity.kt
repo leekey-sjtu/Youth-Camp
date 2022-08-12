@@ -9,14 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.homepage.ui.HomePageFragment
+import com.example.personal_mine.ui.fragment.MineFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment =  HomePageFragment()
+    private val mMineFragment = MineFragment()
     private lateinit var currentFragment : Fragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     0 -> switchFragment(homePageFragment)
 //                    1 -> switchFragment(testFragment1)
 //                    2 -> switchFragment(testFragment2)
-//                    3 -> switchFragment(testFragment3)
+                    4 -> switchFragment(mMineFragment)
 //                    4 -> switchFragment(testFragment4)
                 }
                 if (tab.position != 2) {
