@@ -31,9 +31,9 @@ class FilmsListViewModel: BaseViewModel() {
 
     val filmsVersionList = mutableListOf<Int>()
 
-    fun getFilmsVersionList(cursor: Long, size: Long) {
+    fun getFilmsVersionList(cursor: Long, size: Long,getFromNetwork: Boolean = false) {
         viewModelScope.launch {
-            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.FIlM).collect{
+            HotListRepository.getHotListVersion(cursor = cursor, count = size, type = HotListConstants.FIlM,getFromNetwork = getFromNetwork).collect{
                 val tempRes = mutableListOf<String>()
                 it.list.forEach { item ->
                     filmsVersionList.add(item.version)

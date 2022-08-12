@@ -26,19 +26,19 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
     override fun getVariableId() = BR.friendViewModel
 
     override fun initData(savedInstanceState: Bundle?) {
-        val tabList = mutableListOf<Fragment>(FollowFragment(),FanFragment())
-        getDataBinding().friendBack.setOnClickListener {
-            finish()
-        }
-        var select = ""
-        if (savedInstanceState != null) select = savedInstanceState.getString("select").toString()
         friendTab = getDataBinding().friendTab
         friendVP = getDataBinding().friendVP
+        val tabList = mutableListOf<Fragment>(FollowFragment(),FanFragment())
+        getDataBinding().friendBack.setOnClickListener { finish() }
+
         friendVP.adapter = FriendFragmentAdapter(tabList,supportFragmentManager,lifecycle)
         val tabLayoutMediator = TabLayoutMediator(friendTab,friendVP) { tab, position ->
             tab.text = title[position]
         }
         tabLayoutMediator.attach()
+
+        var select = ""
+        if (savedInstanceState != null) select = savedInstanceState.getString("select").toString()
         if (select == "fans"){
             friendVP.currentItem = 1
             friendTab.getTabAt(1)?.select()

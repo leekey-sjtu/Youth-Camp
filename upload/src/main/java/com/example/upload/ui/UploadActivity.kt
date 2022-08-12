@@ -1,9 +1,10 @@
-package com.example.upload
+package com.example.upload.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
@@ -15,7 +16,6 @@ import android.view.SoundEffectConstants
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.core.FocusMeteringAction.FLAG_AF
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -23,6 +23,16 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.common.base.baseui.BaseActivity
+import com.example.common.base.utils.setStatusBarColor
+import com.example.upload.BR
+import com.example.upload.R
+import com.example.upload.databinding.ActivityUploadBinding
+import com.example.upload.utils.GlideEngine
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.config.SelectModeConfig
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,12 +42,12 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.sqrt
 
 
-class CameraActivity : AppCompatActivity() {
+class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
 
     companion object {
         const val REQUEST_CODE_PERMISSIONS = 10
 
-        private const val TAG = "CameraActivity"
+        private const val TAG = "UploadActivity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private val REQUIRED_PERMISSIONS = mutableListOf(
             Manifest.permission.CAMERA,
@@ -64,10 +74,11 @@ class CameraActivity : AppCompatActivity() {
     private var isOneClick = false
     private var isZoomOver = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+    override fun getLayoutId() = R.layout.activity_upload
 
+    override fun getVariableId() = BR.uploadViewModel
+
+    override fun initData(savedInstanceState: Bundle?) {
         setStatusBarColor(Color.BLACK)
         cameraPreview = findViewById(R.id.camera_preview)
         cameraClick = findViewById(R.id.camera_click)
@@ -167,7 +178,18 @@ class CameraActivity : AppCompatActivity() {
         }
 
         cameraAlbum.setOnClickListener {
-
+            PictureSelector.create(this)
+                .openGallery(SelectMimeType.ofImage())
+                .isDisplayCamera(false)
+                .setImageEngine(GlideEngine.createGlideEngine())
+                .setImageSpanCount(3)
+                .setSelectionMode(SelectModeConfig.MULTIPLE)
+                .setMaxSelectNum(9)
+                .isPreviewFullScreenMode(true)
+                .isPreviewZoomEffect(true)
+                .isPreviewImage(true)
+                .isEmptyResultReturn(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST)
         }
     }
 
@@ -282,11 +304,12 @@ class CameraActivity : AppCompatActivity() {
         }
         contentResolver.query(uriExternal,projection,null,null,null)
             ?.use { cursor ->
-                val columnIndexID = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
-                cursor.moveToLast()
-                val imageId = cursor.getLong(columnIndexID)
-                val uriImage = ContentUris.withAppendedId(uriExternal, imageId)
-                return uriImage.toString()
+                if(cursor.moveToLast()) {
+                    val columnIndexID = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+                    val imageId = cursor.getLong(columnIndexID)
+                    val uriImage = ContentUris.withAppendedId(uriExternal, imageId)
+                    return uriImage.toString()
+                }
         }
         return ""
     }
@@ -329,4 +352,15 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == RESULT_OK){
+//            if (requestCode == PictureConfig.CHOOSE_REQUEST){
+//                val selectPictureList = PictureSelector.obtainSelectorList(data)
+//                getViewModel().uploadPictureSize = selectPictureList.size
+//                for (picture in selectPictureList) getViewModel().uploadPicture(picture.realPath)
+//            }
+//        }
+    }
 }

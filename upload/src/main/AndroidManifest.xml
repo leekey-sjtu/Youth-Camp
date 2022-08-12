@@ -2,21 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.upload">
 
+    <!-- 权限申请 相机 -->
+    <uses-feature android:name="android.hardware.camera.any" /><!-- 使用uses-feature指定需要相机资源 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 需要自动聚焦 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/><!-- 存储图片或者视频 -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bitdance">
+        android:theme="@style/Theme.Bitdance"
+        android:requestLegacyExternalStorage="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.UploadActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
