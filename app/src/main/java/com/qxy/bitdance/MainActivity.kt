@@ -26,6 +26,7 @@ import com.example.common.base.service.TokenProService
 import com.example.homepage.ui.HomePageFragment
 import com.example.homepage.utils.myLog
 import com.example.hotlist.ui.hotlist.HotListTabFragment
+import com.example.upload.ui.UploadActivity
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
@@ -41,10 +42,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
     private val hotListTabFragment =  HotListTabFragment()
-    private val testFragment2 =  TestFragment("发布")
     private val testFragment3 =  TestFragment("消息")
     private val testFragment4 =  TestFragment("我")
     private lateinit var currentFragment : Fragment
+    private val activity = this
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -55,12 +56,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        getViewModel().showLoading()
-        getViewModel().catListData.observe(this) {
-            println("MainActivity $it")
-        }
-        getViewModel().closeLoading()
-
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
 
@@ -84,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.text = "首页"
         tabLayout.getTabAt(0)?.customView?.findViewById<TextView>(R.id.textView)?.setTextColor(Color.BLACK)
         tabLayout.getTabAt(1)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
-        tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "朋友"
+        tabLayout.getTabAt(1)?.customView?.findViewById<TextView>(R.id.textView)?.text = "榜单"
         tabLayout.getTabAt(2)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab_middle, null)
         tabLayout.getTabAt(2)?.customView?.findViewById<ImageView>(R.id.imgView)?.setImageResource(R.drawable.ic_bottom_navigation_tab)
         tabLayout.getTabAt(3)?.customView = layoutInflater.inflate(R.layout.bottom_navigation_tab, null)
@@ -101,7 +96,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                 when (tab!!.position) {
                     0 -> switchFragment(homePageFragment)
                     1 -> switchFragment(hotListTabFragment)
-                    2 -> switchFragment(testFragment2)
+                    2 -> {
+                        val intent = Intent(activity,UploadActivity::class.java)
+                        startActivity(intent)
+                    }
                     3 -> switchFragment(testFragment3)
                     4 -> switchFragment(testFragment4)
                 }

@@ -49,7 +49,19 @@ class FilmsListAdapter(val filmsList: List<ListItem>): RecyclerView.Adapter<Film
         Glide
             .with(holder.imageViewFilmImage)
             .load(film.poster)
+            .placeholder(R.drawable.placeholder)
+            .override(200, 500)
             .into(holder.imageViewFilmImage)
+        val rank = position + 1
+        holder.textRanking.visibility = View.VISIBLE
+        holder.textRanking.text = if (rank <= 3){
+            "TOP${rank}"
+        }else if (rank <= 10){
+            "${rank}"
+        }else {
+            holder.textRanking.visibility = View.GONE
+            ""
+        }
     }
 
     override fun getItemCount() = filmsList.size
@@ -62,4 +74,5 @@ class FilmsListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val textViewFilmTags: TextView = itemView.findViewById(R.id.text_tags)
     val textViewFilmTime: TextView = itemView.findViewById(R.id.text_time)
     val textViewFilmHot: TextView = itemView.findViewById(R.id.text_hot)
+    val textRanking: TextView = itemView.findViewById(R.id.text_ranking)
 }

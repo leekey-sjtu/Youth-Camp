@@ -7,10 +7,10 @@ data class HotListVersionResponse (
 
 data class VData(
         val list: List<VListItem>,  // 榜单版本列表
-        val cursor: Long,       // 用于下一页请求的cursor
-        val description: String,// 错误码描述
-        val error_code: Long,   // 错误码	0
-        val has_more: Boolean
+        val cursor: Long? = null,       // 用于下一页请求的cursor
+        val description: String? = null,// 错误码描述
+        val error_code: Long? = null,   // 错误码	0
+        val has_more: Boolean? = null
 )
 
 data class VListItem(

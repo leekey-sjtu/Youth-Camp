@@ -18,7 +18,7 @@ class VarietyListAdapter(val varietyList: List<ListItem>) :
     }
 
     override fun onBindViewHolder(holder: VarietyListViewHolder, position: Int) {
-        holder.bind(varietyList[position])
+        holder.bind(varietyList[position],position + 1)
     }
 
     override fun getItemCount() = varietyList.size
@@ -31,15 +31,18 @@ class VarietyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     var textDirectors: TextView = itemView.findViewById(R.id.text_directors)
     var textTime: TextView = itemView.findViewById(R.id.text_time)
     var textHot: TextView = itemView.findViewById(R.id.text_hot)
+    var textRanking: TextView = itemView.findViewById(R.id.text_ranking)
 
 
-    fun bind(item: ListItem) {
+    fun bind(item: ListItem,rank: Int) {
         textName.text = item.name
         textTime.text = item.release_date
         textHot.text =  String.format("%.2f", (item.discussion_hot?.div(10000.0)))
         Glide
             .with(itemView)
             .load(item.poster)
+            .placeholder(R.drawable.placeholder)
+            .override(200, 500)
             .into(imageViewPoster)
 
         var directors = ""
@@ -51,7 +54,14 @@ class VarietyListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             }
         }
         textDirectors.text = directors
-
-
+        textRanking.visibility = View.VISIBLE
+        textRanking.text = if (rank <= 3){
+            "TOP${rank}"
+        }else if (rank <= 10){
+            "${rank}"
+        }else {
+            textRanking.visibility = View.GONE
+            ""
+        }
     }
 }

@@ -18,21 +18,21 @@ class EpisodeListAdapter(val episodeList: List<ListItem>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {
         val item = episodeList[position]
-        holder.bind(item)
+        holder.bind(item,position + 1)
     }
 
 }
 
 class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var imageViewPoster: ImageView = itemView.findViewById(R.id.imageView_poster)
-    var textName: TextView = itemView.findViewById(R.id.text_name)
-    var textActors: TextView = itemView.findViewById(R.id.text_actors)
-    var textDirectors: TextView = itemView.findViewById(R.id.text_directors)
-    var textTime: TextView = itemView.findViewById(R.id.text_time)
-    var textHot: TextView = itemView.findViewById(R.id.text_hot)
+    private var imageViewPoster: ImageView = itemView.findViewById(R.id.imageView_poster)
+    private var textName: TextView = itemView.findViewById(R.id.text_name)
+    private var textActors: TextView = itemView.findViewById(R.id.text_actors)
+    private var textDirectors: TextView = itemView.findViewById(R.id.text_directors)
+    private var textTime: TextView = itemView.findViewById(R.id.text_time)
+    private var textHot: TextView = itemView.findViewById(R.id.text_hot)
+    private var textRanking: TextView = itemView.findViewById(R.id.text_ranking)
 
-
-    fun bind(item: ListItem) {
+    fun bind(item: ListItem, rank: Int) {
         textName.text = item.name
 
         var actors = ""
@@ -50,6 +50,8 @@ class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Glide
             .with(itemView)
             .load(item.poster)
+            .placeholder(R.drawable.placeholder)
+            .override(200, 500)
             .into(imageViewPoster)
 
         var directors = ""
@@ -61,5 +63,14 @@ class EpisodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
         }
         textDirectors.text = directors
+        textRanking.visibility = View.VISIBLE
+        textRanking.text = if (rank <= 3){
+            "TOP${rank}"
+        }else if (rank <= 10){
+            "${rank}"
+        }else {
+            textRanking.visibility = View.GONE
+            ""
+        }
     }
 }

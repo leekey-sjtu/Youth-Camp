@@ -23,7 +23,7 @@ android {
         config {
             keyAlias 'key0' // 打包签名别名
             keyPassword '123456' // 打包key密码
-            storeFile file('D:\\Android\\bitdance\\app\\bitdance.jks') // 签名存储路径
+            storeFile file('\\bitdance.jks') // 签名存储路径
             storePassword '123456'// store密码
         }
     }
@@ -84,6 +84,10 @@ android {
 dependencies {
 
     api(project(":personal"))
+    implementation(project(':common'))
+    implementation(project(':hotlist'))
+    implementation project(':homepage')
+    implementation(project(':upload'))
 
     // bytedance
     implementation 'com.bytedance.ies.ugc.aweme:opensdk-china-external:0.1.9.0'
@@ -135,10 +139,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    implementation(project(':common'))
-    implementation(project(':hotlist'))
-    implementation project(':homepage')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
