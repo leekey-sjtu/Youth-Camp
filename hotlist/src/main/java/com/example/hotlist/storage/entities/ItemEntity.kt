@@ -3,10 +3,10 @@ package com.example.hotlist.storage.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(primaryKeys = ["itemId","versionId","typeId"], tableName = "items_table")
 data class ItemEntity (
     // make rank as itemId
-    @PrimaryKey val itemId: Int,
+    val itemId: Int,
     val versionId: Int,
     val typeId: Int,
     val posterUrl: String? = null,

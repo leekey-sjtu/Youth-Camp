@@ -17,13 +17,13 @@ import kotlinx.coroutines.flow.flowOn
 
 object HotListRepository {
     fun getHotList(type: Int, version: Int) = flow {
-        val versionDao = LocalStorageUtil.database.versionDao()
-        val itemsList = versionDao.getItemsList(typeId = type, versionId = version)
-        if (itemsList.isNotEmpty() && itemsList[0].items.isNotEmpty()) {
+        val itemDao = LocalStorageUtil.database.itemDao()
+        val itemsList = itemDao.getItemsList(typeId = type, versionId = version)
+        Log.e("wgw", "getHotListVersion: $itemsList")
+        if (itemsList.isNotEmpty()) {
             // 如果本地有数据，就将本地数据打包成需要的格式
             val dataList = mutableListOf<ListItem>()
-            val list = itemsList[0]
-            for (item in list.items){
+            for (item in itemsList){
                 val actors = item.actors?.trim()?.split("/")
                 val directors = item.directors?.trim()?.split("/")
                 val listItem = ListItem(actors = actors,name = item.name,directors = directors, poster = item.posterUrl, discussion_hot = item.discussion_hot, release_date = item.release_date)
@@ -42,21 +42,21 @@ object HotListRepository {
                     val itemEntity = ItemEntity(itemId = i++, typeId = type, versionId = version, name = item.name!!, posterUrl = item.poster, actors = changeListToString(item.actors), directors = changeListToString(item.directors), release_date = item.release_date, discussion_hot = item.discussion_hot)
                     itemList.add(itemEntity)
                 }
-                versionDao.insertItemList(itemList)
+                itemDao.insertItemList(itemList)
                 emit(hotListResponse.data)
             }
         }
     }.flowOn(Dispatchers.IO)
 
     fun getHotListVersion(cursor: Long, count: Long, type: Int, getFromNetwork: Boolean) = flow {
-        val typeDao = LocalStorageUtil.database.typeDao()
-        val localVersionList = typeDao.getVersionList(type)
+        val versionDao = LocalStorageUtil.database.versionDao()
+        val localVersionList = versionDao.getVersionList(type)
+//        Log.e("wgw", "getHotListVersion: $localVersionList", )
         if (localVersionList.isNotEmpty() && !getFromNetwork){
             // 如果本地有数据，就将本地数据打包成需要的格式
             val vDataList = mutableListOf<VListItem>()
-            val versionList = localVersionList[0]
-            for (i in versionList.versions.size - 1 downTo 0) {
-                val localVersion = versionList.versions[i]
+            for (i in 0 until localVersionList.size - 1){
+                val localVersion = localVersionList[i]
                 val item = VListItem(active_time = localVersion.end_time, start_time = localVersion.start_time, end_time = localVersion.end_time, version = localVersion.versionId, type = type)
                 vDataList.add(item)
             }
@@ -72,17 +72,11 @@ object HotListRepository {
                     val versionEntity = VersionEntity(versionId = item.version, typeId = item.type, versionName = item.start_time, end_time = item.end_time, start_time = item.start_time)
                     versionList.add(versionEntity)
                 }
-                typeDao.insertVersionListIntoType(typeId = type, typeName = getTypeNameById(type),versionList = versionList)
+                versionDao.insertVersionList(versionList = versionList)
                 emit(hotListVersionResponse.data)
             }
         }
     }.flowOn(Dispatchers.IO)
-
-    private fun getTypeNameById(type: Int) = when (type) {
-        1 -> "电影"
-        2 -> "剧集"
-        else -> "综艺"
-    }
 
     private fun changeListToString(list: List<String>?): String {
         var sb = ""
