@@ -47,21 +47,22 @@ class MineFragment : Fragment() {
 
     private fun initListener() {
         mBinding.apply {
+            val intent = Intent(requireActivity(), FriendActivity::class.java)
             tvFans.setOnClickListener {
-                startActivity(Intent(requireActivity(), FriendActivity::class.java))
+                intent.putExtra("fans_or_follow",2)
+                startActivity(intent)
             }
             tvFansText.setOnClickListener {
-                startActivity(Intent(requireActivity(), FriendActivity::class.java))
-
+                intent.putExtra("fans_or_follow",2)
+                startActivity(intent)
             }
-
             tvCare.setOnClickListener {
-                startActivity(Intent(requireActivity(), FriendActivity::class.java))
-
+                intent.putExtra("fans_or_follow",1)
+                startActivity(intent)
             }
             tvCareText.setOnClickListener {
-                startActivity(Intent(requireActivity(), FriendActivity::class.java))
-
+                intent.putExtra("fans_or_follow",1)
+                startActivity(intent)
             }
             tvPraise.setOnClickListener {
                 Toast.makeText(context,"暂时没开放该接口，敬请等待！",Toast.LENGTH_SHORT).show()

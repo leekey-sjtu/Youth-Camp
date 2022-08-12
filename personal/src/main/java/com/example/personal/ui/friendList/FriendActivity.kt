@@ -45,6 +45,8 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
         }
         setAndroidNativeLightStatusBar()
         setStatusBarColor(Color.WHITE)
+        if (intent.getIntExtra("fans_or_follow",1) == 1) friendVP.currentItem = 0
+        if (intent.getIntExtra("fans_or_follow",1) == 2) friendVP.currentItem = 1
     }
 
 
