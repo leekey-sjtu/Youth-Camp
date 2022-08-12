@@ -23,6 +23,7 @@ android {
         config {
             keyAlias 'key0' // 打包签名别名
             keyPassword '123456' // 打包key密码
+//            storeFile file('D:\\Android\\bitdance\\app\\bitdance.jks') // 签名存储路径
             storeFile file('D:\\topview\\youth-camp\\app\\bitdance.jks') // 签名存储路径
             storePassword '123456'// store密码
         }
@@ -139,6 +140,7 @@ dependencies {
     implementation(project(':common'))
     implementation(project(':hotlist'))
     implementation project(':homepage')
+
     implementation(project(':personal-mine'))
 
     testImplementation 'junit:junit:4.13.2'

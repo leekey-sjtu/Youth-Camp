@@ -14,7 +14,9 @@ import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     private var viewModel: VM? = null
-    var mViewDataBinding: VDB? = null
+    private var viewDataBinding: VDB? = null
+
+
     private lateinit var loadingDialog : LoadingDialog
 
     override fun onCreateView(
@@ -22,10 +24,10 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        return if (mViewDataBinding != null) {
-            mViewDataBinding!!.lifecycleOwner = this
-            mViewDataBinding!!.root
+        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        return if (viewDataBinding != null) {
+            viewDataBinding!!.lifecycleOwner = this
+            viewDataBinding!!.root
         } else inflater.inflate(getLayoutId(), container, false)
     }
 
@@ -52,7 +54,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
         }
         if (getVariableId() > 0) {
             if (viewModel != null) lifecycle.addObserver(viewModel!!)
-            mViewDataBinding?.setVariable(getVariableId(), viewModel)
+            viewDataBinding?.setVariable(getVariableId(), viewModel)
         }
     }
 
@@ -75,7 +77,8 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
     }
 
     open fun getViewDataBinding(): VDB {
-        return mViewDataBinding!!
+        return viewDataBinding!!
+
     }
 
     abstract fun initData(savedInstanceState: Bundle?)
@@ -99,8 +102,8 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
 
     override fun onDestroy() {
         super.onDestroy()
-        mViewDataBinding?.unbind()
-        mViewDataBinding = null
+        viewDataBinding?.unbind()
+        viewDataBinding = null
     }
 
 }

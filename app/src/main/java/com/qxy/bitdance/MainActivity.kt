@@ -26,7 +26,9 @@ import com.example.common.base.service.TokenProService
 import com.example.homepage.ui.HomePageFragment
 import com.example.homepage.utils.myLog
 import com.example.hotlist.ui.hotlist.HotListTabFragment
+
 import com.example.personal_mine.ui.fragment.MineFragment
+
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
@@ -42,7 +44,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
     private val hotListTabFragment =  HotListTabFragment()
+
     private val mMineFragment = MineFragment()
+
     private val testFragment2 =  TestFragment("发布")
     private val testFragment3 =  TestFragment("消息")
     private val testFragment4 =  TestFragment("我")
