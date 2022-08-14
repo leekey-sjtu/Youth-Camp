@@ -7,7 +7,7 @@ import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface VideoMineService {
-    @GET("video/list")
+    @GET("video/list/")
     suspend fun getVideoList(
         @Header("access-token")   accessToken :String =  TokenConstants.ACCESS_TOKEN,
         @Query("open_id") openId: String,

@@ -1,7 +1,5 @@
 package com.example.personal_mine.bean
 
-
-
 data class VideoMineResponse(
     val `data`: MineVideoData,
     val extra: Extra

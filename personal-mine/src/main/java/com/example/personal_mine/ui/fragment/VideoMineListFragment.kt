@@ -23,6 +23,7 @@ class VideoMineListFragment : Fragment() {
     private lateinit var mBinding:FragmentVideoMineListBinding
     private lateinit var mViewModel:VideoMineViewModel
     private lateinit var mAdapter :RvVideoAdapter
+
     companion object {
         private const val TAG = "VideoMineListFragment"
         @JvmStatic
@@ -46,7 +47,6 @@ class VideoMineListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         initList()
-
     }
 
     private fun init(){
@@ -57,7 +57,7 @@ class VideoMineListFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireContext(),3)
         mAdapter = RvVideoAdapter()
 
-        mBinding?.apply {
+        mBinding.apply {
             rvVideoMine.layoutManager = layoutManager
             rvVideoMine.adapter = mAdapter.withLoadStateFooter(FootAdapter())
         }
