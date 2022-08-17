@@ -45,10 +45,11 @@ import kotlin.math.sqrt
 class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
 
     companion object {
-        const val REQUEST_CODE_PERMISSIONS = 10
+        const val REQUEST_CODE_PERMISSIONS = 10//授权回调RequestCode
 
         private const val TAG = "UploadActivity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        //需要的权限列表
         private val REQUIRED_PERMISSIONS = mutableListOf(
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -92,10 +93,12 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
         initListener()
     }
 
+    //判断是否授权
     private fun initPermission(){
         if (allPermissionsGranted()) {
-            startCamera()
+            startCamera()//已授权，启动相机
         } else {
+            //未授权，请求权限
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
@@ -106,14 +109,15 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
     //设置监听
     @SuppressLint("ClickableViewAccessibility", "RestrictedApi")
     private fun initListener(){
+        //关闭按钮
         cameraClose.setOnClickListener {
             finish()
         }
-
+        //拍照按钮
         cameraClick.setOnClickListener {
             takePhoto()
         }
-
+        //前后置摄像头切换按钮
         cameraSwitch.setOnClickListener {
             cameraSelector = if (cameraSelector.lensFacing == CameraSelector.LENS_FACING_BACK){
                 CameraSelector.Builder()
@@ -124,10 +128,12 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
                     .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                     .build()
             }
+            //每次更改相机都需要重新绑定
             bindPreview()
         }
 
         cameraPreview.setOnTouchListener { _, motionEvent ->
+            //当最后一根手指离开时，判断是缩放动作完成还是聚焦动作完成
             if (motionEvent.action == MotionEvent.ACTION_UP){
                 if (isOneClick){
                     val point = cameraPreview.meteringPointFactory
@@ -138,12 +144,15 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
                     showTapView(motionEvent.rawX.toInt(), motionEvent.rawY.toInt())
                     camera.cameraControl.startFocusAndMetering(action)
                 }
+                //重置缩放和聚焦判断
                 isOneClick = false
                 isZoomOver = false
             }
+            //当聚焦点数量为1时，将聚焦置为true
             if (motionEvent.pointerCount == 1){
                 if(!isZoomOver) isOneClick = true
             }else{
+                //当聚焦点数量大于1时，将聚焦置为false，且开始进行镜头的缩放
                 isOneClick = false
                 when (motionEvent.action and MotionEvent.ACTION_MASK) {
                     MotionEvent.ACTION_POINTER_DOWN -> oldDist = getFingerSpacing(motionEvent)
@@ -158,7 +167,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
             }
             true
         }
-
+        //闪光灯模式切换按钮
         cameraFlash.setOnClickListener {
             when(imageCapture?.flashMode){
                 ImageCapture.FLASH_MODE_AUTO ->{
@@ -176,7 +185,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
                 else->{}
             }
         }
-
+        //点击跳转到相册以及相机拍摄完成后显示预览图
         cameraAlbum.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(SelectMimeType.ofImage())
@@ -193,6 +202,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
         }
     }
 
+    //启动相机
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
@@ -221,6 +231,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
         }, ContextCompat.getMainExecutor(this))
     }
 
+    //绑定Preview
     private fun bindPreview(){
         cameraProvider.unbindAll()//先解绑所有用例
         camera = cameraProvider.bindToLifecycle(
@@ -231,6 +242,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
         //绑定用例
     }
 
+    //拍摄照片
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
@@ -244,15 +256,12 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
             }
         }
 
-        // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(contentResolver,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 contentValues)
             .build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
@@ -263,11 +272,13 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults){
                     Glide.with(cameraAlbum).load(output.savedUri).into(cameraAlbum)
+                    //拍照完成后显示在相机预览图中
                 }
             }
         )
     }
 
+    //判断权限是否获取成功
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
             baseContext, it) == PackageManager.PERMISSION_GRANTED
@@ -328,7 +339,7 @@ class UploadActivity : BaseActivity<ActivityUploadBinding,UploadViewModel>() {
                 startCamera()
             } else {
                 Toast.makeText(this,
-                    "Permissions not granted by the user.",
+                    "授权失败，请到设置页中对应用进行相应的授权",
                     Toast.LENGTH_SHORT).show()
                 finish()
             }

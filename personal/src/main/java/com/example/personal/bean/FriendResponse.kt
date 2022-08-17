@@ -1,5 +1,5 @@
 package com.example.personal.bean
-
+//关注以及粉丝的数据类，根据Json自动生成
 data class FriendResponse(
     val data : Data,
     val extra: Extra

@@ -37,12 +37,6 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
         }
         tabLayoutMediator.attach()
 
-        var select = ""
-        if (savedInstanceState != null) select = savedInstanceState.getString("select").toString()
-        if (select == "fans"){
-            friendVP.currentItem = 1
-            friendTab.getTabAt(1)?.select()
-        }
         setAndroidNativeLightStatusBar()
         setStatusBarColor(Color.WHITE)
         if (intent.getIntExtra("fans_or_follow",1) == 1) friendVP.currentItem = 0
