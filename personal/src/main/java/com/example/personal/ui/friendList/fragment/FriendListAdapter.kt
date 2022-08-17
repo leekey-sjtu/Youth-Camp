@@ -28,7 +28,11 @@ class FriendListAdapter(var friendList : List<Friend>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val friend = friendList[position]
-        Glide.with(holder.itemImgHead).load(friend.avatar).into(holder.itemImgHead)
+        Glide.with(holder.itemImgHead)
+            .load(friend.avatar)
+            .placeholder(R.color.gray)
+            .override(140,140)
+            .into(holder.itemImgHead)
         holder.itemName.text = friend.nickname
         if (friend.gender == 0) holder.itemImgGender.setImageResource(R.drawable.ic_friend_girl)
         else holder.itemImgGender.setImageResource(R.drawable.ic_friend_boy)
