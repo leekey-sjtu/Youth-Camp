@@ -19,6 +19,7 @@ import com.example.personal.R
 import com.example.personal.bean.Friend
 import com.example.personal.databinding.FragmentFollowBinding
 import com.example.personal.ui.friendList.fragment.FriendListAdapter
+import com.example.personal.utils.smoothScrollToPositions
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 
@@ -69,10 +70,10 @@ class FollowFragment : BaseFragment<FragmentFollowBinding,FollowViewModel>() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyCode != KeyEvent.ACTION_UP) {
                 val text = followSearchEdit.text
                 if (getViewModel().followData.value != null){
-                    val friendList = getViewModel().followData.value!!.list
-                    for(i in friendList.indices){
-                        if (friendList[i].nickname.contains(text,true)){
-                            followListRel.smoothScrollToPosition(i)
+                    for(i in followList.indices){
+                        if (followList[i].nickname.contains(text,true)){
+                            (followListRel.layoutManager as RecyclerView.LayoutManager).smoothScrollToPositions(followListRel,i)
+                            break
                         }
                     }
                 }

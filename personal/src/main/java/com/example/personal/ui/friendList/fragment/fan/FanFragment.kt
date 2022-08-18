@@ -17,7 +17,9 @@ import com.example.personal.BR
 import com.example.personal.R
 import com.example.personal.bean.Friend
 import com.example.personal.databinding.FragmentFanBinding
+import com.example.personal.ui.friendList.FriendActivity
 import com.example.personal.ui.friendList.fragment.FriendListAdapter
+import com.example.personal.utils.smoothScrollToPositions
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 
@@ -68,10 +70,10 @@ class FanFragment : BaseFragment<FragmentFanBinding,FanViewModel>() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && keyCode != KeyEvent.ACTION_UP) {
                 val text = fansSearchEdit.text
                 if (getViewModel().fansData.value != null){
-                    val friendList = getViewModel().fansData.value!!.list
-                    for(i in friendList.indices){
-                        if (friendList[i].nickname.contains(text,true)){
-                            fansListRel.smoothScrollToPosition(i)
+                    for(i in fansList.indices){
+                        if (fansList[i].nickname.contains(text,true)){
+                            (fansListRel.layoutManager as RecyclerView.LayoutManager).smoothScrollToPositions(fansListRel,i)
+                            break
                         }
                     }
                 }

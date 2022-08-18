@@ -3,6 +3,8 @@ package com.example.personal.ui.friendList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.baseui.BaseActivity
 import com.example.common.base.utils.setAndroidNativeLightStatusBar
@@ -42,6 +44,5 @@ class FriendActivity : BaseActivity<ActivityFriendBinding,FriendViewModel>() {
         if (intent.getIntExtra("fans_or_follow",1) == 1) friendVP.currentItem = 0
         if (intent.getIntExtra("fans_or_follow",1) == 2) friendVP.currentItem = 1
     }
-
 
 }

@@ -74,7 +74,9 @@ abstract class BaseActivity<VDB : ViewDataBinding, VM : BaseViewModel> : AppComp
 
 
     open fun dismissLoading() {
-        loadingDialog
+        if (loadingDialog.isShowing) {
+            loadingDialog.dismiss()
+        }
     }
 
 
