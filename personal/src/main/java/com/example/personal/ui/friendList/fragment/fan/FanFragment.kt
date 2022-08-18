@@ -48,10 +48,12 @@ class FanFragment : BaseFragment<FragmentFanBinding,FanViewModel>() {
         getViewModel().fansListData.observe(this){
             val fansData = getViewModel().fansData.value!!
             if (fansData.cursor == 1) fansList.clear()
-            fansList.addAll(it)
-            val adapter = FriendListAdapter(fansList)
-            fansListRel.adapter = adapter
-            adapter.notifyItemRangeChanged(fansData.cursor*10,fansData.cursor*10)
+            if (it.isNotEmpty()){
+                fansList.addAll(it)
+                val adapter = FriendListAdapter(fansList)
+                fansListRel.adapter = adapter
+                adapter.notifyItemRangeChanged(fansData.cursor*10,fansData.cursor*10)
+            }
             fansRefresh.finishLoadMore()
         }
         getViewModel().getFansList(0)

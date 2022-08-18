@@ -48,10 +48,12 @@ class FollowFragment : BaseFragment<FragmentFollowBinding,FollowViewModel>() {
         getViewModel().followListData.observe(this){
             val followData = getViewModel().followData.value!!
             if (followData.cursor == 1) followList.clear()
-            followList.addAll(it)
-            val adapter = FriendListAdapter(followList)
-            followListRel.adapter = adapter
-            adapter.notifyItemRangeChanged(followData.cursor*10,followData.cursor*10)
+            if (it.isNotEmpty()){
+                followList.addAll(it)
+                val adapter = FriendListAdapter(followList)
+                followListRel.adapter = adapter
+                adapter.notifyItemRangeChanged(followData.cursor*10,followData.cursor*10)
+            }
             followRefresh.finishLoadMore()
         }
         getViewModel().getFollowList(0)

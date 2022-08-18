@@ -103,7 +103,7 @@ class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<Vide
         videoView.setOnPreparedListener {  //视频准备完成
             progressBar.visibility = View.GONE  //隐藏加载进度条
             videoCover.visibility = View.GONE  //隐藏视频封面
-            videoView.start()  //自动开始播放
+            if (videoView.isShown) videoView.start()  //自动开始播放
         }
         videoView.setOnCompletionListener {
             videoView.start()  //自动重播

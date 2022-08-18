@@ -72,16 +72,6 @@ class VideoFragment : Fragment()  {
         })
     }
 
-    override fun onPause() {
-        super.onPause()
-        val recyclerView= viewPager.getChildAt(0) as RecyclerView
-        val videoView = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)?.findViewById<VideoView>(R.id.videoView)
-        if (videoView?.isPlaying == true) {
-            videoView.pause()
-        }
-    }
-
-
     override fun onResume() {
         super.onResume()
         requireActivity().window.statusBarColor = Color.BLACK //设置状态栏颜色
@@ -92,10 +82,10 @@ class VideoFragment : Fragment()  {
         }
         val recyclerView= viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)
-        val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (videoView?.isPlaying == false) {
-            videoView.start()
-        }
+//        val videoView = view?.findViewById<VideoView>(R.id.videoView)
+//        if (videoView?.isPlaying == false) {
+//            videoView.start()
+//        }
         val imgPlay = view?.findViewById<ImageView>(R.id.imgPlay)
         val animSet = AnimatorSet()
         val animator1 = ObjectAnimator.ofFloat(imgPlay, "scaleX", 1f, 2f)
