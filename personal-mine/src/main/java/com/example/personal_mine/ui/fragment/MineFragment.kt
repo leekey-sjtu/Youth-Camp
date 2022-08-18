@@ -2,6 +2,7 @@ package com.example.personal_mine.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.common.base.constants.TokenConstants
 import com.example.personal.ui.friendList.FriendActivity
 import com.example.personal_mine.adapter.VpMineAdapter
 import com.example.personal_mine.databinding.FragmentMineBinding
@@ -64,12 +66,12 @@ class MineFragment : Fragment() {
                 intent.putExtra("fans_or_follow",1)
                 startActivity(intent)
             }
-            tvPraise.setOnClickListener {
+/*            tvPraise.setOnClickListener {
                 Toast.makeText(context,"暂时没开放该接口，敬请等待！",Toast.LENGTH_SHORT).show()
             }
             tvPraiseText.setOnClickListener {
                 Toast.makeText(context,"暂时没开放该接口，敬请等待！",Toast.LENGTH_SHORT).show()
-            }
+            }*/
         }
 
     }
@@ -89,6 +91,7 @@ class MineFragment : Fragment() {
      * 初始化函数
      */
     private fun init() {
+        Log.e(TAG, "init: 打印一下${TokenConstants.ACCESS_TOKEN}", )
         mViewModel = ViewModelProvider(this)[MineViewModel::class.java]
         mViewModel.getData()
         mViewModel.mMineLiveData.observe(viewLifecycleOwner) {
@@ -99,11 +102,11 @@ class MineFragment : Fragment() {
                 mVideoMineFragment.setOpenId(it.open_id)
             }
         }
-        mViewModel.mFollowLiveData.observe(viewLifecycleOwner) {
+/*        mViewModel.mFollowLiveData.observe(viewLifecycleOwner) {
             mBinding.apply {
                 tvCare.text = it.toString()
             }
-        }
+        }*/
         mViewModel.mFansLiveData.observe(viewLifecycleOwner) {
             mBinding.apply {
                 tvFans.text = it.toString()
