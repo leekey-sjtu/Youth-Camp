@@ -17,7 +17,6 @@ import com.example.personal.BR
 import com.example.personal.R
 import com.example.personal.bean.Friend
 import com.example.personal.databinding.FragmentFanBinding
-import com.example.personal.ui.friendList.FriendActivity
 import com.example.personal.ui.friendList.fragment.FriendListAdapter
 import com.example.personal.utils.smoothScrollToPositions
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -74,7 +73,7 @@ class FanFragment : BaseFragment<FragmentFanBinding,FanViewModel>() {
                 if (getViewModel().fansData.value != null){
                     for(i in fansList.indices){
                         if (fansList[i].nickname.contains(text,true)){
-                            (fansListRel.layoutManager as RecyclerView.LayoutManager).smoothScrollToPositions(fansListRel,i)
+                            smoothScrollToPositions(fansListRel, i)
                             break
                         }
                     }

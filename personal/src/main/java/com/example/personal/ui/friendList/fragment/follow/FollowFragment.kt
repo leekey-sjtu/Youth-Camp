@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -74,7 +73,7 @@ class FollowFragment : BaseFragment<FragmentFollowBinding,FollowViewModel>() {
                 if (getViewModel().followData.value != null){
                     for(i in followList.indices){
                         if (followList[i].nickname.contains(text,true)){
-                            (followListRel.layoutManager as RecyclerView.LayoutManager).smoothScrollToPositions(followListRel,i)
+                            smoothScrollToPositions(followListRel, i)
                             break
                         }
                     }
