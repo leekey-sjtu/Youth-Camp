@@ -113,8 +113,7 @@ class HomePageFragment : Fragment() {
         val recyclerView= videoRecommendFragment.viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(videoRecommendFragment.viewPager.currentItem)
         val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (hidden) videoView?.pause()
-        else videoView?.start()
+        if (hidden) videoView?.pause() else videoView?.start()
     }
 
     companion object {

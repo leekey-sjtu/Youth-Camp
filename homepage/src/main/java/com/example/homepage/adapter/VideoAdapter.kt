@@ -30,7 +30,7 @@ class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<Vide
     private var curClick = 0L  //这次点击视频的时间
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_recommend_video_item_view, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_video_item_view, parent, false)
         return ViewHolder(view)
     }
 

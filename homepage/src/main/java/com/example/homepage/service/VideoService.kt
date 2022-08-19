@@ -7,6 +7,8 @@ import retrofit2.http.*
 interface VideoService {
 
     @GET("video")
-    fun getVideo(@Query("student_id") student_id: String): Call<VideoResponse>
+    suspend fun getVideoList(
+        @Query("student_id") student_id: String
+    ) : VideoResponse
 
 }
