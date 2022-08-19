@@ -82,10 +82,10 @@ class VideoFragment : Fragment()  {
         }
         val recyclerView= viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)
-//        val videoView = view?.findViewById<VideoView>(R.id.videoView)
-//        if (videoView?.isPlaying == false) {
-//            videoView.start()
-//        }
+        val videoView = view?.findViewById<VideoView>(R.id.videoView)
+        if (videoView?.isPlaying == false && videoView.isShown) {
+            videoView.start()
+        }
         val imgPlay = view?.findViewById<ImageView>(R.id.imgPlay)
         val animSet = AnimatorSet()
         val animator1 = ObjectAnimator.ofFloat(imgPlay, "scaleX", 1f, 2f)
