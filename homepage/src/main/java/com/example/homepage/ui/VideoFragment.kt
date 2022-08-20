@@ -86,7 +86,7 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
         val recyclerView= viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)
         val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (videoView?.isPlaying == false) {
+        if (videoView?.isPlaying == false && videoView.isShown) {
             videoView.start()
         }
         val imgPlay = view?.findViewById<ImageView>(R.id.imgPlay)
