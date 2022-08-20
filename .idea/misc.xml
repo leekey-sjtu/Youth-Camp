@@ -20,13 +20,18 @@
         <entry key="..\:/Android/bitdance/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.115" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/activity_main.xml" value="0.12222222222222222" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/activity_news_detail.xml" value="0.375" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/activity_news_detail2.xml" value="0.13019250253292808" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/bottom_navigation_tab.xml" value="0.25" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/bottom_navigation_tab_middle.xml" value="0.13019250253292808" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_home_page.xml" value="0.335" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_news.xml" value="0.15942028985507245" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_recommend_video.xml" value="0.13019250253292808" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_recommend_video_item_view.xml" value="0.375" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_test.xml" value="0.13019250253292808" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_video.xml" value="0.1403985507246377" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_video_follow.xml" value="0.13019250253292808" />
+        <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_video_item_view.xml" value="0.14855072463768115" />
         <entry key="..\:/Android/bitdance/homepage/src/main/res/layout/fragment_video_tab_view.xml" value="0.13019250253292808" />
         <entry key="..\:/Android/bitdance/hotlist/src/main/res/layout/fragment_hot_list_tab.xml" value="0.11684782608695653" />
         <entry key="..\:/Android/bitdance/personal/src/main/res/layout/fragment_follow.xml" value="0.245018115942029" />

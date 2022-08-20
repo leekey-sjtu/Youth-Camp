@@ -28,39 +28,48 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_video
 
-    override fun getVariableId() = BR._all  // TODO
+    override fun getVariableId() = BR.videoViewModel
 
     override fun initData(savedInstanceState: Bundle?) {
-        viewPager = getViewDataBinding().viewPager
+        // 设置 ViewDataBinding
+        setViewDataBinding()
+
+        // 设置 ViewPager
+        setViewPager()
 
         getVideo()
-
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                val recyclerView = viewPager.getChildAt(0) as RecyclerView
-//                val view = recyclerView.layoutManager?.findViewByPosition(position)!!
-//                val imgPlay = view.findViewById<ImageView>(R.id.imgPlay)!!
-//                imgPlay.visibility = View.GONE
-//                val videoView = view.findViewById<VideoView>(R.id.videoView)!!
-//                val proxy = MyApplication.getProxy(MyApplication.context)
-//                val videoUrl = videoList?.get(position)?.video_url
-//                val proxyUrl = proxy.getProxyUrl(videoUrl)
-//                videoView.setVideoPath(proxyUrl)
-//                if (proxy.isCached(videoUrl)) myLog("position $position selected, 已缓存") else myLog("position $position selected, 未缓存")
-//            }
-//        viewPager.setPageTransformer { page, position ->  }  // TODO 设置 viewPager 透明过渡动画
-        })
     }
 
+    private fun setViewDataBinding() {
+        viewPager = getViewDataBinding().viewPager
+    }
+
+    private fun setViewPager() {
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val recyclerView = viewPager.getChildAt(0) as RecyclerView
+                val view = recyclerView.layoutManager?.findViewByPosition(position)!!
+                val imgPlay = view.findViewById<ImageView>(R.id.imgPlay)!!
+                imgPlay.visibility = View.GONE
+                val videoView = view.findViewById<VideoView>(R.id.videoView)!!
+                val proxy = MyApplication.getProxy(MyApplication.context)
+                val videoUrl = videoList[position].video_url
+                val proxyUrl = proxy.getProxyUrl(videoUrl)
+                videoView.setVideoPath(proxyUrl)
+                if (proxy.isCached(videoUrl)) myLog("position $position selected, 已缓存")else myLog("position $position selected, 未缓存")
+            }
+        })
+        viewPager.setPageTransformer { page, position ->  }  // TODO 设置 viewPager 透明过渡动画
+    }
 
     private fun getVideo() {
         getViewModel().videoListData.observe(this) {
+            videoList = it
             viewPager.adapter = VideoAdapter(it)
         }
         getViewModel().getVideoList(0)
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -72,10 +81,10 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
         }
         val recyclerView= viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)
-//        val videoView = view?.findViewById<VideoView>(R.id.videoView)
-//        if (videoView?.isPlaying == false) {
-//            videoView.start()
-//        }
+        val videoView = view?.findViewById<VideoView>(R.id.videoView)
+        if (videoView?.isPlaying == false) {
+            videoView.start()
+        }
         val imgPlay = view?.findViewById<ImageView>(R.id.imgPlay)
         val animSet = AnimatorSet()
         val animator1 = ObjectAnimator.ofFloat(imgPlay, "scaleX", 1f, 2f)

@@ -15,10 +15,10 @@ class VideoViewModel : BaseViewModel() {
 
     fun getVideoList(cursor: Int) {
         viewModelScope.launch {
-            showLoading()
+//            showLoading()
             videoRepository.getVideoList(cursor).collect {
                 videoListData.value = it
-                closeLoading()
+//                closeLoading()
             }
         }
     }

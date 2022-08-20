@@ -5,7 +5,7 @@ data class WeatherResponse(
     val api_version: String,
     val lang: String,
     val location: List<Double>,
-    val result: Result,
+    val result: WeatherResult,
     val server_time: Int,
     val status: String,
     val timezone: String,
@@ -13,7 +13,7 @@ data class WeatherResponse(
     val unit: String
 )
 
-data class Result(
+data class WeatherResult(
     val alert: Alert,
     val daily: Daily,
     val forecast_keypoint: String,

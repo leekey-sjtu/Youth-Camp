@@ -1,4 +1,4 @@
-package com.example.homepage.bean;
+package com.example.homepage.bean
 
 data class NewsResponse(
     val charge: Boolean,

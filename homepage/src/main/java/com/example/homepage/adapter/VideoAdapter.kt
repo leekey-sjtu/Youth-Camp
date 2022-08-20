@@ -59,7 +59,6 @@ class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<Vide
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {  //绑定数据
-//        myLog("onBindViewHolder  position = $position")
         playAnimator(holder)
         val id = videoList[position]._id
         val studentId = videoList[position].student_id

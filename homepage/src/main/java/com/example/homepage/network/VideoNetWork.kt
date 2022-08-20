@@ -1,13 +1,19 @@
 package com.example.homepage.network
 
+import com.example.homepage.bean.VideoResponse
 import com.example.homepage.service.VideoService
+import com.example.homepage.utils.NetworkUtils.getRetrofit
 
 object VideoNetWork {
 
-    private val videoService = getRetrofit("https://bd-open-lesson.bytedance.com/api/invoke/")
-        .create(VideoService::class.java)
+    private const val BASE_URL = "https://bd-open-lesson.bytedance.com/api/invoke/"
 
-    suspend fun getVideoList(cursor : Int)
-            = videoService.getVideoList("121110910068_portrait")
+    suspend fun getVideoList(cursor : Int): VideoResponse {
+        return getRetrofit(BASE_URL)
+            .create(VideoService::class.java)
+            .getVideoList(
+                "121110910068_portrait"  // TODO
+            )
+    }
 
 }

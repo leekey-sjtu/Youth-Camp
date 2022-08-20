@@ -9,6 +9,6 @@ interface VideoService {
     @GET("video")
     suspend fun getVideoList(
         @Query("student_id") student_id: String
-    ) : VideoResponse
+    ): VideoResponse
 
 }

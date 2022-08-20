@@ -1,5 +1,6 @@
 package com.example.homepage.adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.bean.NewsInfo
-import com.example.homepage.bean.NewsResponse
+import com.example.homepage.ui.NewsDetailActivity
 
 class NewsAdapter(private val newsList: List<NewsInfo>, ): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
@@ -42,8 +43,8 @@ class NewsAdapter(private val newsList: List<NewsInfo>, ): RecyclerView.Adapter<
             .error(R.drawable.ic_loading_error)
             .into(holder.image)
         holder.itemView.setOnClickListener {
-//            skipDetailActivity(newsList[position].url, newsList[position].title)  //新闻网页的url和title // TODO
             holder.title.setTextColor(Color.parseColor("#999999"))  //title标为已读
+            skipNewsDetailActivity(newsList[position].weburl)  //新闻网页的url
         }
     }
 
@@ -51,11 +52,11 @@ class NewsAdapter(private val newsList: List<NewsInfo>, ): RecyclerView.Adapter<
         return newsList.size
     }
 
-    private fun skipDetailActivity(newsUrl: String, newsTitle: String) {
-//        val intent = Intent(mContext, NewsDetailActivity::class.java)
-//        intent.putExtra("newsUrl", newsUrl)
-//        intent.putExtra("newsTitle", newsTitle)
-//        ContextCompat.startActivity(mContext, intent, null)
+    private fun skipNewsDetailActivity(newsUrl: String) {
+        val intent = Intent(MyApplication.context, NewsDetailActivity::class.java)
+        intent.putExtra("newsUrl", newsUrl)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        ContextCompat.startActivity(MyApplication.context, intent, null)
     }
 
 }
