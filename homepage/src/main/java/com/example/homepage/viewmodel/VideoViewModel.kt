@@ -1,7 +1,6 @@
 package com.example.homepage.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.base.baseui.BaseViewModel
 import com.example.homepage.bean.Feed
@@ -15,10 +14,8 @@ class VideoViewModel : BaseViewModel() {
 
     fun getVideoList(cursor: Int) {
         viewModelScope.launch {
-//            showLoading()
             videoRepository.getVideoList(cursor).collect {
                 videoListData.value = it
-//                closeLoading()
             }
         }
     }

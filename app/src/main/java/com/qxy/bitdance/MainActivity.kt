@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -24,7 +25,6 @@ import com.example.common.base.service.AccessTokenService
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
 import com.example.homepage.ui.HomePageFragment
-import com.example.homepage.utils.myLog
 import com.example.hotlist.ui.hotlist.HotListTabFragment
 
 import com.example.personal_mine.ui.fragment.MineFragment
@@ -40,6 +40,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEventHandler {
+
+    companion object {
+        const val TAG = "MainActivity"
+    }
 
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
@@ -178,7 +182,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
             )
             .enqueue(object : Callback<AccessTokenResponse> {
                 override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>, ) {
-                    myLog("get access_token success")
+                    Log.e(TAG, "get access_token success")
                     val data = response.body()!!.data
                     val openId = data.open_id
                     val accessToken = data.access_token
@@ -194,7 +198,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                     }
                 }
                 override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                    myLog("get access_token failed -> $t")
+                    Log.e(TAG, "get access_token failed -> $t")
                 }
             })
     }

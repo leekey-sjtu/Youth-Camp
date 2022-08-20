@@ -13,7 +13,6 @@ import com.example.common.base.network.RetrofitClient
 import com.example.common.base.service.HotListService
 import com.example.common.base.service.SharedPreferencesService
 import com.example.common.base.service.TokenProService
-import com.example.homepage.utils.myLog
 import com.qxy.bitdance.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -22,6 +21,10 @@ import retrofit2.Response
 import java.lang.Thread.sleep
 
 class SplashActivity : AppCompatActivity() {
+
+    companion object {
+        const val TAG = "SplashActivity"
+    }
 
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val mScope = "user_info," +  // 抖音头像、昵称
@@ -95,12 +98,12 @@ class SplashActivity : AppCompatActivity() {
                     call: Call<HotListTokenResponse>,
                     response: Response<HotListTokenResponse>
                 ) {
-                    myLog("get client_token success")
+                    Log.e(TAG, "get client_token success")
                     TokenConstants.CLIENT_TOKEN = response.body()!!.data.access_token
                 }
 
                 override fun onFailure(call: Call<HotListTokenResponse>, t: Throwable) {
-                    myLog("get client_token failed -> $t")
+                    Log.e(TAG, "get client_token failed -> $t")
                 }
             })
     }

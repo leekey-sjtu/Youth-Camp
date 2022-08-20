@@ -13,7 +13,7 @@ object NewsNetWork {
             .create(NewsService::class.java)
             .getNews(
                 "头条",
-                "50",
+                "10",
                 "0",
                 "92b9f9e7465ed6a8a72e27330aa8310a" // TODO: appkey需要隐藏
             )

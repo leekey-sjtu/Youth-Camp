@@ -1,9 +1,7 @@
 package com.example.homepage.network
 
 import com.example.homepage.bean.CovidResponse
-import com.example.homepage.bean.NewsResponse
 import com.example.homepage.service.CovidService
-import com.example.homepage.service.NewsService
 import com.example.homepage.utils.NetworkUtils.getRetrofit
 
 object CovidNetWork {

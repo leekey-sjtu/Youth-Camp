@@ -3,10 +3,10 @@ package com.example.homepage
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.homepage.ui.HomePageFragment
 import com.example.personal_mine.ui.fragment.MineFragment

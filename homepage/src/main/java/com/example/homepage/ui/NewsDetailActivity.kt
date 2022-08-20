@@ -1,25 +1,36 @@
 package com.example.homepage.ui
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.example.common.base.baseui.BaseActivity
+import com.example.homepage.BR
 import com.example.homepage.R
+import com.example.homepage.databinding.ActivityNewsDetailBinding
+import com.example.homepage.viewmodel.NewsDetailViewModel
 
-class NewsDetailActivity : AppCompatActivity() {
+class NewsDetailActivity : BaseActivity<ActivityNewsDetailBinding, NewsDetailViewModel>() {
 
-    private val webView: WebView by lazy { findViewById(R.id.webView) }
+    private lateinit var webView: WebView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_news_detail)
+    override fun getLayoutId() = R.layout.activity_news_detail
+
+    override fun getVariableId() = BR.newsDetailViewModel
+
+    override fun initData(savedInstanceState: Bundle?) {
+        // 设置 ViewDataBinding
+        setViewDataBinding()
 
         // 设置新闻 webView
         val newsUrl = intent.getStringExtra("newsUrl")
         setNewsDetail(newsUrl)
+    }
+
+    private fun setViewDataBinding() {
+        webView = getDataBinding().webView
     }
 
     private fun setNewsDetail(newsUrl: String?) {

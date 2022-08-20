@@ -17,13 +17,16 @@ import com.bumptech.glide.Glide
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.bean.Feed
-import com.example.homepage.utils.myLog
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
 class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
+
+    companion object {
+        const val TAG = "VideoAdapter"
+    }
 
     private val handler = Handler(Looper.getMainLooper())
     private var lastClick = System.currentTimeMillis()  //上次点击视频的时间
@@ -89,7 +92,7 @@ class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<Vide
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setVideoView(holder: ViewHolder, position: Int) {
-        myLog("setVideoView  position = $position")
+        Log.e(TAG, "setVideoView  position = $position")
         val videoView = holder.videoView
         val videoCover = holder.videoCover
         val progressBar = holder.progressBar

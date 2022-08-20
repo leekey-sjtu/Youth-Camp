@@ -1,8 +1,8 @@
 package com.example.homepage.service
 
 import com.example.homepage.bean.CovidResponse
-import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface CovidService {
 

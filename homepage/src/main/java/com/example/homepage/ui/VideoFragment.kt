@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.VideoView
@@ -16,11 +17,13 @@ import com.example.homepage.R
 import com.example.homepage.adapter.VideoAdapter
 import com.example.homepage.bean.Feed
 import com.example.homepage.databinding.FragmentVideoBinding
-import com.example.homepage.utils.myLog
 import com.example.homepage.viewmodel.VideoViewModel
 
-
 class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
+
+    companion object {
+        const val TAG = "VideoFragment"
+    }
 
     lateinit var viewPager: ViewPager2
     private lateinit var videoList: List<Feed>
@@ -37,6 +40,7 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
         // 设置 ViewPager
         setViewPager()
 
+        // 获取新闻
         getVideo()
     }
 
@@ -57,7 +61,7 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
                 val videoUrl = videoList[position].video_url
                 val proxyUrl = proxy.getProxyUrl(videoUrl)
                 videoView.setVideoPath(proxyUrl)
-                if (proxy.isCached(videoUrl)) myLog("position $position selected, 已缓存")else myLog("position $position selected, 未缓存")
+                if (proxy.isCached(videoUrl)) Log.e(TAG, "position $position selected, 已缓存")else Log.e(TAG, "position $position selected, 未缓存")
             }
         })
         viewPager.setPageTransformer { page, position ->  }  // TODO 设置 viewPager 透明过渡动画

@@ -7,15 +7,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,18 +21,11 @@ import com.example.common.base.utils.MyApplication
 import com.example.homepage.BR
 import com.example.homepage.R
 import com.example.homepage.adapter.NewsAdapter
-import com.example.homepage.adapter.VideoAdapter
-import com.example.homepage.bean.CovidResponse
-import com.example.homepage.bean.WeatherResponse
 import com.example.homepage.databinding.FragmentNewsBinding
-import com.example.homepage.service.CovidService
-import com.example.homepage.service.WeatherService
 import com.example.homepage.ui.HomePageFragment.Companion.END_SWIPE_REFRESH_FOR_FAIL
 import com.example.homepage.ui.HomePageFragment.Companion.END_SWIPE_REFRESH_FOR_SUCCESS
-import com.example.homepage.utils.getSkyCondition
-import com.example.homepage.utils.myLog
+import com.example.homepage.utils.NetworkUtils.getSkyCondition
 import com.example.homepage.viewmodel.NewsViewModel
-import retrofit2.*
 
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
@@ -58,7 +48,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
     override fun getLayoutId() = R.layout.fragment_news
     
-    override fun getVariableId() = BR._all//TODO
+    override fun getVariableId() = BR.newsViewModel
     
     override fun initData(savedInstanceState: Bundle?) {
         // 设置 ViewDataBinding
@@ -69,36 +59,6 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
         // 设置 NestedScrollView 滑动监听
         setNestedScrollView()
-    }
-
-    private fun getWeather() {
-        getViewModel().weatherData.observe(this) {
-            nowTemperature.text = it.realtime.temperature.toInt().toString() + "°"
-            skyCondition.text = getSkyCondition(it.daily.skycon[0].value)
-            maxTemperature.text = it.daily.temperature[0].max.toInt().toString() + "°"
-            minTemperature.text = it.daily.temperature[0].min.toInt().toString() + "°"
-        }
-        getViewModel().getWeather(0)
-    }
-
-    private fun getCovid() {
-        getViewModel().covidData.observe(this) {
-            tvAddConfirm.text = it.diseaseh5Shelf.chinaAdd.confirm.toString()  // 新增确诊
-            tvAddWzz.text = it.diseaseh5Shelf.chinaAdd.noInfect.toString()  // 新增无症状
-            tvNowConfirm.text = it.diseaseh5Shelf.chinaTotal.nowConfirm.toString()  // 现有确诊
-            tvNowHeal.text = it.diseaseh5Shelf.chinaTotal.heal.toString()  // 累计治愈
-            tvUpdateTime.text = "更新时间：" + it.diseaseh5Shelf.lastUpdateTime  // 更新时间
-        }
-        getViewModel().getCovid(0)
-    }
-
-    private fun getNews() {
-        getViewModel().newsData.observe(this) {
-            recyclerView.layoutManager = LinearLayoutManager(MyApplication.context)
-            recyclerView.adapter = NewsAdapter(it)
-            handlerSwipeRefresh.sendEmptyMessage(END_SWIPE_REFRESH_FOR_SUCCESS)
-        }
-        getViewModel().getNews(0)
     }
 
     private fun setViewDataBinding() {
@@ -160,6 +120,36 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
                 }
             }
         })
+    }
+
+    private fun getWeather() {
+        getViewModel().weatherData.observe(this) {
+            nowTemperature.text = it.realtime.temperature.toInt().toString() + "°"
+            skyCondition.text = getSkyCondition(it.daily.skycon[0].value)
+            maxTemperature.text = it.daily.temperature[0].max.toInt().toString() + "°"
+            minTemperature.text = it.daily.temperature[0].min.toInt().toString() + "°"
+        }
+        getViewModel().getWeather(0)
+    }
+
+    private fun getCovid() {
+        getViewModel().covidData.observe(this) {
+            tvAddConfirm.text = it.diseaseh5Shelf.chinaAdd.confirm.toString()  // 新增确诊
+            tvAddWzz.text = it.diseaseh5Shelf.chinaAdd.noInfect.toString()  // 新增无症状
+            tvNowConfirm.text = it.diseaseh5Shelf.chinaTotal.nowConfirm.toString()  // 现有确诊
+            tvNowHeal.text = it.diseaseh5Shelf.chinaTotal.heal.toString()  // 累计治愈
+            tvUpdateTime.text = "更新时间：" + it.diseaseh5Shelf.lastUpdateTime  // 更新时间
+        }
+        getViewModel().getCovid(0)
+    }
+
+    private fun getNews() {
+        getViewModel().newsData.observe(this) {
+            recyclerView.layoutManager = LinearLayoutManager(MyApplication.context)
+            recyclerView.adapter = NewsAdapter(it)
+            handlerSwipeRefresh.sendEmptyMessage(END_SWIPE_REFRESH_FOR_SUCCESS)
+        }
+        getViewModel().getNews(0)
     }
 
     private fun layoutWeatherShow(duration : Long) {

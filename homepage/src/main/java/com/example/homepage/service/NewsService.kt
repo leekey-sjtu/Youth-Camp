@@ -1,7 +1,6 @@
 package com.example.homepage.service
 
 import com.example.homepage.bean.NewsResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
