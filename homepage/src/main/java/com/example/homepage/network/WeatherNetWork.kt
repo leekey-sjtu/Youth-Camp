@@ -8,7 +8,7 @@ object WeatherNetWork {
 
     private const val BASE_URL = "https://api.caiyunapp.com/"
 
-    suspend fun getWeather(cursor: Int): WeatherResponse {
+    suspend fun getWeather(): WeatherResponse {
         return getRetrofit(BASE_URL)
             .create(WeatherService::class.java)
             .getWeather(

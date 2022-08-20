@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -28,6 +29,10 @@ import com.example.homepage.utils.NetworkUtils.getSkyCondition
 import com.example.homepage.viewmodel.NewsViewModel
 
 class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
+
+    companion object {
+        const val TAG = "NewsFragment"
+    }
 
     private lateinit var nowTemperature : TextView
     private lateinit var skyCondition : TextView
@@ -59,6 +64,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
         // 设置 NestedScrollView 滑动监听
         setNestedScrollView()
+
+        // 设置 LiveData Observe
+        setLiveDataObserve()
     }
 
     private fun setViewDataBinding() {
@@ -80,6 +88,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
 
     @SuppressLint("HandlerLeak")
     private fun setSwipeRefreshLayout() {
+//        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE)
+        swipeRefreshLayout.setOnRefreshListener {  // 开始刷新
+            getViewModel().getWeather()            // 获取天气情况
+            getViewModel().getCovid()              // 获取疫情数据
+            getViewModel().getNews(0, handlerSwipeRefresh)       // 获取头条新闻
+        }
         handlerSwipeRefresh = object : Handler() {
             override fun handleMessage(msg: Message) {
                 when (msg.what) {
@@ -97,12 +111,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
                 }
             }
         }
-        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE)
-        swipeRefreshLayout.setOnRefreshListener {  // 开始刷新
-            getWeather() // 获取天气情况
-            getCovid()   // 获取疫情数据
-            getNews()    // 获取头条新闻
-        }
+
     }
 
     private fun setNestedScrollView() {
@@ -122,17 +131,13 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
         })
     }
 
-    private fun getWeather() {
+    private fun setLiveDataObserve() {
         getViewModel().weatherData.observe(this) {
             nowTemperature.text = it.realtime.temperature.toInt().toString() + "°"
             skyCondition.text = getSkyCondition(it.daily.skycon[0].value)
             maxTemperature.text = it.daily.temperature[0].max.toInt().toString() + "°"
             minTemperature.text = it.daily.temperature[0].min.toInt().toString() + "°"
         }
-        getViewModel().getWeather(0)
-    }
-
-    private fun getCovid() {
         getViewModel().covidData.observe(this) {
             tvAddConfirm.text = it.diseaseh5Shelf.chinaAdd.confirm.toString()  // 新增确诊
             tvAddWzz.text = it.diseaseh5Shelf.chinaAdd.noInfect.toString()  // 新增无症状
@@ -140,16 +145,10 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
             tvNowHeal.text = it.diseaseh5Shelf.chinaTotal.heal.toString()  // 累计治愈
             tvUpdateTime.text = "更新时间：" + it.diseaseh5Shelf.lastUpdateTime  // 更新时间
         }
-        getViewModel().getCovid(0)
-    }
-
-    private fun getNews() {
         getViewModel().newsData.observe(this) {
             recyclerView.layoutManager = LinearLayoutManager(MyApplication.context)
             recyclerView.adapter = NewsAdapter(it)
-            handlerSwipeRefresh.sendEmptyMessage(END_SWIPE_REFRESH_FOR_SUCCESS)
         }
-        getViewModel().getNews(0)
     }
 
     private fun layoutWeatherShow(duration : Long) {
@@ -206,9 +205,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding, NewsViewModel>() {
         super.onResume()
         if (isFirstCreated) {  // 如果fragment是第一次创建，才加载数据
             swipeRefreshLayout.isRefreshing = true
-            getWeather()       // 获取天气情况
-            getCovid()         // 获取疫情数据
-            getNews()          // 获取头条新闻
+            getViewModel().getWeather()  // 获取天气情况
+            getViewModel().getCovid()    // 获取疫情数据
+            getViewModel().getNews(0, handlerSwipeRefresh)     // 获取头条新闻
             isFirstCreated = false
         }
         requireActivity().window.statusBarColor = Color.parseColor("#87CEEB")

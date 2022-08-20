@@ -12,8 +12,8 @@ class WeatherRepository {
         const val TAG = "WeatherRepository"
     }
 
-    fun getWeather(cursor: Int) = flow {
-        val weatherResponse = WeatherNetWork.getWeather(cursor)
+    fun getWeather() = flow {
+        val weatherResponse = WeatherNetWork.getWeather()
         if (weatherResponse.status == "ok") emit(weatherResponse.result)
         else Log.e(TAG,"get weather failed -> status = ${weatherResponse.status}")
     }.flowOn(Dispatchers.IO)

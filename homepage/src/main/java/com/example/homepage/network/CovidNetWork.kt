@@ -8,7 +8,7 @@ object CovidNetWork {
 
     private const val BASE_URL = "https://api.inews.qq.com/newsqa/v1/query/inner/publish/modules/"
 
-    suspend fun getCovid(cursor: Int): CovidResponse {
+    suspend fun getCovid(): CovidResponse {
         return getRetrofit(BASE_URL)
             .create(CovidService::class.java)
             .getCovid(

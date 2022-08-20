@@ -12,8 +12,8 @@ class CovidRepository {
         const val TAG = "CovidRepository"
     }
 
-    fun getCovid(cursor: Int) = flow {
-        val covidResponse = CovidNetWork.getCovid(cursor)
+    fun getCovid() = flow {
+        val covidResponse = CovidNetWork.getCovid()
         if (covidResponse.ret == 0) emit(covidResponse.data)
         else Log.e(TAG,"get covid failed -> ${covidResponse.info}")
     }.flowOn(Dispatchers.IO)

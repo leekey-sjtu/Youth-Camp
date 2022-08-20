@@ -1,5 +1,6 @@
 package com.example.homepage.viewmodel
 
+import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.common.base.baseui.BaseViewModel
@@ -13,6 +14,10 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel : BaseViewModel() {
 
+    companion object {
+        const val TAG = "NewsViewModel"
+    }
+
     private val weatherRepository = WeatherRepository()
     private val covidRepository = CovidRepository()
     private val newsRepository = NewsRepository()
@@ -20,25 +25,25 @@ class NewsViewModel : BaseViewModel() {
     val covidData = MutableLiveData<CovidData>()
     val newsData = MutableLiveData<List<NewsInfo>>()
 
-    fun getWeather(cursor: Int) {
+    fun getWeather() {
         viewModelScope.launch {
-            weatherRepository.getWeather(cursor).collect {
+            weatherRepository.getWeather().collect {
                 weatherData.value = it
             }
         }
     }
 
-    fun getCovid(cursor: Int) {
-        viewModelScope.launch {
-            covidRepository.getCovid(cursor).collect {
+    fun getCovid() {
+       viewModelScope.launch {
+            covidRepository.getCovid().collect {
                 covidData.value = it
             }
         }
     }
 
-    fun getNews(cursor: Int) {
+    fun getNews(cursor: Int, handlerSwipeRefresh: Handler) {
         viewModelScope.launch {
-            newsRepository.getNews(cursor).collect {
+            newsRepository.getNews(cursor, handlerSwipeRefresh).collect {
                 newsData.value = it
             }
         }
