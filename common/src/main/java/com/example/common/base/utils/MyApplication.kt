@@ -15,12 +15,12 @@ class MyApplication : Application() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
-        var proxy: HttpProxyCacheServer? = null
-
-        fun getProxy(context: Context): HttpProxyCacheServer {
-            val app: MyApplication = context.applicationContext as MyApplication
-            return proxy ?: app.newProxy()
-        }
+//        var proxy: HttpProxyCacheServer? = null
+//
+//        fun getProxy(context: Context): HttpProxyCacheServer {
+//            val app: MyApplication = context.applicationContext as MyApplication
+//            return proxy ?: app.newProxy()
+//        }
     }
 
     override fun onCreate() {
@@ -34,11 +34,11 @@ class MyApplication : Application() {
         }
     }
 
-    private fun newProxy(): HttpProxyCacheServer {
-        return HttpProxyCacheServer.Builder(this)
-            .maxCacheFilesCount(20)  // 最大缓存数量
-            .maxCacheSize(512 * 1024 * 1024)  // 最大缓存大小 512MB
-            .build()
-    }
+//    private fun newProxy(): HttpProxyCacheServer {
+//        return HttpProxyCacheServer.Builder(this)
+//            .maxCacheFilesCount(20)  // 最大缓存数量
+//            .maxCacheSize(512 * 1024 * 1024)  // 最大缓存大小 512MB
+//            .build()
+//    }
 
 }

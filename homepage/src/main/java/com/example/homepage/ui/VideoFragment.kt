@@ -57,11 +57,11 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
                 val imgPlay = view.findViewById<ImageView>(R.id.imgPlay)!!
                 imgPlay.visibility = View.GONE
                 val videoView = view.findViewById<VideoView>(R.id.videoView)!!
-                val proxy = MyApplication.getProxy(MyApplication.context)
-                val videoUrl = videoList[position].video_url
-                val proxyUrl = proxy.getProxyUrl(videoUrl)
-                videoView.setVideoPath(proxyUrl)
-                if (proxy.isCached(videoUrl)) Log.e(TAG, "position $position selected, 已缓存")else Log.e(TAG, "position $position selected, 未缓存")
+//                val proxy = MyApplication.getProxy(MyApplication.context)
+//                val videoUrl = videoList[position].video_url
+//                val proxyUrl = proxy.getProxyUrl(videoUrl)
+//                videoView.setVideoPath(proxyUrl)
+//                if (proxy.isCached(videoUrl)) Log.e(TAG, "position $position selected, 已缓存")else Log.e(TAG, "position $position selected, 未缓存")
             }
         })
         viewPager.setPageTransformer { page, position ->  }  // TODO 设置 viewPager 透明过渡动画

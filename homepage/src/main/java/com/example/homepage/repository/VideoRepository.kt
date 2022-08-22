@@ -14,7 +14,7 @@ class VideoRepository {
 
     fun getVideoList(cursor: Int) = flow {
         val videoResponse = VideoNetWork.getVideoList(cursor)
-        if (videoResponse.success) emit(videoResponse.feeds)
+        if (videoResponse.success) emit(videoResponse.feeds.asReversed())
         else Log.e(TAG,"get video list failed")
     }.flowOn(Dispatchers.IO)
 
