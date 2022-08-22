@@ -1,4 +1,4 @@
-package com.qxy.bitdance.test
+package com.qxy.bitdance.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

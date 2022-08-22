@@ -1,4 +1,4 @@
-package com.qxy.bitdance.ui.splash
+package com.qxy.bitdance.ui
 
 import android.content.Intent
 import android.os.Bundle

@@ -32,8 +32,8 @@ import com.example.upload.ui.UploadActivity
 
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.databinding.ActivityMainBinding
-import com.qxy.bitdance.test.MainViewModel
-import com.qxy.bitdance.test.MsgFragment
+import com.qxy.bitdance.viewmodel.MainViewModel
+import com.qxy.bitdance.ui.MsgFragment
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
