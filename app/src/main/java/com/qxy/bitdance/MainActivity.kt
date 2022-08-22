@@ -33,7 +33,7 @@ import com.example.upload.ui.UploadActivity
 import com.google.android.material.tabs.TabLayout
 import com.qxy.bitdance.databinding.ActivityMainBinding
 import com.qxy.bitdance.test.MainViewModel
-import com.qxy.bitdance.test.TestFragment
+import com.qxy.bitdance.test.MsgFragment
 import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +50,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private val homePageFragment = HomePageFragment()
     private val hotListTabFragment =  HotListTabFragment()
     private val mMineFragment = MineFragment()
-    private val testFragment3 =  TestFragment("消息")
+    private val msgFragment =  MsgFragment("消息页面")
     private lateinit var currentFragment : Fragment
 
     override fun getLayoutId(): Int {
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                         val intent = Intent(this@MainActivity,UploadActivity::class.java)
                         startActivity(intent)
                     }
-                    3 -> switchFragment(testFragment3)
+                    3 -> switchFragment(msgFragment)
                     4 -> switchFragment(mMineFragment)
                 }
                 if (tab.position != 2) {
