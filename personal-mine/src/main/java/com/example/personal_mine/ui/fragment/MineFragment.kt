@@ -40,6 +40,7 @@ class MineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e(TAG, "MineFragment被创建")
         init()
         initListener()
         initPaper()

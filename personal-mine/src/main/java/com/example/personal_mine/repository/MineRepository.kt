@@ -16,7 +16,8 @@ object MineRepository {
             Log.e(TAG, "getMine: ${mineResponse.data}", )
             emit(mineResponse.data)
         }else{
-            Log.e(TAG, "getMine:" +
+            Log.e(TAG, "error_code = ${mineResponse.data.error_code}\n" +
+                    "getMine:\n" +
                     "id ${TokenConstants.OPEN_ID}   token  " +
                     "${TokenConstants.ACCESS_TOKEN}" +
                     "" +

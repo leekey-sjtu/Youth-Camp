@@ -48,9 +48,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     private lateinit var douYinOpenApi: DouYinOpenApi
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tabLayout) }
     private val homePageFragment = HomePageFragment()
-    private val hotListTabFragment =  HotListTabFragment()
+    private val hotListTabFragment = HotListTabFragment()
     private val mMineFragment = MineFragment()
-    private val msgFragment =  MsgFragment("消息页面")
+    private val msgFragment = MsgFragment("消息页面")
     private lateinit var currentFragment : Fragment
 
     override fun getLayoutId(): Int {
@@ -62,12 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        getViewModel().showLoading()
-//        getViewModel().catListData.observe(this) {
-//            println("MainActivity $it")
-//        }
-        getViewModel().closeLoading()
-
+        // 初始化抖音api
         douYinOpenApi = DouYinOpenApiFactory.create(this)
         douYinOpenApi.handleIntent(intent, this)
 
@@ -191,6 +186,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IApiEve
                         SharedPreferencesService.saveOpenId(context = baseContext, openId)        // 本地储存open_id
                         TokenProService.saveAccessToken(accessToken, openId)                      // 远程储存access_token
                         TokenProService.saveRefreshToken(refreshToken, openId)                    // 远程储存refresh_token
+                        TokenConstants.OPEN_ID = openId
                         TokenConstants.ACCESS_TOKEN = accessToken
                         TokenConstants.REFRESH_TOKEN = refreshToken                               // 初始化TokenConstants
                         TokenConstants.CLIENT_KEY = TokenProService.getClientKey()
