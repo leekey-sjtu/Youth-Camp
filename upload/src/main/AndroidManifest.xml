@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.upload">
+
+    <!-- 权限申请 相机 -->
+    <uses-feature android:name="android.hardware.camera.any" /><!-- 使用uses-feature指定需要相机资源 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 需要自动聚焦 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/><!-- 存储图片或者视频 -->
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Bitdance"
+        android:requestLegacyExternalStorage="true">
+        <activity
+            android:name=".ui.UploadActivity"
+            android:exported="true"/>
+    </application>
+
+</manifest>

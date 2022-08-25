@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">personal-mine</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="account_name">用户名</string>
+    <string name="dou_yin_account_text">"抖音号: "</string>
+    <string name="describe">简介。</string>
+    <string name="zero">6666</string>
+    <string name="fans">粉丝</string>
+    <string name="care_show">关注</string>
+    <string name="show">show</string>
+    <string name="earth">地球人</string>
+    <string name="path">太阳系.地球</string>
+    <string name="home_path">家乡</string>
+</resources>

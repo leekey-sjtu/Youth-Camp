@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginVertical="1dp"
+    android:layout_marginHorizontal="1dp"
+    android:background="@color/gray_black"
+    android:layout_height="165dp">
+    <ImageView
+        android:id="@+id/iv_mine_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:gravity="center"
+        />
+</FrameLayout>
