@@ -1,7 +1,9 @@
 package com.example.hotlist.ui.hotlist
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
@@ -54,5 +56,22 @@ class HotListTabFragment : BaseFragment<FragmentHotListTabBinding,HotListTabView
                 viewBinding.imageTop.setImageResource(topImagesList[position])
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setStatusBar()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            setStatusBar()
+        }
+    }
+
+    private fun setStatusBar() {
+        requireActivity().window.statusBarColor = Color.parseColor("#9B37BE")
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE //实现状态栏字体白色
     }
 }

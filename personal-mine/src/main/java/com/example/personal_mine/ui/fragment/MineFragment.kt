@@ -1,6 +1,7 @@
 package com.example.personal_mine.ui.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,9 +24,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MineFragment : Fragment() {
+
     private lateinit var mBinding: FragmentMineBinding
     private lateinit var mViewModel: MineViewModel
     private val mVideoMineFragment = VideoMineListFragment()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -147,5 +150,22 @@ class MineFragment : Fragment() {
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        setStatusBar()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            setStatusBar()
+        }
+    }
+
+    private fun setStatusBar() {
+        requireActivity().window.statusBarColor = Color.parseColor("#7790CC") //设置状态栏颜色
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE //实现状态栏字体白色
+    }
 
 }
