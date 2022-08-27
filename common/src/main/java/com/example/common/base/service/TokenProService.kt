@@ -5,7 +5,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object TokenProService {
+
     private const val baseUrl = "http://106.15.2.32:8888"
+//    private const val baseUrl = "http://8.210.49.161:8888" // 新服务器
+
     private val retrofit: TokenService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
