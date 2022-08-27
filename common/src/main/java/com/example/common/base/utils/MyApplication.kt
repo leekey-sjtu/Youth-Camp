@@ -28,10 +28,11 @@ class MyApplication : Application() {
 
         context = applicationContext
 
-        runBlocking {
-            val clientKey = TokenProService.getClientKey()  // 服务器远程获取client_key
-            DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
-        }
+//        runBlocking {
+//            val clientKey = TokenProService.getClientKey()  // 服务器远程获取client_key
+//            DouYinOpenApiFactory.init(DouYinOpenConfig(clientKey))
+//        }
+        DouYinOpenApiFactory.init(DouYinOpenConfig("aw1eguzlnghzfo5l"))
     }
 
 //    private fun newProxy(): HttpProxyCacheServer {

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.VideoView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.common.base.baseui.BaseFragment
@@ -83,12 +84,11 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
             getVideo()
             isFirstCreated = false
         }
+        Log.e("wdw", "$TAG, on Resume")
         val recyclerView= viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(viewPager.currentItem)
         val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (videoView?.isPlaying == false && videoView.isShown) {
-            videoView.start()
-        }
+        if (videoView?.isPlaying == false) videoView.start()
         val imgPlay = view?.findViewById<ImageView>(R.id.imgPlay)
         val animSet = AnimatorSet()
         val animator1 = ObjectAnimator.ofFloat(imgPlay, "scaleX", 1f, 2f)

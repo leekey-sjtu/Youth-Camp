@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.common.base.utils.MyApplication
 import com.example.homepage.R
 import com.example.homepage.bean.Feed
+import com.example.homepage.ui.HomePageFragment.Companion.HOME_PAGE_FRAGMENT_IS_ON_RESUME
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -101,11 +102,17 @@ class VideoAdapter(private val videoList: List<Feed>): RecyclerView.Adapter<Vide
         Glide.with(MyApplication.context).load(imageUrl).into(videoCover)  //加载视频封面
         videoView.setVideoURI(Uri.parse(videoUrl))  //设置视频Url
         videoView.keepScreenOn = true  //屏幕常亮
-//        videoView.setMediaController(MediaController(context))  // 设置内置控制器
         videoView.setOnPreparedListener {  //视频准备完成
             progressBar.visibility = View.GONE  //隐藏加载进度条
             videoCover.visibility = View.GONE  //隐藏视频封面
-            if (videoView.isShown) videoView.start()  //自动开始播放
+            Log.e("wdw", "$TAG, 视频准备完成")
+            if (HOME_PAGE_FRAGMENT_IS_ON_RESUME) {
+                Log.e("wdw", "$TAG, on resume视频不播放")
+                HOME_PAGE_FRAGMENT_IS_ON_RESUME = false
+            } else {
+                Log.e("wdw", "$TAG, 视频可以播放")
+                videoView.start()  //自动开始播放
+            }
         }
         videoView.setOnCompletionListener {
             videoView.start()  //自动重播

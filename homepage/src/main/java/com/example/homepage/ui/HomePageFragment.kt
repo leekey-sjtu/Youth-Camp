@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
@@ -21,8 +22,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomePageFragment : BaseFragment<FragmentHomePageBinding, HomePageViewModel>() {
 
     companion object {
+        const val TAG = "HomePageFragment"
         const val END_SWIPE_REFRESH_FOR_SUCCESS = 1000
         const val END_SWIPE_REFRESH_FOR_FAIL = 1001
+        var HOME_PAGE_FRAGMENT_IS_ON_RESUME = false
     }
 
     private lateinit var tabLayout: TabLayout // 顶部导航栏
@@ -31,6 +34,7 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding, HomePageViewModel
     private lateinit var imgSearch: ImageView
     private val videoFollowFragment = NewsFragment()
     private val videoRecommendFragment = VideoFragment()
+    private var isFirstResume = true
     
     override fun getLayoutId() = R.layout.fragment_home_page
 
@@ -121,7 +125,17 @@ class HomePageFragment : BaseFragment<FragmentHomePageBinding, HomePageViewModel
         val recyclerView= videoRecommendFragment.viewPager.getChildAt(0) as RecyclerView
         val view = recyclerView.layoutManager?.findViewByPosition(videoRecommendFragment.viewPager.currentItem)
         val videoView = view?.findViewById<VideoView>(R.id.videoView)
-        if (hidden) videoView?.pause() else videoView?.start()
+        if (hidden) videoView?.pause()  // 首页被隐藏，视频停止播放
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("wdw", "$TAG, on Resume")
+        if (isFirstResume) {
+            isFirstResume = false
+        } else {
+            HOME_PAGE_FRAGMENT_IS_ON_RESUME = true
+        }
     }
 
 }
